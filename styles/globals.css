@@ -1,0 +1,252 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Source+Serif+4:wght@400;500;600;700&display=swap");
+
+/* ===========================================
+   DIAMOND STANDARD COLOR SYSTEM
+   Adopted from Portfolio (Gold Standard)
+   Accent: Purple (#818cf8)
+   Theme: Dark Only
+   =========================================== */
+
+:root {
+  color-scheme: dark;
+
+  /* Absolute Bases */
+  --black: #020617;
+  --white: #ffffff;
+
+  /* Typography */
+  --fontBase: "Inter", system-ui, sans-serif;
+  --fontSerif: "Playfair Display", Georgia, serif;
+  --fontEditorial: "Source Serif 4", Georgia, serif;
+
+  /* Theme Bases (Dark Only) */
+  --bg-dark: #0b1120;
+  --surface-dark: rgba(12, 20, 35, 0.85);
+  --text-dark: #f9fbff;
+  --text-muted-dark: #94a3b8;
+
+  /* Theme Variables */
+  --bg: var(--bg-dark);
+  --text: var(--text-dark);
+  --textMuted: var(--text-muted-dark);
+  --surface: var(--surface-dark);
+
+  /* Accent: Purple */
+  --accent: #818cf8;
+
+  /* Dynamic Accent Variants (using color-mix) */
+  --accentStrong: color-mix(in srgb, var(--accent) 74%, var(--black));
+  --accentLight: color-mix(in srgb, var(--accent) 55%, var(--white));
+  --accentDark: color-mix(in srgb, var(--accent) 78%, var(--black));
+
+  /* Surface Variants */
+  --surface-bg: color-mix(in srgb, var(--surface) 96%, transparent);
+  --surfaceDim: color-mix(in srgb, var(--surface) 88%, transparent);
+
+  /* Borders */
+  --borderMain: color-mix(in srgb, var(--white) 28%, transparent);
+  --borderDim: color-mix(in srgb, var(--white) 18%, transparent);
+
+  /* Gradients */
+  --btnGradient: linear-gradient(135deg, var(--accentLight), var(--accentDark));
+  --btnText: var(--bg);
+  --headingGradient: linear-gradient(120deg, var(--accentLight), var(--accentDark));
+
+  /* Layout */
+  --radiusLg: 1.25rem;
+  --shadow: 0 24px 48px rgba(8, 16, 30, 0.36);
+
+  /* Legacy compatibility (for useBrand.ts) */
+  --brand-primary: var(--accent);
+  --primary: var(--accent);
+  --corner-radius: var(--radiusLg);
+}
+
+/* The 6 Accent Colors (Diamond Standard) */
+:root[data-accent="blue"] {
+  --accent: #38bdf8;
+}
+:root[data-accent="orange"] {
+  --accent: #fb923c;
+}
+:root[data-accent="yellow"] {
+  --accent: #eab308;
+}
+:root[data-accent="green"] {
+  --accent: #4ade80;
+}
+:root[data-accent="rose"] {
+  --accent: #fb7185;
+}
+:root[data-accent="purple"] {
+  --accent: #818cf8;
+}
+
+/* Progressive Enhancement with OKLCH */
+@supports (color: color(from white oklch l c h)) {
+  :root {
+    --accentLight: color(from var(--accent) oklch calc(l + 0.18) c h);
+    --accentDark: color(from var(--accent) oklch calc(l - 0.15) c h);
+    --accentStrong: color(from var(--accent) oklch calc(l - 0.25) c h);
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--bg);
+  scrollbar-width: none;
+}
+
+html::-webkit-scrollbar {
+  display: none;
+}
+
+body {
+  font-family: var(--fontBase);
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Focus States */
+*:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Premium Scrollbar (for elements with overflow) */
+.scrollbar-thin::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: var(--borderDim);
+  border-radius: 4px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: var(--borderMain);
+}
+
+/* Custom Range Slider */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--borderDim);
+  outline: none;
+  cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--accent);
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--accent);
+  cursor: pointer;
+  border: none;
+  transition: transform 0.2s ease;
+}
+
+/* Color Picker Styling */
+input[type="color"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 48px;
+  height: 48px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  padding: 0;
+  overflow: hidden;
+}
+
+input[type="color"]::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+input[type="color"]::-webkit-color-swatch {
+  border: 2px solid var(--borderDim);
+  border-radius: 10px;
+}
+
+/* Smooth Transitions */
+.transition-brand {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Device Preview Container */
+.device-frame {
+  transition:
+    width 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+    height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Typography Classes */
+.font-modern {
+  font-family: var(--fontBase);
+}
+
+.font-classic {
+  font-family: var(--fontSerif);
+}
+
+/* Glassmorphism */
+.glass {
+  background: var(--surface);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--borderDim);
+}
+
+/* Component Stage Shadows */
+.stage-shadow {
+  box-shadow:
+    0 0 0 1px var(--borderDim),
+    0 4px 16px rgba(0, 0, 0, 0.3),
+    0 12px 48px rgba(0, 0, 0, 0.4);
+}
+
+/* Hide Scrollbars Globally */
+::-webkit-scrollbar {
+  display: none;
+  width: 0px;
+  background: transparent;
+}
+
+html {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
