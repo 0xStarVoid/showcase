@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import { AnimatePresence, motion } from "framer-motion";
-import { Layers, Check, Link2 } from "lucide-react";
+import { Layers, Check, Link2, Menu, SlidersHorizontal, X } from "lucide-react";
 import Nav from "@/components/Nav";
 import Stage from "@/components/Stage";
 import Switcher from "@/components/Switcher";
@@ -20,6 +20,8 @@ export default function Playground() {
   const [showCode, setShowCode] = useState(false);
   const [ready, setReady] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [showNav, setShowNav] = useState(false);
+  const [showControls, setShowControls] = useState(false);
 
   const { sel, setSel, color, play, font, dark, device, setColor, setPlay, setFont } = useBrand();
 
@@ -75,27 +77,63 @@ export default function Playground() {
       </Head>
 
       <div className={`h-screen flex overflow-hidden ${dark ? "dark" : ""}`} style={styles}>
-        <Nav />
+        {/* Mobile Nav Overlay */}
+        <AnimatePresence>
+          {showNav && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setShowNav(false)}
+              className="fixed inset-0 bg-black/50 z-50 md:hidden backdrop-blur-sm"
+            >
+              <motion.div
+                initial={{ x: "-100%" }}
+                animate={{ x: 0 }}
+                exit={{ x: "-100%" }}
+                onClick={(e) => e.stopPropagation()}
+                className="absolute left-0 top-0 bottom-0 w-64 bg-[#0f172a] border-r border-slate-800"
+              >
+                <div className="absolute top-4 right-4 z-10">
+                  <button onClick={() => setShowNav(false)} className="text-slate-400">
+                    <X className="w-5 h-5" />
+                  </button>
+                </div>
+                <Nav />
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
-        <main className="flex-1 flex flex-col h-screen bg-[#0f172a] overflow-hidden">
-          <header className="h-14 border-b border-slate-800 bg-[#0f172a] flex items-center justify-between px-6 shrink-0">
+        {/* Desktop Nav */}
+        <div className="hidden md:block h-full">
+          <Nav />
+        </div>
+
+        <main className="flex-1 flex flex-col h-screen bg-[#0f172a] overflow-hidden relative">
+          <header className="h-14 border-b border-slate-800 bg-[#0f172a] flex items-center justify-between px-4 sm:px-6 shrink-0 z-30">
             <div className="flex items-center gap-3">
+              <button onClick={() => setShowNav(true)} className="md:hidden p-2 -ml-2 text-slate-400 hover:text-white">
+                <Menu className="w-5 h-5" />
+              </button>
               <div className="flex items-center gap-2">
                 <Layers className="w-4 h-4 text-cyan-400" />
-                <span className="font-medium text-white">Playground</span>
+                <span className="font-medium text-white hidden sm:inline">Playground</span>
               </div>
               {comp && (
                 <>
-                  <span className="text-slate-600">/</span>
-                  <span className="text-slate-400">{comp.name}</span>
+                  <span className="text-slate-600 hidden sm:inline">/</span>
+                  <span className="text-slate-400 text-sm sm:text-base truncate max-w-[100px] sm:max-w-none">
+                    {comp.name}
+                  </span>
                 </>
               )}
             </div>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 sm:gap-3">
               {/* Share Setup Button */}
               <button
                 onClick={copyLink}
-                className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-sm transition-colors"
+                className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-sm transition-colors hidden sm:flex"
                 title="Copy a link with these brand settings and component"
               >
                 {copied ? (
@@ -111,11 +149,18 @@ export default function Playground() {
                 )}
               </button>
               <Switcher />
+              {/* Mobile Controls Toggle */}
+              <button
+                onClick={() => setShowControls(true)}
+                className="md:hidden p-2 -mr-2 text-slate-400 hover:text-white"
+              >
+                <SlidersHorizontal className="w-5 h-5" />
+              </button>
             </div>
           </header>
 
           <div className="flex-1 flex overflow-hidden">
-            <div className="flex-1 p-6 overflow-auto bg-slate-900/30">
+            <div className="flex-1 overflow-auto bg-slate-900/30">
               <AnimatePresence mode="wait">
                 {comp ? (
                   <motion.div
@@ -124,7 +169,7 @@ export default function Playground() {
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.98 }}
                     transition={{ duration: 0.3 }}
-                    className="min-h-full flex items-start justify-center py-12"
+                    className="min-h-full"
                   >
                     <Stage id={sel} dev={device} />
                   </motion.div>
@@ -143,9 +188,44 @@ export default function Playground() {
                 )}
               </AnimatePresence>
             </div>
-            <Controls onPreview={() => setShowQR(true)} onExport={() => setShowCode(true)} />
+
+            {/* Desktop Controls */}
+            <div className="hidden md:flex h-full">
+              <Controls onPreview={() => setShowQR(true)} onExport={() => setShowCode(true)} />
+            </div>
           </div>
         </main>
+
+        {/* Mobile Controls Overlay */}
+        <AnimatePresence>
+          {showControls && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setShowControls(false)}
+              className="fixed inset-0 bg-black/50 z-50 md:hidden backdrop-blur-sm"
+            >
+              <motion.div
+                initial={{ x: "100%" }}
+                animate={{ x: 0 }}
+                exit={{ x: "100%" }}
+                onClick={(e) => e.stopPropagation()}
+                className="absolute right-0 top-0 bottom-0 w-72 bg-[#0f172a] border-l border-slate-800"
+              >
+                <div className="absolute top-4 right-4 z-20">
+                  <button
+                    onClick={() => setShowControls(false)}
+                    className="p-1 rounded-lg bg-slate-800 text-slate-400 hover:text-white hover:bg-slate-700 transition-colors"
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
+                </div>
+                <Controls onPreview={() => setShowQR(true)} onExport={() => setShowCode(true)} />
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         <AnimatePresence>{showQR && <QRModal onClose={() => setShowQR(false)} />}</AnimatePresence>
       </div>

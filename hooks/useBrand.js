@@ -39,6 +39,6 @@ export function getStyles(s) {
 
 export const dims = {
   desktop: { width: 1200, label: "Desktop" },
-  tablet: { width: 768, label: "Tablet" },
-  mobile: { width: 375, label: "Mobile" },
+  tablet: { width: 800, label: "Tablet" },
+  mobile: { width: 400, label: "Mobile" },
 };

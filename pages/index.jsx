@@ -51,13 +51,13 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link
                 href="/playground"
-                className="w-full sm:w-auto px-8 py-4 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-white font-bold text-lg transition-all shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/40 transform hover:-translate-y-0.5"
+                className="w-full sm:w-auto px-6 py-3 md:px-8 md:py-4 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-white font-bold text-lg transition-all shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/40 transform hover:-translate-y-0.5"
               >
                 Start Building
               </Link>
               <Link
                 href="/playground?component=pricing-card"
-                className="w-full sm:w-auto px-8 py-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold text-lg border border-slate-700 hover:border-slate-600 transition-all"
+                className="w-full sm:w-auto px-6 py-3 md:px-8 md:py-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold text-lg border border-slate-700 hover:border-slate-600 transition-all"
               >
                 View Components
               </Link>

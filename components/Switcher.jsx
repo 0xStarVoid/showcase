@@ -14,13 +14,14 @@ export default function Switcher() {
   const { dark, toggleDark, device, setDevice } = useBrand();
 
   return (
-    <div className="flex items-center gap-3">
-      <div className="flex items-center bg-slate-800/50 border border-slate-700/50 rounded-lg p-1">
+    <div className="flex items-center gap-2">
+      {/* Device Switcher */}
+      <div className="flex items-center bg-slate-800/50 border border-slate-700/50 rounded-lg p-1 gap-0.5">
         {opts.map(({ type, icon: Icon, label }) => (
           <button
             key={type}
             onClick={() => setDevice(type)}
-            className={`relative p-1.5 rounded transition-colors ${
+            className={`relative p-2 rounded transition-colors ${
               device === type ? "text-cyan-400" : "text-slate-500 hover:text-slate-300"
             }`}
             title={label}
@@ -32,16 +33,18 @@ export default function Switcher() {
                 transition={{ type: "spring", stiffness: 500, damping: 35 }}
               />
             )}
-            <Icon className="w-4 h-4 relative z-10" />
+            <Icon className="w-5 h-5 relative z-10" />
           </button>
         ))}
       </div>
 
+      {/* Dark Mode Toggle */}
       <button
         onClick={toggleDark}
-        className="p-1.5 rounded-lg hover:bg-slate-800/50 text-slate-400 hover:text-white transition-colors"
+        className="p-2 rounded-lg hover:bg-slate-800/50 text-slate-400 hover:text-white transition-colors"
+        title={dark ? "Light Mode" : "Dark Mode"}
       >
-        {dark ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4" />}
+        {dark ? <Moon className="w-5 h-5" /> : <Sun className="w-5 h-5" />}
       </button>
     </div>
   );
