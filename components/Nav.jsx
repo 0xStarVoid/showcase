@@ -3,7 +3,17 @@
 import { useState, useMemo } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { Search, Layers, ChevronDown, ChevronRight, Megaphone, ShoppingBag, FormInput, X } from "lucide-react";
+import {
+  Search,
+  Layers,
+  ChevronDown,
+  ChevronRight,
+  ChevronLeft,
+  Megaphone,
+  ShoppingBag,
+  FormInput,
+  X,
+} from "lucide-react";
 import { cats, search } from "@/lib/items";
 import { useBrand } from "@/hooks/useBrand";
 
@@ -13,7 +23,7 @@ const icons = {
   forms: FormInput,
 };
 
-export default function Nav() {
+export default function Nav({ collapsed, onToggleCollapse }) {
   const [q, setQ] = useState("");
   const [expCats, setExpCats] = useState(["marketing", "commerce", "forms"]);
   const [expSubs, setExpSubs] = useState([]);
@@ -35,18 +45,70 @@ export default function Nav() {
     setQ("");
   };
 
+  // Collapsed view - just icons for quick navigation
+  if (collapsed) {
+    return (
+      <aside className="w-12 h-screen border-r border-slate-800 bg-[#0f172a] flex flex-col shrink-0">
+        <div className="p-2 border-b border-slate-800">
+          <button
+            onClick={onToggleCollapse}
+            className="w-full p-2 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white transition-colors"
+            aria-label="Expand navigation"
+          >
+            <ChevronRight className="w-4 h-4" />
+          </button>
+        </div>
+        <div className="flex-1 p-2 space-y-2">
+          <Link
+            href="/"
+            className="block p-2 rounded-lg hover:bg-slate-800 text-cyan-400 transition-colors"
+            aria-label="Home"
+          >
+            <Layers className="w-4 h-4 mx-auto" />
+          </Link>
+          <div className="border-t border-slate-700 my-2" />
+          {Object.entries(icons).map(([id, Icon]) => (
+            <button
+              key={id}
+              onClick={() => {
+                setExpCats([id]);
+                onToggleCollapse?.();
+              }}
+              className="w-full p-2 rounded-lg hover:bg-slate-800 text-slate-500 hover:text-slate-300 transition-colors"
+              title={id.charAt(0).toUpperCase() + id.slice(1)}
+              aria-label={`Open ${id} category`}
+            >
+              <Icon className="w-4 h-4 mx-auto" />
+            </button>
+          ))}
+        </div>
+      </aside>
+    );
+  }
+
   return (
     <aside className="w-64 h-screen border-r border-slate-800 bg-[#0f172a] flex flex-col shrink-0">
       <div className="p-4 border-b border-slate-800">
-        <Link href="/" className="flex items-center gap-3 mb-4">
-          <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center">
-            <Layers className="w-5 h-5 text-white" />
-          </div>
-          <div>
-            <span className="font-semibold text-white block leading-tight">Showcase</span>
-            <span className="text-xs text-slate-500">Component Library</span>
-          </div>
-        </Link>
+        <div className="flex items-center gap-2 mb-4">
+          {onToggleCollapse && (
+            <button
+              onClick={onToggleCollapse}
+              className="p-1.5 rounded-lg hover:bg-slate-800 text-slate-500 hover:text-slate-300 transition-colors"
+              aria-label="Collapse navigation"
+            >
+              <ChevronLeft className="w-4 h-4" />
+            </button>
+          )}
+          <Link href="/" className="flex items-center gap-3 flex-1">
+            <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center">
+              <Layers className="w-5 h-5 text-white" />
+            </div>
+            <div>
+              <span className="font-semibold text-white block leading-tight">Showcase</span>
+              <span className="text-xs text-slate-500">Component Library</span>
+            </div>
+          </Link>
+        </div>
 
         <div className="relative">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />

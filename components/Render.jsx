@@ -17,13 +17,40 @@ import {
   ChevronLeft,
 } from "lucide-react";
 
+/**
+ * Theme utility - consistent dark mode colors across all components
+ * Use this instead of mixing dark: Tailwind variants with darkMode prop
+ */
+const useTheme = (darkMode) => ({
+  // Backgrounds
+  bg: darkMode ? "bg-slate-900" : "bg-white",
+  bgAlt: darkMode ? "bg-slate-800" : "bg-slate-50",
+  bgInput: darkMode ? "bg-slate-800" : "bg-neutral-100",
+  bgCard: darkMode ? "bg-slate-800" : "bg-white",
+  // Text
+  text: darkMode ? "text-white" : "text-slate-900",
+  textMuted: darkMode ? "text-slate-400" : "text-slate-600",
+  textDim: darkMode ? "text-slate-500" : "text-slate-400",
+  // Borders
+  border: darkMode ? "border-slate-700" : "border-slate-200",
+  borderDim: darkMode ? "border-slate-800" : "border-slate-100",
+  // Dividers
+  divider: darkMode ? "bg-slate-800" : "bg-slate-100",
+  // Interactive
+  hoverBg: darkMode ? "hover:bg-slate-700" : "hover:bg-slate-50",
+  // Raw values for inline styles
+  raw: {
+    bg: darkMode ? "#0f172a" : "#ffffff",
+    text: darkMode ? "#ffffff" : "#0f172a",
+    muted: darkMode ? "#94a3b8" : "#64748b",
+  },
+});
+
 export default function Render({ id, styles: s }) {
   const { color, play, font, dark } = s;
 
   const r = Math.round(play * 24);
   const ff = font === "modern" ? "var(--font-sans)" : "var(--font-serif)";
-  const hw = play > 0.5 ? 600 : 700;
-  const bounce = play > 0.5 ? 1.05 : 1.02;
 
   const css = useMemo(
     () => ({
@@ -35,62 +62,246 @@ export default function Render({ id, styles: s }) {
     [color, r, ff],
   );
 
+  // Create theme object for consistent styling
+  const theme = useTheme(dark);
+
   const renderComponent = () => {
     switch (id) {
       case "pricing-card":
-        return <PricingCard styles={css} primaryColor={color} cornerRadius={r} playfulness={play} darkMode={dark} />;
+        return (
+          <PricingCard
+            styles={css}
+            primaryColor={color}
+            cornerRadius={r}
+            playfulness={play}
+            darkMode={dark}
+            theme={theme}
+          />
+        );
       case "hero-centered":
-        return <HeroCentered styles={css} primaryColor={color} cornerRadius={r} playfulness={play} darkMode={dark} />;
+        return (
+          <HeroCentered
+            styles={css}
+            primaryColor={color}
+            cornerRadius={r}
+            playfulness={play}
+            darkMode={dark}
+            theme={theme}
+          />
+        );
       case "hero-split":
-        return <HeroSplit styles={css} primaryColor={color} cornerRadius={r} playfulness={play} darkMode={dark} />;
+        return (
+          <HeroSplit
+            styles={css}
+            primaryColor={color}
+            cornerRadius={r}
+            playfulness={play}
+            darkMode={dark}
+            theme={theme}
+          />
+        );
       case "hero-gradient":
-        return <HeroGradient styles={css} primaryColor={color} cornerRadius={r} playfulness={play} darkMode={dark} />;
+        return (
+          <HeroGradient
+            styles={css}
+            primaryColor={color}
+            cornerRadius={r}
+            playfulness={play}
+            darkMode={dark}
+            theme={theme}
+          />
+        );
       case "testimonial-card":
         return (
-          <TestimonialCard styles={css} primaryColor={color} cornerRadius={r} playfulness={play} darkMode={dark} />
+          <TestimonialCard
+            styles={css}
+            primaryColor={color}
+            cornerRadius={r}
+            playfulness={play}
+            darkMode={dark}
+            theme={theme}
+          />
         );
       case "testimonial-carousel":
         return (
-          <TestimonialCarousel styles={css} primaryColor={color} cornerRadius={r} playfulness={play} darkMode={dark} />
+          <TestimonialCarousel
+            styles={css}
+            primaryColor={color}
+            cornerRadius={r}
+            playfulness={play}
+            darkMode={dark}
+            theme={theme}
+          />
         );
       case "product-card-minimal":
-        return <ProductCard styles={css} primaryColor={color} cornerRadius={r} playfulness={play} darkMode={dark} />;
+        return (
+          <ProductCard
+            styles={css}
+            primaryColor={color}
+            cornerRadius={r}
+            playfulness={play}
+            darkMode={dark}
+            theme={theme}
+          />
+        );
       case "product-card-detailed":
         return (
-          <ProductCardDetailed styles={css} primaryColor={color} cornerRadius={r} playfulness={play} darkMode={dark} />
+          <ProductCardDetailed
+            styles={css}
+            primaryColor={color}
+            cornerRadius={r}
+            playfulness={play}
+            darkMode={dark}
+            theme={theme}
+          />
         );
       case "input-text":
-        return <TextInput styles={css} primaryColor={color} cornerRadius={r} playfulness={play} darkMode={dark} />;
+        return (
+          <TextInput
+            styles={css}
+            primaryColor={color}
+            cornerRadius={r}
+            playfulness={play}
+            darkMode={dark}
+            theme={theme}
+          />
+        );
       case "input-email":
         return (
-          <NewsletterSignup styles={css} primaryColor={color} cornerRadius={r} playfulness={play} darkMode={dark} />
+          <NewsletterSignup
+            styles={css}
+            primaryColor={color}
+            cornerRadius={r}
+            playfulness={play}
+            darkMode={dark}
+            theme={theme}
+          />
         );
       case "toggle-switch":
-        return <ToggleSwitch styles={css} primaryColor={color} cornerRadius={r} playfulness={play} darkMode={dark} />;
+        return (
+          <ToggleSwitch
+            styles={css}
+            primaryColor={color}
+            cornerRadius={r}
+            playfulness={play}
+            darkMode={dark}
+            theme={theme}
+          />
+        );
       case "feature-grid-icons":
-        return <FeatureGrid styles={css} primaryColor={color} cornerRadius={r} playfulness={play} darkMode={dark} />;
+        return (
+          <FeatureGrid
+            styles={css}
+            primaryColor={color}
+            cornerRadius={r}
+            playfulness={play}
+            darkMode={dark}
+            theme={theme}
+          />
+        );
       case "feature-bento":
-        return <BentoGrid styles={css} primaryColor={color} cornerRadius={r} playfulness={play} darkMode={dark} />;
+        return (
+          <BentoGrid
+            styles={css}
+            primaryColor={color}
+            cornerRadius={r}
+            playfulness={play}
+            darkMode={dark}
+            theme={theme}
+          />
+        );
       case "cart-item":
-        return <CartItem styles={css} primaryColor={color} cornerRadius={r} playfulness={play} darkMode={dark} />;
+        return (
+          <CartItem
+            styles={css}
+            primaryColor={color}
+            cornerRadius={r}
+            playfulness={play}
+            darkMode={dark}
+            theme={theme}
+          />
+        );
       case "cart-drawer":
-        return <CartDrawer styles={css} primaryColor={color} cornerRadius={r} playfulness={play} darkMode={dark} />;
+        return (
+          <CartDrawer
+            styles={css}
+            primaryColor={color}
+            cornerRadius={r}
+            playfulness={play}
+            darkMode={dark}
+            theme={theme}
+          />
+        );
       case "pricing-table":
-        return <PricingTable styles={css} primaryColor={color} cornerRadius={r} playfulness={play} darkMode={dark} />;
+        return (
+          <PricingTable
+            styles={css}
+            primaryColor={color}
+            cornerRadius={r}
+            playfulness={play}
+            darkMode={dark}
+            theme={theme}
+          />
+        );
       case "input-search":
-        return <SearchInput styles={css} primaryColor={color} cornerRadius={r} playfulness={play} darkMode={dark} />;
+        return (
+          <SearchInput
+            styles={css}
+            primaryColor={color}
+            cornerRadius={r}
+            playfulness={play}
+            darkMode={dark}
+            theme={theme}
+          />
+        );
       case "checkbox-group":
-        return <CheckboxGroup styles={css} primaryColor={color} cornerRadius={r} playfulness={play} darkMode={dark} />;
+        return (
+          <CheckboxGroup
+            styles={css}
+            primaryColor={color}
+            cornerRadius={r}
+            playfulness={play}
+            darkMode={dark}
+            theme={theme}
+          />
+        );
       case "radio-group":
-        return <RadioGroup styles={css} primaryColor={color} cornerRadius={r} playfulness={play} darkMode={dark} />;
+        return (
+          <RadioGroup
+            styles={css}
+            primaryColor={color}
+            cornerRadius={r}
+            playfulness={play}
+            darkMode={dark}
+            theme={theme}
+          />
+        );
       case "wizard-steps":
-        return <StepIndicator styles={css} primaryColor={color} cornerRadius={r} playfulness={play} darkMode={dark} />;
+        return (
+          <StepIndicator
+            styles={css}
+            primaryColor={color}
+            cornerRadius={r}
+            playfulness={play}
+            darkMode={dark}
+            theme={theme}
+          />
+        );
       case "wizard-form":
-        return <MultiStepForm styles={css} primaryColor={color} cornerRadius={r} playfulness={play} darkMode={dark} />;
+        return (
+          <MultiStepForm
+            styles={css}
+            primaryColor={color}
+            cornerRadius={r}
+            playfulness={play}
+            darkMode={dark}
+            theme={theme}
+          />
+        );
       default:
         return (
-          <div className="text-center p-8 bg-neutral-100 dark:bg-neutral-800 rounded-lg">
-            <p className="text-neutral-600 dark:text-neutral-400">Component "{id}" not yet implemented</p>
+          <div className={`text-center p-8 rounded-lg ${theme.bgAlt} ${theme.textMuted}`}>
+            <p>Component "{id}" not yet implemented</p>
           </div>
         );
     }
@@ -346,7 +557,7 @@ function HeroSplit({ styles, primaryColor, cornerRadius, playfulness, darkMode }
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.1 }}
-          className="text-3xl md:text-4xl font-bold text-neutral-900 dark:text-white mb-4 leading-tight"
+          className={`text-3xl md:text-4xl font-bold mb-4 leading-tight ${darkMode ? "text-white" : "text-slate-900"}`}
         >
           Transform your workflow with AI
         </motion.h1>
@@ -355,7 +566,7 @@ function HeroSplit({ styles, primaryColor, cornerRadius, playfulness, darkMode }
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.2 }}
-          className="text-neutral-600 dark:text-neutral-400 mb-6"
+          className={`mb-6 ${darkMode ? "text-slate-400" : "text-slate-600"}`}
         >
           Automate repetitive tasks and focus on what matters. Our intelligent platform learns your patterns.
         </motion.p>
@@ -380,18 +591,77 @@ function HeroSplit({ styles, primaryColor, cornerRadius, playfulness, darkMode }
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 0.2 }}
-        className="aspect-square bg-gradient-to-br from-neutral-100 to-neutral-200 dark:from-neutral-800 dark:to-neutral-700 flex items-center justify-center"
+        className="relative aspect-square overflow-hidden"
         style={{ borderRadius: `${cornerRadius * 1.5}px` }}
       >
-        <div
-          className="w-16 h-16 flex items-center justify-center text-white"
-          style={{
-            backgroundColor: primaryColor,
-            borderRadius: `${cornerRadius}px`,
-          }}
-        >
-          <Zap className="w-8 h-8" />
-        </div>
+        {/* Abstract AI/Workflow Illustration */}
+        <svg viewBox="0 0 400 400" className="w-full h-full" aria-hidden="true">
+          <defs>
+            <linearGradient id="heroGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor={primaryColor} stopOpacity="0.2" />
+              <stop offset="100%" stopColor={primaryColor} stopOpacity="0.05" />
+            </linearGradient>
+            <linearGradient id="heroGrad2" x1="0%" y1="100%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor={primaryColor} stopOpacity="0.8" />
+              <stop offset="100%" stopColor={primaryColor} stopOpacity="0.4" />
+            </linearGradient>
+          </defs>
+
+          {/* Background */}
+          <rect width="400" height="400" fill={darkMode ? "#1e293b" : "#f1f5f9"} rx={cornerRadius * 1.5} />
+
+          {/* Decorative grid */}
+          <g stroke={darkMode ? "#334155" : "#e2e8f0"} strokeWidth="1" opacity="0.5">
+            {[80, 160, 240, 320].map((x) => (
+              <line key={`v${x}`} x1={x} y1="0" x2={x} y2="400" />
+            ))}
+            {[80, 160, 240, 320].map((y) => (
+              <line key={`h${y}`} x1="0" y1={y} x2="400" y2={y} />
+            ))}
+          </g>
+
+          {/* Central hub circle */}
+          <circle cx="200" cy="200" r="60" fill="url(#heroGrad1)" stroke={primaryColor} strokeWidth="2" />
+          <circle cx="200" cy="200" r="40" fill={primaryColor} opacity="0.9" />
+          <path d="M185 200 L200 180 L215 200 L200 220 Z" fill="white" />
+
+          {/* Orbiting nodes with connection lines */}
+          <g stroke={primaryColor} strokeWidth="2" strokeDasharray={playfulness > 0.5 ? "8,4" : "0"} opacity="0.6">
+            <line x1="200" y1="140" x2="200" y2="80" />
+            <line x1="260" y1="200" x2="320" y2="200" />
+            <line x1="200" y1="260" x2="200" y2="320" />
+            <line x1="140" y1="200" x2="80" y2="200" />
+            <line x1="243" y1="157" x2="290" y2="110" />
+            <line x1="157" y1="243" x2="110" y2="290" />
+          </g>
+
+          {/* Outer nodes */}
+          {[
+            { cx: 200, cy: 60, icon: "M195 55 L200 50 L205 55 L205 65 L200 70 L195 65 Z" },
+            { cx: 340, cy: 200, icon: "M335 195 L345 195 L345 205 L335 205 Z" },
+            { cx: 200, cy: 340, icon: "M192 340 A8 8 0 1 1 208 340 A8 8 0 1 1 192 340" },
+            { cx: 60, cy: 200, icon: "M52 200 L60 192 L68 200 L60 208 Z" },
+            { cx: 305, cy: 95, icon: "M300 90 L310 90 L310 100 L300 100 Z" },
+            { cx: 95, cy: 305, icon: "M87 305 A8 8 0 1 1 103 305 A8 8 0 1 1 87 305" },
+          ].map((node, i) => (
+            <g key={i}>
+              <circle cx={node.cx} cy={node.cy} r="24" fill="url(#heroGrad2)" />
+              <path d={node.icon} fill="white" />
+            </g>
+          ))}
+
+          {/* Floating particles */}
+          {playfulness > 0.3 && (
+            <g fill={primaryColor} opacity="0.4">
+              <circle cx="150" cy="120" r="4" />
+              <circle cx="280" cy="150" r="3" />
+              <circle cx="120" cy="270" r="5" />
+              <circle cx="300" cy="280" r="4" />
+              <circle cx="340" cy="130" r="3" />
+              <circle cx="70" cy="130" r="4" />
+            </g>
+          )}
+        </svg>
       </motion.div>
     </motion.div>
   );
@@ -407,7 +677,7 @@ function TestimonialCard({ styles, primaryColor, cornerRadius, playfulness, dark
       style={styles}
     >
       <div
-        className="p-8 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700"
+        className={`p-8 border ${darkMode ? "bg-slate-800 border-slate-700" : "bg-white border-slate-200"}`}
         style={{ borderRadius: `${cornerRadius}px` }}
       >
         {/* Stars */}
@@ -418,7 +688,7 @@ function TestimonialCard({ styles, primaryColor, cornerRadius, playfulness, dark
         </div>
 
         {/* Quote */}
-        <blockquote className="text-lg text-neutral-700 dark:text-neutral-300 mb-6 leading-relaxed">
+        <blockquote className={`text-lg mb-6 leading-relaxed ${darkMode ? "text-slate-300" : "text-slate-700"}`}>
           "This product has completely transformed how our team works. The attention to detail is remarkable, and the
           support is world-class."
         </blockquote>
@@ -429,11 +699,12 @@ function TestimonialCard({ styles, primaryColor, cornerRadius, playfulness, dark
             src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop"
             alt="Sarah Johnson"
             className="w-12 h-12 object-cover"
+            loading="lazy"
             style={{ borderRadius: `${cornerRadius / 2}px` }}
           />
           <div>
-            <div className="font-semibold text-neutral-900 dark:text-white">Sarah Johnson</div>
-            <div className="text-sm text-neutral-500">CEO, TechStart Inc.</div>
+            <div className={`font-semibold ${darkMode ? "text-white" : "text-slate-900"}`}>Sarah Johnson</div>
+            <div className="text-sm text-slate-500">CEO, TechStart Inc.</div>
           </div>
         </div>
       </div>
@@ -451,7 +722,7 @@ function ProductCard({ styles, primaryColor, cornerRadius, playfulness, darkMode
       style={styles}
     >
       <div
-        className="bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 overflow-hidden"
+        className={`overflow-hidden border ${darkMode ? "bg-slate-800 border-slate-700" : "bg-white border-slate-200"}`}
         style={{ borderRadius: `${cornerRadius}px` }}
       >
         {/* Image */}
@@ -460,20 +731,22 @@ function ProductCard({ styles, primaryColor, cornerRadius, playfulness, darkMode
             src="https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=400&h=400&fit=crop"
             alt="Premium Desk Lamp"
             className="w-full h-full object-cover"
+            loading="lazy"
           />
           <motion.button
             whileHover={{ scale: 1.1 }}
-            className="absolute top-4 right-4 w-10 h-10 bg-white dark:bg-neutral-800 flex items-center justify-center shadow-lg"
+            className={`absolute top-4 right-4 w-10 h-10 flex items-center justify-center shadow-lg ${darkMode ? "bg-slate-800" : "bg-white"}`}
             style={{ borderRadius: `${cornerRadius / 2}px` }}
+            aria-label="Add to favorites"
           >
-            <Heart className="w-5 h-5 text-neutral-400" />
+            <Heart className="w-5 h-5 text-slate-400" />
           </motion.button>
         </div>
 
         {/* Content */}
         <div className="p-5">
-          <div className="text-xs text-neutral-500 mb-1">MINIMALIST DESIGN</div>
-          <h3 className="font-semibold text-neutral-900 dark:text-white mb-2">Premium Desk Lamp</h3>
+          <div className="text-xs text-slate-500 mb-1">MINIMALIST DESIGN</div>
+          <h3 className={`font-semibold mb-2 ${darkMode ? "text-white" : "text-slate-900"}`}>Premium Desk Lamp</h3>
           <div className="flex items-center justify-between">
             <span className="text-lg font-bold" style={{ color: primaryColor }}>
               $129.00
@@ -506,16 +779,17 @@ function TextInput({ styles, primaryColor, cornerRadius, playfulness, darkMode }
       style={styles}
     >
       <div>
-        <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">Full Name</label>
+        <label className={`block text-sm font-medium mb-2 ${darkMode ? "text-slate-300" : "text-slate-700"}`}>
+          Full Name
+        </label>
         <div className="relative">
           <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5" style={{ color: primaryColor }} />
           <input
             type="text"
             placeholder="Enter your name"
-            className="w-full pl-12 pr-4 py-3 bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-white placeholder:text-neutral-500 focus:outline-none transition-all border-2 border-transparent"
+            className={`w-full pl-12 pr-4 py-3 placeholder:text-slate-500 focus:outline-none transition-all border-2 border-transparent ${darkMode ? "bg-slate-800 text-white" : "bg-slate-100 text-slate-900"}`}
             style={{
               borderRadius: `${cornerRadius}px`,
-              "--focus-color": primaryColor,
             }}
             onFocus={(e) => (e.target.style.borderColor = primaryColor)}
             onBlur={(e) => (e.target.style.borderColor = "transparent")}
@@ -524,13 +798,15 @@ function TextInput({ styles, primaryColor, cornerRadius, playfulness, darkMode }
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-2">Password</label>
+        <label className={`block text-sm font-medium mb-2 ${darkMode ? "text-slate-300" : "text-slate-700"}`}>
+          Password
+        </label>
         <div className="relative">
           <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5" style={{ color: primaryColor }} />
           <input
             type="password"
             placeholder="Enter your password"
-            className="w-full pl-12 pr-4 py-3 bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-white placeholder:text-neutral-500 focus:outline-none transition-all border-2 border-transparent"
+            className={`w-full pl-12 pr-4 py-3 placeholder:text-slate-500 focus:outline-none transition-all border-2 border-transparent ${darkMode ? "bg-slate-800 text-white" : "bg-slate-100 text-slate-900"}`}
             style={{
               borderRadius: `${cornerRadius}px`,
             }}
@@ -538,7 +814,7 @@ function TextInput({ styles, primaryColor, cornerRadius, playfulness, darkMode }
             onBlur={(e) => (e.target.style.borderColor = "transparent")}
           />
         </div>
-        <p className="text-xs text-neutral-500 mt-1.5">Must be at least 8 characters</p>
+        <p className="text-xs text-slate-500 mt-1.5">Must be at least 8 characters</p>
       </div>
     </motion.div>
   );
@@ -553,18 +829,21 @@ function NewsletterSignup({ styles, primaryColor, cornerRadius, playfulness, dar
       className="max-w-lg mx-auto text-center p-6"
       style={styles}
     >
-      <h3 className="text-2xl font-bold text-neutral-900 dark:text-white mb-2">Stay in the loop</h3>
-      <p className="text-neutral-600 dark:text-neutral-400 mb-6">
+      <h3 className={`text-2xl font-bold mb-2 ${darkMode ? "text-white" : "text-slate-900"}`}>Stay in the loop</h3>
+      <p className={`mb-6 ${darkMode ? "text-slate-400" : "text-slate-600"}`}>
         Subscribe to our newsletter for the latest updates and exclusive offers.
       </p>
 
-      <div className="flex gap-2 p-2 bg-neutral-100 dark:bg-neutral-800" style={{ borderRadius: `${cornerRadius}px` }}>
+      <div
+        className={`flex gap-2 p-2 ${darkMode ? "bg-slate-800" : "bg-slate-100"}`}
+        style={{ borderRadius: `${cornerRadius}px` }}
+      >
         <div className="flex-1 relative">
-          <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-neutral-400" />
+          <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
           <input
             type="email"
             placeholder="Enter your email"
-            className="w-full pl-12 pr-4 py-3 bg-transparent text-neutral-900 dark:text-white placeholder:text-neutral-500 focus:outline-none"
+            className={`w-full pl-12 pr-4 py-3 bg-transparent placeholder:text-slate-500 focus:outline-none ${darkMode ? "text-white" : "text-slate-900"}`}
           />
         </div>
         <motion.button
@@ -609,12 +888,12 @@ function ToggleSwitch({ styles, primaryColor, cornerRadius, playfulness, darkMod
       ].map((item) => (
         <div
           key={item.id}
-          className="flex items-center justify-between p-4 bg-neutral-50 dark:bg-neutral-800"
+          className={`flex items-center justify-between p-4 ${darkMode ? "bg-slate-800" : "bg-slate-50"}`}
           style={{ borderRadius: `${cornerRadius}px` }}
         >
           <div>
-            <div className="font-medium text-neutral-900 dark:text-white">{item.label}</div>
-            <div className="text-sm text-neutral-500">{item.sublabel}</div>
+            <div className={`font-medium ${darkMode ? "text-white" : "text-slate-900"}`}>{item.label}</div>
+            <div className="text-sm text-slate-500">{item.sublabel}</div>
           </div>
           <button onClick={() => toggle(item.id)} className="rounded-full focus:outline-none">
             <motion.div
@@ -660,7 +939,7 @@ function FeatureGrid({ styles, primaryColor, cornerRadius, playfulness, darkMode
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: index * 0.1 }}
-          className="p-6 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700"
+          className={`p-6 border ${darkMode ? "bg-slate-800 border-slate-700" : "bg-white border-slate-200"}`}
           style={{ borderRadius: `${cornerRadius}px` }}
         >
           <div
@@ -673,8 +952,8 @@ function FeatureGrid({ styles, primaryColor, cornerRadius, playfulness, darkMode
           >
             <feature.icon className="w-6 h-6" />
           </div>
-          <h3 className="font-semibold text-neutral-900 dark:text-white mb-2">{feature.title}</h3>
-          <p className="text-sm text-neutral-600 dark:text-neutral-400">{feature.description}</p>
+          <h3 className={`font-semibold mb-2 ${darkMode ? "text-white" : "text-slate-900"}`}>{feature.title}</h3>
+          <p className={`text-sm ${darkMode ? "text-slate-400" : "text-slate-600"}`}>{feature.description}</p>
         </motion.div>
       ))}
     </motion.div>
@@ -691,7 +970,7 @@ function CartItem({ styles, primaryColor, cornerRadius, playfulness, darkMode })
       style={styles}
     >
       <div
-        className="p-4 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 flex flex-col sm:flex-row gap-4"
+        className={`p-4 flex flex-col sm:flex-row gap-4 border ${darkMode ? "bg-slate-800 border-slate-700" : "bg-white border-slate-200"}`}
         style={{ borderRadius: `${cornerRadius}px` }}
       >
         {/* Image */}
@@ -699,13 +978,16 @@ function CartItem({ styles, primaryColor, cornerRadius, playfulness, darkMode })
           src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=200&h=200&fit=crop"
           alt="Premium Wireless Headphones"
           className="w-full sm:w-24 h-24 object-cover shrink-0"
+          loading="lazy"
           style={{ borderRadius: `${cornerRadius / 2}px` }}
         />
 
         {/* Details */}
         <div className="flex-1 min-w-0">
-          <h4 className="font-semibold text-neutral-900 dark:text-white truncate">Premium Wireless Headphones</h4>
-          <p className="text-sm text-neutral-500 mb-2">Color: Matte Black</p>
+          <h4 className={`font-semibold truncate ${darkMode ? "text-white" : "text-slate-900"}`}>
+            Premium Wireless Headphones
+          </h4>
+          <p className="text-sm text-slate-500 mb-2">Color: Matte Black</p>
 
           <div className="flex items-center justify-between">
             <span className="font-bold" style={{ color: primaryColor }}>
@@ -714,14 +996,22 @@ function CartItem({ styles, primaryColor, cornerRadius, playfulness, darkMode })
 
             {/* Quantity Controls */}
             <div
-              className="flex items-center gap-2 bg-neutral-100 dark:bg-neutral-700"
+              className={`flex items-center gap-2 ${darkMode ? "bg-slate-700" : "bg-slate-100"}`}
               style={{ borderRadius: `${cornerRadius / 2}px` }}
             >
-              <button className="w-8 h-8 flex items-center justify-center text-neutral-600 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-600 rounded-l-lg">
+              <button
+                className={`w-8 h-8 flex items-center justify-center rounded-l-lg ${darkMode ? "text-slate-300 hover:bg-slate-600" : "text-slate-600 hover:bg-slate-200"}`}
+                aria-label="Decrease quantity"
+              >
                 -
               </button>
-              <span className="w-8 text-center text-sm font-medium text-neutral-900 dark:text-white">2</span>
-              <button className="w-8 h-8 flex items-center justify-center text-neutral-600 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-600 rounded-r-lg">
+              <span className={`w-8 text-center text-sm font-medium ${darkMode ? "text-white" : "text-slate-900"}`}>
+                2
+              </span>
+              <button
+                className={`w-8 h-8 flex items-center justify-center rounded-r-lg ${darkMode ? "text-slate-300 hover:bg-slate-600" : "text-slate-600 hover:bg-slate-200"}`}
+                aria-label="Increase quantity"
+              >
                 +
               </button>
             </div>

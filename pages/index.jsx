@@ -157,7 +157,9 @@ export default function Home() {
               <Layers className="w-5 h-5 text-cyan-500" />
               <span className="font-semibold text-white">Component Showcase</span>
             </div>
-            <p className="text-slate-500 text-sm">© 2024 Component Showcase. Built with Next.js & Tailwind.</p>
+            <p className="text-slate-500 text-sm">
+              © {new Date().getFullYear()} Component Showcase. Built with Next.js & Tailwind.
+            </p>
           </div>
         </footer>
       </div>

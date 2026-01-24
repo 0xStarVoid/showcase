@@ -2,15 +2,88 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Sparkles, RotateCcw, Type, Palette, Code2, ChevronDown, ChevronUp, Copy, Check } from "lucide-react";
+import {
+  Sparkles,
+  RotateCcw,
+  Type,
+  Palette,
+  Code2,
+  ChevronDown,
+  ChevronUp,
+  Copy,
+  Check,
+  Sun,
+  Moon,
+  Monitor,
+  Tablet,
+  Smartphone,
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react";
 import { useBrand } from "@/hooks/useBrand";
 
-export default function Controls({ onPreview, onExport }) {
-  const { color, play, font, setColor, setPlay, setFont, reset } = useBrand();
+const deviceOpts = [
+  { type: "desktop", icon: Monitor, label: "Desktop" },
+  { type: "tablet", icon: Tablet, label: "Tablet" },
+  { type: "mobile", icon: Smartphone, label: "Mobile" },
+];
+
+export default function Controls({ onPreview, onExport, collapsed, onToggleCollapse }) {
+  const { color, play, font, dark, device, setColor, setPlay, setFont, toggleDark, setDevice, reset } = useBrand();
   const [showTokens, setShowTokens] = useState(true);
   const [tokensCopied, setTokensCopied] = useState(false);
 
   const label = play < 0.33 ? "Corporate" : play < 0.66 ? "Balanced" : "Playful";
+
+  // Collapsed view - just icons
+  if (collapsed) {
+    return (
+      <aside className="w-12 border-l border-slate-800 bg-[#0f172a] flex flex-col shrink-0">
+        <div className="p-2 border-b border-slate-800">
+          <button
+            onClick={onToggleCollapse}
+            className="w-full p-2 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white transition-colors"
+            aria-label="Expand controls panel"
+          >
+            <ChevronLeft className="w-4 h-4" />
+          </button>
+        </div>
+        <div className="flex-1 p-2 space-y-2">
+          {/* Device buttons stacked */}
+          {deviceOpts.map(({ type, icon: Icon, label }) => (
+            <button
+              key={type}
+              onClick={() => setDevice(type)}
+              className={`w-full p-2 rounded-lg transition-colors ${
+                device === type ? "bg-cyan-500/20 text-cyan-400" : "hover:bg-slate-800 text-slate-500"
+              }`}
+              title={label}
+              aria-label={`Switch to ${label} view`}
+            >
+              <Icon className="w-4 h-4 mx-auto" />
+            </button>
+          ))}
+          <div className="border-t border-slate-700 my-2" />
+          <button
+            onClick={toggleDark}
+            className="w-full p-2 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white transition-colors"
+            title={dark ? "Light Mode" : "Dark Mode"}
+            aria-label={dark ? "Switch to light mode" : "Switch to dark mode"}
+          >
+            {dark ? <Moon className="w-4 h-4 mx-auto" /> : <Sun className="w-4 h-4 mx-auto" />}
+          </button>
+          <button
+            onClick={reset}
+            className="w-full p-2 rounded-lg hover:bg-slate-800 text-slate-500 hover:text-slate-300 transition-colors"
+            title="Reset to defaults"
+            aria-label="Reset settings"
+          >
+            <RotateCcw className="w-4 h-4 mx-auto" />
+          </button>
+        </div>
+      </aside>
+    );
+  }
 
   // Computed tokens
   const r = Math.round(play * 24);
@@ -19,12 +92,23 @@ export default function Controls({ onPreview, onExport }) {
 
   return (
     <aside className="w-72 border-l border-slate-800 bg-[#0f172a] flex flex-col shrink-0">
-      {/* Header */}
+      {/* Header with collapse button */}
       <div className="p-4 border-b border-slate-800">
-        <div className="flex items-center justify-between">
-          <div>
-            <h2 className="font-semibold text-white">Brand DNA</h2>
-            <p className="text-xs text-slate-500 mt-0.5">Customize styling</p>
+        <div className="flex items-center justify-between mb-3">
+          <div className="flex items-center gap-2">
+            {onToggleCollapse && (
+              <button
+                onClick={onToggleCollapse}
+                className="p-1.5 rounded-lg hover:bg-slate-800 text-slate-500 hover:text-slate-300 transition-colors"
+                aria-label="Collapse controls panel"
+              >
+                <ChevronRight className="w-4 h-4" />
+              </button>
+            )}
+            <div>
+              <h2 className="font-semibold text-white">Brand DNA</h2>
+              <p className="text-xs text-slate-500 mt-0.5">Customize styling</p>
+            </div>
           </div>
           <button
             onClick={reset}
@@ -32,6 +116,40 @@ export default function Controls({ onPreview, onExport }) {
             title="Reset to defaults"
           >
             <RotateCcw className="w-4 h-4" />
+          </button>
+        </div>
+
+        {/* Device & Theme Switcher - always visible here */}
+        <div className="flex items-center justify-between gap-2 p-2 rounded-lg bg-slate-800/30 border border-slate-700/50">
+          <div className="flex items-center gap-1">
+            {deviceOpts.map(({ type, icon: Icon, label }) => (
+              <button
+                key={type}
+                onClick={() => setDevice(type)}
+                className={`relative p-2 rounded transition-colors ${
+                  device === type ? "text-cyan-400" : "text-slate-500 hover:text-slate-300"
+                }`}
+                title={label}
+                aria-label={`Switch to ${label} view`}
+              >
+                {device === type && (
+                  <motion.div
+                    layoutId="device-indicator-controls"
+                    className="absolute inset-0 bg-slate-700/50 rounded"
+                    transition={{ type: "spring", stiffness: 500, damping: 35 }}
+                  />
+                )}
+                <Icon className="w-4 h-4 relative z-10" />
+              </button>
+            ))}
+          </div>
+          <button
+            onClick={toggleDark}
+            className="p-2 rounded-lg hover:bg-slate-700/50 text-slate-400 hover:text-white transition-colors"
+            title={dark ? "Light Mode" : "Dark Mode"}
+            aria-label={dark ? "Switch to light mode" : "Switch to dark mode"}
+          >
+            {dark ? <Moon className="w-4 h-4" /> : <Sun className="w-4 h-4" />}
           </button>
         </div>
       </div>

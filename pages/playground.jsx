@@ -4,10 +4,9 @@ import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import { AnimatePresence, motion } from "framer-motion";
-import { Layers, Check, Link2, Menu, SlidersHorizontal, X } from "lucide-react";
+import { Layers, Check, Link2 } from "lucide-react";
 import Nav from "@/components/Nav";
 import Stage from "@/components/Stage";
-import Switcher from "@/components/Switcher";
 import Controls from "@/components/Controls";
 import QRModal from "@/components/QRModal";
 import { useBrand, getStyles } from "@/hooks/useBrand";
@@ -20,12 +19,32 @@ export default function Playground() {
   const [showCode, setShowCode] = useState(false);
   const [ready, setReady] = useState(false);
   const [copied, setCopied] = useState(false);
-  const [showNav, setShowNav] = useState(false);
-  const [showControls, setShowControls] = useState(false);
+  // Responsive collapse state - start collapsed on smaller screens
+  const [navCollapsed, setNavCollapsed] = useState(false);
+  const [controlsCollapsed, setControlsCollapsed] = useState(false);
 
   const { sel, setSel, color, play, font, dark, device, setColor, setPlay, setFont } = useBrand();
 
-  // Load state from URL on mount
+  // Auto-collapse on small screens
+  useEffect(() => {
+    const checkWidth = () => {
+      if (window.innerWidth < 768) {
+        setNavCollapsed(true);
+        setControlsCollapsed(true);
+      } else if (window.innerWidth < 1024) {
+        setNavCollapsed(false);
+        setControlsCollapsed(true);
+      } else {
+        setNavCollapsed(false);
+        setControlsCollapsed(false);
+      }
+    };
+    checkWidth();
+    window.addEventListener("resize", checkWidth);
+    return () => window.removeEventListener("resize", checkWidth);
+  }, []);
+
+  // Load state from URL on mount - set ready AFTER parsing to prevent race condition
   useEffect(() => {
     if (!router.isReady) return;
     const search = window.location.search.slice(1);
@@ -40,6 +59,8 @@ export default function Playground() {
     } else if (router.query.component) {
       setSel(router.query.component);
     }
+    // Only set ready after URL parsing is complete
+    setReady(true);
   }, [router.isReady, router.query.component, setSel, setColor, setPlay, setFont]);
 
   // Debounced URL sync
@@ -52,8 +73,6 @@ export default function Playground() {
     }, 300);
     return () => clearTimeout(timeout);
   }, [sel, color, play, font, dark, ready]);
-
-  useEffect(() => setReady(true), []);
 
   const copyLink = useCallback(async () => {
     try {
@@ -77,45 +96,12 @@ export default function Playground() {
       </Head>
 
       <div className={`h-screen flex overflow-hidden ${dark ? "dark" : ""}`} style={styles}>
-        {/* Mobile Nav Overlay */}
-        <AnimatePresence>
-          {showNav && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setShowNav(false)}
-              className="fixed inset-0 bg-black/50 z-50 md:hidden backdrop-blur-sm"
-            >
-              <motion.div
-                initial={{ x: "-100%" }}
-                animate={{ x: 0 }}
-                exit={{ x: "-100%" }}
-                onClick={(e) => e.stopPropagation()}
-                className="absolute left-0 top-0 bottom-0 w-64 bg-[#0f172a] border-r border-slate-800"
-              >
-                <div className="absolute top-4 right-4 z-10">
-                  <button onClick={() => setShowNav(false)} className="text-slate-400">
-                    <X className="w-5 h-5" />
-                  </button>
-                </div>
-                <Nav />
-              </motion.div>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        {/* Desktop Nav */}
-        <div className="hidden md:block h-full">
-          <Nav />
-        </div>
+        {/* Left Nav - Always visible, collapsible */}
+        <Nav collapsed={navCollapsed} onToggleCollapse={() => setNavCollapsed(!navCollapsed)} />
 
         <main className="flex-1 flex flex-col h-screen bg-[#0f172a] overflow-hidden relative">
           <header className="h-14 border-b border-slate-800 bg-[#0f172a] flex items-center justify-between px-4 sm:px-6 shrink-0 z-30">
             <div className="flex items-center gap-3">
-              <button onClick={() => setShowNav(true)} className="md:hidden p-2 -ml-2 text-slate-400 hover:text-white">
-                <Menu className="w-5 h-5" />
-              </button>
               <div className="flex items-center gap-2">
                 <Layers className="w-4 h-4 text-cyan-400" />
                 <span className="font-medium text-white hidden sm:inline">Playground</span>
@@ -123,7 +109,7 @@ export default function Playground() {
               {comp && (
                 <>
                   <span className="text-slate-600 hidden sm:inline">/</span>
-                  <span className="text-slate-400 text-sm sm:text-base truncate max-w-[100px] sm:max-w-none">
+                  <span className="text-slate-400 text-sm sm:text-base truncate max-w-[120px] sm:max-w-none">
                     {comp.name}
                   </span>
                 </>
@@ -133,28 +119,21 @@ export default function Playground() {
               {/* Share Setup Button */}
               <button
                 onClick={copyLink}
-                className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-sm transition-colors hidden sm:flex"
+                className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-sm transition-colors"
                 title="Copy a link with these brand settings and component"
+                aria-label={copied ? "Link copied" : "Copy share link"}
               >
                 {copied ? (
                   <>
                     <Check className="w-4 h-4 text-green-400" />
-                    <span className="text-green-400">Copied!</span>
+                    <span className="text-green-400 hidden sm:inline">Copied!</span>
                   </>
                 ) : (
                   <>
                     <Link2 className="w-4 h-4" />
-                    <span>Share Setup</span>
+                    <span className="hidden sm:inline">Share</span>
                   </>
                 )}
-              </button>
-              <Switcher />
-              {/* Mobile Controls Toggle */}
-              <button
-                onClick={() => setShowControls(true)}
-                className="md:hidden p-2 -mr-2 text-slate-400 hover:text-white"
-              >
-                <SlidersHorizontal className="w-5 h-5" />
               </button>
             </div>
           </header>
@@ -188,44 +167,16 @@ export default function Playground() {
                 )}
               </AnimatePresence>
             </div>
-
-            {/* Desktop Controls */}
-            <div className="hidden md:flex h-full">
-              <Controls onPreview={() => setShowQR(true)} onExport={() => setShowCode(true)} />
-            </div>
           </div>
         </main>
 
-        {/* Mobile Controls Overlay */}
-        <AnimatePresence>
-          {showControls && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setShowControls(false)}
-              className="fixed inset-0 bg-black/50 z-50 md:hidden backdrop-blur-sm"
-            >
-              <motion.div
-                initial={{ x: "100%" }}
-                animate={{ x: 0 }}
-                exit={{ x: "100%" }}
-                onClick={(e) => e.stopPropagation()}
-                className="absolute right-0 top-0 bottom-0 w-72 bg-[#0f172a] border-l border-slate-800"
-              >
-                <div className="absolute top-4 right-4 z-20">
-                  <button
-                    onClick={() => setShowControls(false)}
-                    className="p-1 rounded-lg bg-slate-800 text-slate-400 hover:text-white hover:bg-slate-700 transition-colors"
-                  >
-                    <X className="w-5 h-5" />
-                  </button>
-                </div>
-                <Controls onPreview={() => setShowQR(true)} onExport={() => setShowCode(true)} />
-              </motion.div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+        {/* Right Controls - Always visible, collapsible */}
+        <Controls
+          onPreview={() => setShowQR(true)}
+          onExport={() => setShowCode(true)}
+          collapsed={controlsCollapsed}
+          onToggleCollapse={() => setControlsCollapsed(!controlsCollapsed)}
+        />
 
         <AnimatePresence>{showQR && <QRModal onClose={() => setShowQR(false)} />}</AnimatePresence>
       </div>

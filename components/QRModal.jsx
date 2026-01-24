@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { motion } from "framer-motion";
 import { QRCodeSVG } from "qrcode.react";
 import { X, Copy, Check, ExternalLink, Smartphone } from "lucide-react";
@@ -12,6 +12,13 @@ export default function QRModal({ onClose }) {
   const [url, setUrl] = useState("");
 
   const { sel, color, play, font, dark } = useBrand();
+
+  // Close on Escape key
+  useEffect(() => {
+    const handleEscape = (e) => e.key === "Escape" && onClose();
+    document.addEventListener("keydown", handleEscape);
+    return () => document.removeEventListener("keydown", handleEscape);
+  }, [onClose]);
 
   useEffect(() => {
     const base = typeof window !== "undefined" ? window.location.origin : "";
@@ -59,7 +66,11 @@ export default function QRModal({ onClose }) {
             <h2 className="text-xl font-bold text-white">Preview on Device</h2>
             <p className="text-sm text-neutral-500 mt-1">Scan to view on your phone</p>
           </div>
-          <button onClick={onClose} className="p-2 rounded-xl hover:bg-white/5 text-neutral-500 transition-colors">
+          <button
+            onClick={onClose}
+            className="p-2 rounded-xl hover:bg-white/5 text-neutral-500 transition-colors"
+            aria-label="Close modal"
+          >
             <X className="w-5 h-5" />
           </button>
         </div>
