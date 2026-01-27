@@ -4,11 +4,12 @@ import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import { AnimatePresence, motion } from "framer-motion";
-import { Layers, Check, Link2 } from "lucide-react";
+import { Layers, Check, Link2, FileCode } from "lucide-react";
 import Nav from "@/components/Nav";
 import Stage from "@/components/Stage";
 import Controls from "@/components/Controls";
 import QRModal from "@/components/QRModal";
+import PropsTable from "@/components/PropsTable";
 import { useBrand, getStyles } from "@/hooks/useBrand";
 import { getById } from "@/lib/items";
 import { encode, decode } from "@/lib/link";
@@ -17,6 +18,7 @@ export default function Playground() {
   const router = useRouter();
   const [showQR, setShowQR] = useState(false);
   const [showCode, setShowCode] = useState(false);
+  const [showProps, setShowProps] = useState(false);
   const [ready, setReady] = useState(false);
   const [copied, setCopied] = useState(false);
   // Responsive collapse state - start collapsed on smaller screens
@@ -116,6 +118,21 @@ export default function Playground() {
               )}
             </div>
             <div className="flex items-center gap-2 sm:gap-3">
+              {/* Props Documentation Toggle */}
+              {comp?.props && comp.props.length > 0 && (
+                <button
+                  onClick={() => setShowProps(!showProps)}
+                  className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm transition-colors ${
+                    showProps ? "bg-cyan-500/20 text-cyan-400" : "bg-slate-800 hover:bg-slate-700 text-slate-300"
+                  }`}
+                  title="View component props documentation"
+                  aria-label={showProps ? "Hide props" : "Show props"}
+                  aria-pressed={showProps}
+                >
+                  <FileCode className="w-4 h-4" />
+                  <span className="hidden sm:inline">Props</span>
+                </button>
+              )}
               {/* Share Setup Button */}
               <button
                 onClick={copyLink}
@@ -138,7 +155,25 @@ export default function Playground() {
             </div>
           </header>
 
-          <div className="flex-1 flex overflow-hidden">
+          <div className="flex-1 flex flex-col overflow-hidden">
+            {/* Props Table (collapsible) */}
+            <AnimatePresence>
+              {showProps && comp?.props && (
+                <motion.div
+                  initial={{ height: 0, opacity: 0 }}
+                  animate={{ height: "auto", opacity: 1 }}
+                  exit={{ height: 0, opacity: 0 }}
+                  transition={{ duration: 0.2 }}
+                  className="shrink-0 border-b border-slate-800 overflow-hidden"
+                >
+                  <div className="p-4 max-h-64 overflow-auto">
+                    <PropsTable props={comp.props} componentName={comp.name} />
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            {/* Stage Area */}
             <div className="flex-1 overflow-auto bg-slate-900/30">
               <AnimatePresence mode="wait">
                 {comp ? (

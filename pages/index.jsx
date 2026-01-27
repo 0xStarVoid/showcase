@@ -34,18 +34,18 @@ export default function Home() {
           <div className="max-w-4xl mx-auto text-center">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-semibold mb-8">
               <Zap className="w-3.5 h-3.5" />
-              <span>Live Component Customization</span>
+              <span>Component System</span>
             </div>
 
             <h1 className="text-5xl md:text-7xl font-bold text-white mb-8 tracking-tight leading-tight">
-              Your Design System,
+              Production-Ready
               <br />
-              <span className="text-cyan-400">Alive & Interactive</span>
+              <span className="text-cyan-400">UI Components</span>
             </h1>
 
             <p className="text-xl text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed">
-              A modular UI library where every component adapts to your brand. Adjust colors, radius, and typography in
-              real-time.
+              Themeable component library with live customization. Adjust brand colors, typography, and spacing in real
+              time. Built for teams that need consistency at scale.
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -53,13 +53,13 @@ export default function Home() {
                 href="/playground"
                 className="w-full sm:w-auto px-6 py-3 md:px-8 md:py-4 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-white font-bold text-lg transition-all shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/40 transform hover:-translate-y-0.5"
               >
-                Start Building
+                Open Playground
               </Link>
               <Link
-                href="/playground?component=pricing-card"
+                href="/components"
                 className="w-full sm:w-auto px-6 py-3 md:px-8 md:py-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold text-lg border border-slate-700 hover:border-slate-600 transition-all"
               >
-                View Components
+                Browse Components
               </Link>
             </div>
           </div>
@@ -70,10 +70,10 @@ export default function Home() {
           <div className="max-w-7xl mx-auto">
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {[
-                { icon: Layers, title: "21+ Components", desc: "Production-ready UI elements" },
-                { icon: Palette, title: "Themeable", desc: "Global style & branding controls" },
-                { icon: Smartphone, title: "Responsive", desc: "Optimized for all viewports" },
-                { icon: Sparkles, title: "Modern Stack", desc: "React, Tailwind, Framer Motion" },
+                { icon: Layers, title: "Production-ready components", desc: "Production-ready UI elements" },
+                { icon: Palette, title: "Global theming and shared tokens", desc: "Global style & branding controls" },
+                { icon: Smartphone, title: "Fully responsive layouts", desc: "Optimized for all viewports" },
+                { icon: Sparkles, title: "Built with React and modern CSS", desc: "React, Tailwind, Framer Motion" },
               ].map((f) => (
                 <div
                   key={f.title}
@@ -106,9 +106,9 @@ export default function Home() {
 
             <div className="grid md:grid-cols-3 gap-6">
               {[
-                { name: "Marketing", count: 7, color: "bg-orange-500", desc: "Hero sections, features, CTAs" },
-                { name: "Commerce", count: 6, color: "bg-cyan-500", desc: "Products, carts, pricing tables" },
-                { name: "App UI", count: 8, color: "bg-violet-500", desc: "Forms, auth, dashboards" },
+                { name: "Marketing UI", count: 7, color: "bg-orange-500", desc: "Hero sections, features, CTAs" },
+                { name: "Commerce UI", count: 6, color: "bg-cyan-500", desc: "Products, carts, pricing tables" },
+                { name: "Application UI", count: 8, color: "bg-violet-500", desc: "Forms, auth, dashboards" },
               ].map((cat) => (
                 <Link
                   key={cat.name}
@@ -136,15 +136,15 @@ export default function Home() {
           <div className="max-w-5xl mx-auto rounded-3xl bg-gradient-to-br from-cyan-900/20 to-slate-900 border border-cyan-500/20 p-12 text-center relative overflow-hidden">
             <div className="absolute inset-0 bg-cyan-500/5" />
             <div className="relative z-10">
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Ready to start building?</h2>
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Try the Playground</h2>
               <p className="text-slate-400 max-w-lg mx-auto mb-10 text-lg">
-                Access the full library and start customizing components for your next project.
+                Preview all components and test theme changes in real time.
               </p>
               <Link
                 href="/playground"
                 className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-white font-bold transition-all shadow-lg shadow-cyan-500/20"
               >
-                Launch Playground
+                Open Playground
               </Link>
             </div>
           </div>
@@ -158,7 +158,7 @@ export default function Home() {
               <span className="font-semibold text-white">Component Showcase</span>
             </div>
             <p className="text-slate-500 text-sm">
-              © {new Date().getFullYear()} Component Showcase. Built with Next.js & Tailwind.
+              © 2026 Vantive.
             </p>
           </div>
         </footer>

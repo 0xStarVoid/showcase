@@ -8,11 +8,10 @@
    DIAMOND STANDARD COLOR SYSTEM
    Adopted from Portfolio (Gold Standard)
    Accent: Purple (#818cf8)
-   Theme: Dark Only
    =========================================== */
 
 :root {
-  color-scheme: dark;
+  color-scheme: light dark;
 
   /* Absolute Bases */
   --black: #020617;
@@ -23,33 +22,53 @@
   --fontSerif: "Playfair Display", Georgia, serif;
   --fontEditorial: "Source Serif 4", Georgia, serif;
 
-  /* Theme Bases (Dark Only) */
+  /* Theme Bases */
+  --bg-light: #ffffff;
   --bg-dark: #0b1120;
+
+  --surface-light: rgba(255, 255, 255, 0.85);
   --surface-dark: rgba(12, 20, 35, 0.85);
+
+  --text-light: #0f172a;
   --text-dark: #f9fbff;
+
+  --text-muted-light: #64748b;
   --text-muted-dark: #94a3b8;
 
-  /* Theme Variables */
-  --bg: var(--bg-dark);
-  --text: var(--text-dark);
-  --textMuted: var(--text-muted-dark);
-  --surface: var(--surface-dark);
+  /* Theme-Aware Variables (The "Magic") */
+  --bg: light-dark(var(--bg-light), var(--bg-dark));
+  --text: light-dark(var(--text-light), var(--text-dark));
+  --textMuted: light-dark(var(--text-muted-light), var(--text-muted-dark));
+  --surface: light-dark(var(--surface-light), var(--surface-dark));
 
   /* Accent: Purple */
   --accent: #818cf8;
 
-  /* Dynamic Accent Variants (using color-mix) */
+  /* Dynamic Accent System */
+  /* --accent is set via data-accent="..." */
   --accentStrong: color-mix(in srgb, var(--accent) 74%, var(--black));
-  --accentLight: color-mix(in srgb, var(--accent) 55%, var(--white));
-  --accentDark: color-mix(in srgb, var(--accent) 78%, var(--black));
+  --accentLight: light-dark(
+    color-mix(in srgb, var(--accent) 70%, var(--black)),
+    color-mix(in srgb, var(--accent) 55%, var(--white)) /* Brighter in dark mode */
+  );
+  --accentDark: light-dark(
+    color-mix(in srgb, var(--accent) 50%, var(--black)),
+    color-mix(in srgb, var(--accent) 78%, var(--black))
+  );
 
-  /* Surface Variants */
+  /* Surface Transparency (No Opacity!) */
   --surface-bg: color-mix(in srgb, var(--surface) 96%, transparent);
   --surfaceDim: color-mix(in srgb, var(--surface) 88%, transparent);
 
   /* Borders */
-  --borderMain: color-mix(in srgb, var(--white) 28%, transparent);
-  --borderDim: color-mix(in srgb, var(--white) 18%, transparent);
+  --borderMain: light-dark(
+    color-mix(in srgb, var(--black) 10%, transparent),
+    color-mix(in srgb, var(--white) 28%, transparent)
+  );
+  --borderDim: light-dark(
+    color-mix(in srgb, var(--black) 5%, transparent),
+    color-mix(in srgb, var(--white) 18%, transparent)
+  );
 
   /* Gradients */
   --btnGradient: linear-gradient(135deg, var(--accentLight), var(--accentDark));

@@ -18,33 +18,32 @@ import {
 } from "lucide-react";
 
 /**
- * Theme utility - consistent dark mode colors across all components
- * Use this instead of mixing dark: Tailwind variants with darkMode prop
+ * Theme utility - CSS variable-based theming
+ * Uses light-dark() for automatic theme switching
+ * No darkMode param needed - respects colorScheme from Stage
  */
-const useTheme = (darkMode) => ({
-  // Backgrounds
-  bg: darkMode ? "bg-slate-900" : "bg-white",
-  bgAlt: darkMode ? "bg-slate-800" : "bg-slate-50",
-  bgInput: darkMode ? "bg-slate-800" : "bg-neutral-100",
-  bgCard: darkMode ? "bg-slate-800" : "bg-white",
-  // Text
-  text: darkMode ? "text-white" : "text-slate-900",
-  textMuted: darkMode ? "text-slate-400" : "text-slate-600",
-  textDim: darkMode ? "text-slate-500" : "text-slate-400",
-  // Borders
-  border: darkMode ? "border-slate-700" : "border-slate-200",
-  borderDim: darkMode ? "border-slate-800" : "border-slate-100",
+const themeStyles = {
+  // Background styles (use as style prop)
+  bg: { backgroundColor: "var(--bg)" },
+  bgAlt: { backgroundColor: "var(--surface)" },
+  bgInput: { backgroundColor: "light-dark(#f5f5f5, #1e293b)" },
+  bgCard: { backgroundColor: "var(--surface)" },
+  // Text styles
+  text: { color: "var(--text)" },
+  textMuted: { color: "var(--textMuted)" },
+  textDim: { color: "light-dark(#94a3b8, #64748b)" },
+  // Border styles
+  border: { borderColor: "var(--borderMain)" },
+  borderDim: { borderColor: "var(--borderDim)" },
   // Dividers
-  divider: darkMode ? "bg-slate-800" : "bg-slate-100",
-  // Interactive
-  hoverBg: darkMode ? "hover:bg-slate-700" : "hover:bg-slate-50",
+  divider: { backgroundColor: "light-dark(#f1f5f9, #1e293b)" },
   // Raw values for inline styles
   raw: {
-    bg: darkMode ? "#0f172a" : "#ffffff",
-    text: darkMode ? "#ffffff" : "#0f172a",
-    muted: darkMode ? "#94a3b8" : "#64748b",
+    bg: "var(--bg)",
+    text: "var(--text)",
+    muted: "var(--textMuted)",
   },
-});
+};
 
 export default function Render({ id, styles: s }) {
   const { color, play, font, dark } = s;
@@ -62,242 +61,57 @@ export default function Render({ id, styles: s }) {
     [color, r, ff],
   );
 
-  // Create theme object for consistent styling
-  const theme = useTheme(dark);
+  // Theme styles object for consistent styling (no darkMode needed)
+  const theme = themeStyles;
 
   const renderComponent = () => {
     switch (id) {
       case "pricing-card":
-        return (
-          <PricingCard
-            styles={css}
-            primaryColor={color}
-            cornerRadius={r}
-            playfulness={play}
-            darkMode={dark}
-            theme={theme}
-          />
-        );
+        return <PricingCard styles={css} primaryColor={color} cornerRadius={r} playfulness={play} theme={theme} />;
       case "hero-centered":
-        return (
-          <HeroCentered
-            styles={css}
-            primaryColor={color}
-            cornerRadius={r}
-            playfulness={play}
-            darkMode={dark}
-            theme={theme}
-          />
-        );
+        return <HeroCentered styles={css} primaryColor={color} cornerRadius={r} playfulness={play} theme={theme} />;
       case "hero-split":
-        return (
-          <HeroSplit
-            styles={css}
-            primaryColor={color}
-            cornerRadius={r}
-            playfulness={play}
-            darkMode={dark}
-            theme={theme}
-          />
-        );
+        return <HeroSplit styles={css} primaryColor={color} cornerRadius={r} playfulness={play} theme={theme} />;
       case "hero-gradient":
-        return (
-          <HeroGradient
-            styles={css}
-            primaryColor={color}
-            cornerRadius={r}
-            playfulness={play}
-            darkMode={dark}
-            theme={theme}
-          />
-        );
+        return <HeroGradient styles={css} primaryColor={color} cornerRadius={r} playfulness={play} theme={theme} />;
       case "testimonial-card":
-        return (
-          <TestimonialCard
-            styles={css}
-            primaryColor={color}
-            cornerRadius={r}
-            playfulness={play}
-            darkMode={dark}
-            theme={theme}
-          />
-        );
+        return <TestimonialCard styles={css} primaryColor={color} cornerRadius={r} playfulness={play} theme={theme} />;
       case "testimonial-carousel":
         return (
-          <TestimonialCarousel
-            styles={css}
-            primaryColor={color}
-            cornerRadius={r}
-            playfulness={play}
-            darkMode={dark}
-            theme={theme}
-          />
+          <TestimonialCarousel styles={css} primaryColor={color} cornerRadius={r} playfulness={play} theme={theme} />
         );
       case "product-card-minimal":
-        return (
-          <ProductCard
-            styles={css}
-            primaryColor={color}
-            cornerRadius={r}
-            playfulness={play}
-            darkMode={dark}
-            theme={theme}
-          />
-        );
+        return <ProductCard styles={css} primaryColor={color} cornerRadius={r} playfulness={play} theme={theme} />;
       case "product-card-detailed":
         return (
-          <ProductCardDetailed
-            styles={css}
-            primaryColor={color}
-            cornerRadius={r}
-            playfulness={play}
-            darkMode={dark}
-            theme={theme}
-          />
+          <ProductCardDetailed styles={css} primaryColor={color} cornerRadius={r} playfulness={play} theme={theme} />
         );
       case "input-text":
-        return (
-          <TextInput
-            styles={css}
-            primaryColor={color}
-            cornerRadius={r}
-            playfulness={play}
-            darkMode={dark}
-            theme={theme}
-          />
-        );
+        return <TextInput styles={css} primaryColor={color} cornerRadius={r} playfulness={play} theme={theme} />;
       case "input-email":
-        return (
-          <NewsletterSignup
-            styles={css}
-            primaryColor={color}
-            cornerRadius={r}
-            playfulness={play}
-            darkMode={dark}
-            theme={theme}
-          />
-        );
+        return <NewsletterSignup styles={css} primaryColor={color} cornerRadius={r} playfulness={play} theme={theme} />;
       case "toggle-switch":
-        return (
-          <ToggleSwitch
-            styles={css}
-            primaryColor={color}
-            cornerRadius={r}
-            playfulness={play}
-            darkMode={dark}
-            theme={theme}
-          />
-        );
+        return <ToggleSwitch styles={css} primaryColor={color} cornerRadius={r} playfulness={play} theme={theme} />;
       case "feature-grid-icons":
-        return (
-          <FeatureGrid
-            styles={css}
-            primaryColor={color}
-            cornerRadius={r}
-            playfulness={play}
-            darkMode={dark}
-            theme={theme}
-          />
-        );
+        return <FeatureGrid styles={css} primaryColor={color} cornerRadius={r} playfulness={play} theme={theme} />;
       case "feature-bento":
-        return (
-          <BentoGrid
-            styles={css}
-            primaryColor={color}
-            cornerRadius={r}
-            playfulness={play}
-            darkMode={dark}
-            theme={theme}
-          />
-        );
+        return <BentoGrid styles={css} primaryColor={color} cornerRadius={r} playfulness={play} theme={theme} />;
       case "cart-item":
-        return (
-          <CartItem
-            styles={css}
-            primaryColor={color}
-            cornerRadius={r}
-            playfulness={play}
-            darkMode={dark}
-            theme={theme}
-          />
-        );
+        return <CartItem styles={css} primaryColor={color} cornerRadius={r} playfulness={play} theme={theme} />;
       case "cart-drawer":
-        return (
-          <CartDrawer
-            styles={css}
-            primaryColor={color}
-            cornerRadius={r}
-            playfulness={play}
-            darkMode={dark}
-            theme={theme}
-          />
-        );
+        return <CartDrawer styles={css} primaryColor={color} cornerRadius={r} playfulness={play} theme={theme} />;
       case "pricing-table":
-        return (
-          <PricingTable
-            styles={css}
-            primaryColor={color}
-            cornerRadius={r}
-            playfulness={play}
-            darkMode={dark}
-            theme={theme}
-          />
-        );
+        return <PricingTable styles={css} primaryColor={color} cornerRadius={r} playfulness={play} theme={theme} />;
       case "input-search":
-        return (
-          <SearchInput
-            styles={css}
-            primaryColor={color}
-            cornerRadius={r}
-            playfulness={play}
-            darkMode={dark}
-            theme={theme}
-          />
-        );
+        return <SearchInput styles={css} primaryColor={color} cornerRadius={r} playfulness={play} theme={theme} />;
       case "checkbox-group":
-        return (
-          <CheckboxGroup
-            styles={css}
-            primaryColor={color}
-            cornerRadius={r}
-            playfulness={play}
-            darkMode={dark}
-            theme={theme}
-          />
-        );
+        return <CheckboxGroup styles={css} primaryColor={color} cornerRadius={r} playfulness={play} theme={theme} />;
       case "radio-group":
-        return (
-          <RadioGroup
-            styles={css}
-            primaryColor={color}
-            cornerRadius={r}
-            playfulness={play}
-            darkMode={dark}
-            theme={theme}
-          />
-        );
+        return <RadioGroup styles={css} primaryColor={color} cornerRadius={r} playfulness={play} theme={theme} />;
       case "wizard-steps":
-        return (
-          <StepIndicator
-            styles={css}
-            primaryColor={color}
-            cornerRadius={r}
-            playfulness={play}
-            darkMode={dark}
-            theme={theme}
-          />
-        );
+        return <StepIndicator styles={css} primaryColor={color} cornerRadius={r} playfulness={play} theme={theme} />;
       case "wizard-form":
-        return (
-          <MultiStepForm
-            styles={css}
-            primaryColor={color}
-            cornerRadius={r}
-            playfulness={play}
-            darkMode={dark}
-            theme={theme}
-          />
-        );
+        return <MultiStepForm styles={css} primaryColor={color} cornerRadius={r} playfulness={play} theme={theme} />;
       default:
         return (
           <div className={`text-center p-8 rounded-lg ${theme.bgAlt} ${theme.textMuted}`}>
@@ -311,7 +125,7 @@ export default function Render({ id, styles: s }) {
 }
 
 // Component: Pricing Card
-function PricingCard({ styles, primaryColor, cornerRadius, playfulness, darkMode }) {
+function PricingCard({ styles, primaryColor, cornerRadius, playfulness }) {
   const features = [
     "Unlimited projects",
     "Advanced analytics",
@@ -330,12 +144,12 @@ function PricingCard({ styles, primaryColor, cornerRadius, playfulness, darkMode
       style={styles}
     >
       <div
-        className={`relative overflow-hidden p-8 ${
-          darkMode ? "bg-slate-900 border-slate-700" : "bg-white border-slate-200"
-        } border shadow-xl`}
+        className="relative overflow-hidden p-8 border shadow-xl transition-colors"
         style={{
           borderRadius: `${cornerRadius}px`,
           boxShadow: isPlayful ? `0 20px 40px -10px ${primaryColor}20` : `0 4px 6px -1px rgba(0,0,0,0.1)`,
+          backgroundColor: "var(--surface)",
+          borderColor: "var(--borderMain)",
         }}
       >
         {/* Decorative background for playful mode */}
@@ -348,10 +162,11 @@ function PricingCard({ styles, primaryColor, cornerRadius, playfulness, darkMode
 
         {/* Badge */}
         <div
-          className="inline-flex items-center px-3 py-1 text-xs font-bold tracking-wide text-white mb-6 uppercase"
+          className="inline-flex items-center px-3 py-1 text-xs font-bold tracking-wide mb-6 uppercase"
           style={{
             backgroundColor: primaryColor,
             borderRadius: `${cornerRadius / (isPlayful ? 1 : 2)}px`,
+            color: "light-dark(#0f172a, #ffffff)",
           }}
         >
           Most Popular
@@ -360,26 +175,30 @@ function PricingCard({ styles, primaryColor, cornerRadius, playfulness, darkMode
         {/* Plan Name */}
         <div className="flex justify-between items-start mb-2">
           <h3
-            className={`text-2xl ${darkMode ? "text-white" : "text-slate-900"}`}
-            style={{ fontWeight: isPlayful ? 800 : 600 }}
+            className="text-2xl transition-colors"
+            style={{ fontWeight: isPlayful ? 800 : 600, color: "var(--text)" }}
           >
             Professional
           </h3>
           {isPlayful && <Star className="w-6 h-6 text-yellow-400 fill-yellow-400 animate-pulse" />}
         </div>
 
-        <p className={`text-sm mb-6 ${darkMode ? "text-slate-400" : "text-slate-500"}`}>
+        <p className="text-sm mb-6 transition-colors" style={{ color: "var(--textMuted)" }}>
           Perfect for growing teams and startups.
         </p>
 
         {/* Price */}
         <div className="flex items-baseline gap-1 mb-8">
-          <span className={`text-5xl font-bold ${darkMode ? "text-white" : "text-slate-900"}`}>$49</span>
-          <span className={darkMode ? "text-slate-500" : "text-slate-400"}>/month</span>
+          <span className="text-5xl font-bold transition-colors" style={{ color: "var(--text)" }}>
+            $49
+          </span>
+          <span className="transition-colors" style={{ color: "var(--textMuted)" }}>
+            /month
+          </span>
         </div>
 
         {/* Divider */}
-        <div className={`h-px w-full mb-8 ${darkMode ? "bg-slate-800" : "bg-slate-100"}`} />
+        <div className="h-px w-full mb-8" style={{ backgroundColor: "var(--borderDim)" }} />
 
         {/* Features */}
         <ul className="space-y-4 mb-8">
@@ -389,7 +208,8 @@ function PricingCard({ styles, primaryColor, cornerRadius, playfulness, darkMode
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: index * 0.1 }}
-              className={`flex items-center gap-3 ${darkMode ? "text-slate-300" : "text-slate-600"}`}
+              className="flex items-center gap-3 transition-colors"
+              style={{ color: "var(--textMuted)" }}
             >
               <div
                 className="w-5 h-5 flex items-center justify-center text-white shrink-0"
@@ -409,10 +229,11 @@ function PricingCard({ styles, primaryColor, cornerRadius, playfulness, darkMode
         <motion.button
           whileHover={{ scale: isPlayful ? 1.03 : 1.01 }}
           whileTap={{ scale: 0.98 }}
-          className="w-full py-4 text-white font-bold transition-all relative overflow-hidden group"
+          className="w-full py-4 font-bold transition-all relative overflow-hidden group"
           style={{
             backgroundColor: primaryColor,
             borderRadius: `${cornerRadius}px`,
+            color: "light-dark(#0f172a, #ffffff)",
           }}
         >
           <span className="relative z-10 flex items-center justify-center gap-2">
@@ -424,7 +245,7 @@ function PricingCard({ styles, primaryColor, cornerRadius, playfulness, darkMode
           )}
         </motion.button>
 
-        <p className={`text-center text-xs mt-4 ${darkMode ? "text-slate-500" : "text-slate-400"}`}>
+        <p className="text-center text-xs mt-4 transition-colors" style={{ color: "var(--textMuted)" }}>
           14-day free trial • No credit card required
         </p>
       </div>
@@ -433,15 +254,19 @@ function PricingCard({ styles, primaryColor, cornerRadius, playfulness, darkMode
 }
 
 // Component: Hero Centered
-function HeroCentered({ styles, primaryColor, cornerRadius, playfulness, darkMode }) {
+function HeroCentered({ styles, primaryColor, cornerRadius, playfulness }) {
   const isPlayful = playfulness > 0.5;
 
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className={`text-center px-8 py-16 relative overflow-visible ${darkMode ? "text-white" : "text-slate-900"}`}
-      style={styles}
+      className="text-center px-8 py-16 relative overflow-visible"
+      style={{
+        ...styles,
+        backgroundColor: "var(--bg)",
+        color: "var(--text)",
+      }}
     >
       {/* Background Glows */}
       {isPlayful && (
@@ -474,9 +299,7 @@ function HeroCentered({ styles, primaryColor, cornerRadius, playfulness, darkMod
         transition={{ delay: 0.1 }}
         className="text-5xl md:text-7xl font-bold mb-6 leading-tight tracking-tight text-transparent bg-clip-text"
         style={{
-          backgroundImage: darkMode
-            ? `linear-gradient(to bottom, white 40%, ${primaryColor} 150%)`
-            : `linear-gradient(to bottom, #0f172a 40%, ${primaryColor} 150%)`,
+          backgroundImage: `linear-gradient(to bottom, light-dark(#0f172a, white) 40%, ${primaryColor} 150%)`,
         }}
       >
         Build beautiful products
@@ -488,7 +311,8 @@ function HeroCentered({ styles, primaryColor, cornerRadius, playfulness, darkMod
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
-        className={`text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed ${darkMode ? "text-slate-400" : "text-slate-600"}`}
+        className="text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed"
+        style={{ color: "var(--textMuted)" }}
       >
         The modern toolkit for creating stunning user interfaces. Ship products that users love with our comprehensive
         design system.
@@ -503,11 +327,12 @@ function HeroCentered({ styles, primaryColor, cornerRadius, playfulness, darkMod
         <motion.button
           whileHover={{ scale: isPlayful ? 1.05 : 1.02 }}
           whileTap={{ scale: 0.98 }}
-          className="px-8 py-4 text-white font-bold inline-flex items-center justify-center gap-2 shadow-lg hover:shadow-xl transition-all"
+          className="px-8 py-4 font-bold inline-flex items-center justify-center gap-2 shadow-lg hover:shadow-xl transition-all"
           style={{
             backgroundColor: primaryColor,
             borderRadius: `${cornerRadius}px`,
             boxShadow: `0 10px 25px -5px ${primaryColor}40`,
+            color: "light-dark(#0f172a, #ffffff)",
           }}
         >
           Start Building
@@ -517,9 +342,10 @@ function HeroCentered({ styles, primaryColor, cornerRadius, playfulness, darkMod
         <motion.button
           whileHover={{ scale: isPlayful ? 1.05 : 1.02 }}
           whileTap={{ scale: 0.98 }}
-          className={`px-8 py-4 font-semibold border transition-colors ${darkMode ? "text-white hover:bg-white/5" : "text-slate-900 hover:bg-slate-50"}`}
+          className="px-8 py-4 font-semibold border transition-colors hover:bg-[var(--surface-bg)]"
           style={{
-            borderColor: darkMode ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.1)",
+            borderColor: "var(--borderMain)",
+            color: "var(--text)",
             borderRadius: `${cornerRadius}px`,
           }}
         >
@@ -531,13 +357,17 @@ function HeroCentered({ styles, primaryColor, cornerRadius, playfulness, darkMod
 }
 
 // Component: Hero Split
-function HeroSplit({ styles, primaryColor, cornerRadius, playfulness, darkMode }) {
+function HeroSplit({ styles, primaryColor, cornerRadius, playfulness }) {
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       className="grid md:grid-cols-2 gap-12 items-center px-8 py-12"
-      style={styles}
+      style={{
+        ...styles,
+        backgroundColor: "var(--bg)",
+        color: "var(--text)",
+      }}
     >
       <div>
         <motion.span
@@ -557,7 +387,7 @@ function HeroSplit({ styles, primaryColor, cornerRadius, playfulness, darkMode }
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.1 }}
-          className={`text-3xl md:text-4xl font-bold mb-4 leading-tight ${darkMode ? "text-white" : "text-slate-900"}`}
+          className="text-3xl md:text-4xl font-bold mb-4 leading-tight"
         >
           Transform your workflow with AI
         </motion.h1>
@@ -566,7 +396,8 @@ function HeroSplit({ styles, primaryColor, cornerRadius, playfulness, darkMode }
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.2 }}
-          className={`mb-6 ${darkMode ? "text-slate-400" : "text-slate-600"}`}
+          className="mb-6"
+          style={{ color: "var(--textMuted)" }}
         >
           Automate repetitive tasks and focus on what matters. Our intelligent platform learns your patterns.
         </motion.p>
@@ -576,10 +407,11 @@ function HeroSplit({ styles, primaryColor, cornerRadius, playfulness, darkMode }
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.3 }}
           whileHover={{ scale: playfulness > 0.5 ? 1.05 : 1.02 }}
-          className="px-6 py-3 text-white font-semibold inline-flex items-center gap-2"
+          className="px-6 py-3 font-semibold inline-flex items-center gap-2"
           style={{
             backgroundColor: primaryColor,
             borderRadius: `${cornerRadius}px`,
+            color: "light-dark(#0f172a, #ffffff)",
           }}
         >
           Try it Free
@@ -608,10 +440,10 @@ function HeroSplit({ styles, primaryColor, cornerRadius, playfulness, darkMode }
           </defs>
 
           {/* Background */}
-          <rect width="400" height="400" fill={darkMode ? "#1e293b" : "#f1f5f9"} rx={cornerRadius * 1.5} />
+          <rect width="400" height="400" style={{ fill: "light-dark(#f1f5f9, #1e293b)" }} rx={cornerRadius * 1.5} />
 
           {/* Decorative grid */}
-          <g stroke={darkMode ? "#334155" : "#e2e8f0"} strokeWidth="1" opacity="0.5">
+          <g style={{ stroke: "light-dark(#e2e8f0, #334155)" }} strokeWidth="1" opacity="0.5">
             {[80, 160, 240, 320].map((x) => (
               <line key={`v${x}`} x1={x} y1="0" x2={x} y2="400" />
             ))}
@@ -668,7 +500,7 @@ function HeroSplit({ styles, primaryColor, cornerRadius, playfulness, darkMode }
 }
 
 // Component: Testimonial Card
-function TestimonialCard({ styles, primaryColor, cornerRadius, playfulness, darkMode }) {
+function TestimonialCard({ styles, primaryColor, cornerRadius, playfulness }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -677,8 +509,12 @@ function TestimonialCard({ styles, primaryColor, cornerRadius, playfulness, dark
       style={styles}
     >
       <div
-        className={`p-8 border ${darkMode ? "bg-slate-800 border-slate-700" : "bg-white border-slate-200"}`}
-        style={{ borderRadius: `${cornerRadius}px` }}
+        className="p-8 border transition-colors"
+        style={{
+          borderRadius: `${cornerRadius}px`,
+          backgroundColor: "var(--surface)",
+          borderColor: "var(--borderMain)",
+        }}
       >
         {/* Stars */}
         <div className="flex gap-1 mb-4">
@@ -688,7 +524,7 @@ function TestimonialCard({ styles, primaryColor, cornerRadius, playfulness, dark
         </div>
 
         {/* Quote */}
-        <blockquote className={`text-lg mb-6 leading-relaxed ${darkMode ? "text-slate-300" : "text-slate-700"}`}>
+        <blockquote className="text-lg mb-6 leading-relaxed transition-colors" style={{ color: "var(--text)" }}>
           "This product has completely transformed how our team works. The attention to detail is remarkable, and the
           support is world-class."
         </blockquote>
@@ -703,8 +539,12 @@ function TestimonialCard({ styles, primaryColor, cornerRadius, playfulness, dark
             style={{ borderRadius: `${cornerRadius / 2}px` }}
           />
           <div>
-            <div className={`font-semibold ${darkMode ? "text-white" : "text-slate-900"}`}>Sarah Johnson</div>
-            <div className="text-sm text-slate-500">CEO, TechStart Inc.</div>
+            <div className="font-semibold transition-colors" style={{ color: "var(--text)" }}>
+              Sarah Johnson
+            </div>
+            <div className="text-sm" style={{ color: "var(--textMuted)" }}>
+              CEO, TechStart Inc.
+            </div>
           </div>
         </div>
       </div>
@@ -713,7 +553,7 @@ function TestimonialCard({ styles, primaryColor, cornerRadius, playfulness, dark
 }
 
 // Component: Product Card
-function ProductCard({ styles, primaryColor, cornerRadius, playfulness, darkMode }) {
+function ProductCard({ styles, primaryColor, cornerRadius, playfulness }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -722,8 +562,12 @@ function ProductCard({ styles, primaryColor, cornerRadius, playfulness, darkMode
       style={styles}
     >
       <div
-        className={`overflow-hidden border ${darkMode ? "bg-slate-800 border-slate-700" : "bg-white border-slate-200"}`}
-        style={{ borderRadius: `${cornerRadius}px` }}
+        className="overflow-hidden border transition-colors"
+        style={{
+          borderRadius: `${cornerRadius}px`,
+          backgroundColor: "var(--surface)",
+          borderColor: "var(--borderMain)",
+        }}
       >
         {/* Image */}
         <div className="aspect-square relative overflow-hidden">
@@ -735,18 +579,25 @@ function ProductCard({ styles, primaryColor, cornerRadius, playfulness, darkMode
           />
           <motion.button
             whileHover={{ scale: 1.1 }}
-            className={`absolute top-4 right-4 w-10 h-10 flex items-center justify-center shadow-lg ${darkMode ? "bg-slate-800" : "bg-white"}`}
-            style={{ borderRadius: `${cornerRadius / 2}px` }}
+            className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center shadow-lg transition-colors"
+            style={{
+              borderRadius: `${cornerRadius / 2}px`,
+              backgroundColor: "var(--surface)",
+            }}
             aria-label="Add to favorites"
           >
-            <Heart className="w-5 h-5 text-slate-400" />
+            <Heart className="w-5 h-5" style={{ color: "var(--textMuted)" }} />
           </motion.button>
         </div>
 
         {/* Content */}
         <div className="p-5">
-          <div className="text-xs text-slate-500 mb-1">MINIMALIST DESIGN</div>
-          <h3 className={`font-semibold mb-2 ${darkMode ? "text-white" : "text-slate-900"}`}>Premium Desk Lamp</h3>
+          <div className="text-xs mb-1" style={{ color: "var(--textMuted)" }}>
+            MINIMALIST DESIGN
+          </div>
+          <h3 className="font-semibold mb-2 transition-colors" style={{ color: "var(--text)" }}>
+            Premium Desk Lamp
+          </h3>
           <div className="flex items-center justify-between">
             <span className="text-lg font-bold" style={{ color: primaryColor }}>
               $129.00
@@ -770,7 +621,7 @@ function ProductCard({ styles, primaryColor, cornerRadius, playfulness, darkMode
 }
 
 // Component: Text Input
-function TextInput({ styles, primaryColor, cornerRadius, playfulness, darkMode }) {
+function TextInput({ styles, primaryColor, cornerRadius, playfulness }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -779,7 +630,7 @@ function TextInput({ styles, primaryColor, cornerRadius, playfulness, darkMode }
       style={styles}
     >
       <div>
-        <label className={`block text-sm font-medium mb-2 ${darkMode ? "text-slate-300" : "text-slate-700"}`}>
+        <label className="block text-sm font-medium mb-2" style={{ color: "var(--text)" }}>
           Full Name
         </label>
         <div className="relative">
@@ -787,18 +638,21 @@ function TextInput({ styles, primaryColor, cornerRadius, playfulness, darkMode }
           <input
             type="text"
             placeholder="Enter your name"
-            className={`w-full pl-12 pr-4 py-3 placeholder:text-slate-500 focus:outline-none transition-all border-2 border-transparent ${darkMode ? "bg-slate-800 text-white" : "bg-slate-100 text-slate-900"}`}
+            className="w-full pl-12 pr-4 py-3 focus:outline-none transition-all border-2 border-transparent"
             style={{
               borderRadius: `${cornerRadius}px`,
+              backgroundColor: "var(--surface)",
+              color: "var(--text)",
+              border: "1px solid var(--borderDim)",
             }}
             onFocus={(e) => (e.target.style.borderColor = primaryColor)}
-            onBlur={(e) => (e.target.style.borderColor = "transparent")}
+            onBlur={(e) => (e.target.style.borderColor = "var(--borderDim)")}
           />
         </div>
       </div>
 
       <div>
-        <label className={`block text-sm font-medium mb-2 ${darkMode ? "text-slate-300" : "text-slate-700"}`}>
+        <label className="block text-sm font-medium mb-2" style={{ color: "var(--text)" }}>
           Password
         </label>
         <div className="relative">
@@ -806,22 +660,27 @@ function TextInput({ styles, primaryColor, cornerRadius, playfulness, darkMode }
           <input
             type="password"
             placeholder="Enter your password"
-            className={`w-full pl-12 pr-4 py-3 placeholder:text-slate-500 focus:outline-none transition-all border-2 border-transparent ${darkMode ? "bg-slate-800 text-white" : "bg-slate-100 text-slate-900"}`}
+            className="w-full pl-12 pr-4 py-3 focus:outline-none transition-all border-2 border-transparent"
             style={{
               borderRadius: `${cornerRadius}px`,
+              backgroundColor: "var(--surface)",
+              color: "var(--text)",
+              border: "1px solid var(--borderDim)",
             }}
             onFocus={(e) => (e.target.style.borderColor = primaryColor)}
-            onBlur={(e) => (e.target.style.borderColor = "transparent")}
+            onBlur={(e) => (e.target.style.borderColor = "var(--borderDim)")}
           />
         </div>
-        <p className="text-xs text-slate-500 mt-1.5">Must be at least 8 characters</p>
+        <p className="text-xs mt-1.5" style={{ color: "var(--textMuted)" }}>
+          Must be at least 8 characters
+        </p>
       </div>
     </motion.div>
   );
 }
 
 // Component: Newsletter Signup
-function NewsletterSignup({ styles, primaryColor, cornerRadius, playfulness, darkMode }) {
+function NewsletterSignup({ styles, primaryColor, cornerRadius, playfulness }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -829,43 +688,52 @@ function NewsletterSignup({ styles, primaryColor, cornerRadius, playfulness, dar
       className="max-w-lg mx-auto text-center p-6"
       style={styles}
     >
-      <h3 className={`text-2xl font-bold mb-2 ${darkMode ? "text-white" : "text-slate-900"}`}>Stay in the loop</h3>
-      <p className={`mb-6 ${darkMode ? "text-slate-400" : "text-slate-600"}`}>
+      <h3 className="text-2xl font-bold mb-2 transition-colors" style={{ color: "var(--text)" }}>
+        Stay in the loop
+      </h3>
+      <p className="mb-6 transition-colors" style={{ color: "var(--textMuted)" }}>
         Subscribe to our newsletter for the latest updates and exclusive offers.
       </p>
 
       <div
-        className={`flex gap-2 p-2 ${darkMode ? "bg-slate-800" : "bg-slate-100"}`}
-        style={{ borderRadius: `${cornerRadius}px` }}
+        className="flex gap-2 p-2 transition-colors"
+        style={{
+          borderRadius: `${cornerRadius}px`,
+          backgroundColor: "var(--surface)",
+        }}
       >
         <div className="flex-1 relative">
-          <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+          <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5" style={{ color: "var(--textMuted)" }} />
           <input
             type="email"
             placeholder="Enter your email"
-            className={`w-full pl-12 pr-4 py-3 bg-transparent placeholder:text-slate-500 focus:outline-none ${darkMode ? "text-white" : "text-slate-900"}`}
+            className="w-full pl-12 pr-4 py-3 bg-transparent placeholder:text-slate-500 focus:outline-none transition-colors"
+            style={{ color: "var(--text)" }}
           />
         </div>
         <motion.button
           whileHover={{ scale: playfulness > 0.5 ? 1.05 : 1.02 }}
           whileTap={{ scale: 0.98 }}
-          className="px-6 py-3 text-white font-semibold shrink-0"
+          className="px-6 py-3 font-semibold shrink-0"
           style={{
             backgroundColor: primaryColor,
             borderRadius: `${cornerRadius - 4}px`,
+            color: "light-dark(#0f172a, #ffffff)",
           }}
         >
           Subscribe
         </motion.button>
       </div>
 
-      <p className="text-xs text-neutral-500 mt-3">No spam, unsubscribe anytime.</p>
+      <p className="text-xs mt-3 transition-colors" style={{ color: "var(--textDim)" }}>
+        No spam, unsubscribe anytime.
+      </p>
     </motion.div>
   );
 }
 
 // Component: Toggle Switch
-function ToggleSwitch({ styles, primaryColor, cornerRadius, playfulness, darkMode }) {
+function ToggleSwitch({ styles, primaryColor, cornerRadius, playfulness }) {
   const [toggles, setToggles] = useState({
     email: true,
     push: false,
@@ -888,21 +756,31 @@ function ToggleSwitch({ styles, primaryColor, cornerRadius, playfulness, darkMod
       ].map((item) => (
         <div
           key={item.id}
-          className={`flex items-center justify-between p-4 ${darkMode ? "bg-slate-800" : "bg-slate-50"}`}
-          style={{ borderRadius: `${cornerRadius}px` }}
+          className="flex items-center justify-between p-4 transition-colors"
+          style={{
+            borderRadius: `${cornerRadius}px`,
+            backgroundColor: "var(--surface)",
+            border: "1px solid var(--borderDim)",
+          }}
         >
           <div>
-            <div className={`font-medium ${darkMode ? "text-white" : "text-slate-900"}`}>{item.label}</div>
-            <div className="text-sm text-slate-500">{item.sublabel}</div>
+            <div className="font-medium transition-colors" style={{ color: "var(--text)" }}>
+              {item.label}
+            </div>
+            <div className="text-sm transition-colors" style={{ color: "var(--textMuted)" }}>
+              {item.sublabel}
+            </div>
           </div>
           <button onClick={() => toggle(item.id)} className="rounded-full focus:outline-none">
             <motion.div
               initial={false}
               animate={{
-                backgroundColor: toggles[item.id] ? primaryColor : "#d1d5db",
+                backgroundColor: toggles[item.id] ? primaryColor : "var(--borderMain)",
               }}
               className="relative w-12 h-7 rounded-full transition-colors"
-              style={{ backgroundColor: toggles[item.id] ? primaryColor : undefined }}
+              style={{
+                backgroundColor: toggles[item.id] ? primaryColor : undefined,
+              }}
             >
               <motion.div
                 initial={false}
@@ -919,7 +797,7 @@ function ToggleSwitch({ styles, primaryColor, cornerRadius, playfulness, darkMod
 }
 
 // Component: Feature Grid
-function FeatureGrid({ styles, primaryColor, cornerRadius, playfulness, darkMode }) {
+function FeatureGrid({ styles, primaryColor, cornerRadius, playfulness }) {
   const features = [
     { icon: Zap, title: "Lightning Fast", description: "Optimized for speed and performance" },
     { icon: Shield, title: "Secure by Default", description: "Enterprise-grade security built in" },
@@ -939,8 +817,12 @@ function FeatureGrid({ styles, primaryColor, cornerRadius, playfulness, darkMode
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: index * 0.1 }}
-          className={`p-6 border ${darkMode ? "bg-slate-800 border-slate-700" : "bg-white border-slate-200"}`}
-          style={{ borderRadius: `${cornerRadius}px` }}
+          className="p-6 border transition-colors"
+          style={{
+            borderRadius: `${cornerRadius}px`,
+            backgroundColor: "var(--surface)",
+            borderColor: "var(--borderMain)",
+          }}
         >
           <div
             className="w-12 h-12 flex items-center justify-center mb-4"
@@ -952,8 +834,12 @@ function FeatureGrid({ styles, primaryColor, cornerRadius, playfulness, darkMode
           >
             <feature.icon className="w-6 h-6" />
           </div>
-          <h3 className={`font-semibold mb-2 ${darkMode ? "text-white" : "text-slate-900"}`}>{feature.title}</h3>
-          <p className={`text-sm ${darkMode ? "text-slate-400" : "text-slate-600"}`}>{feature.description}</p>
+          <h3 className="font-semibold mb-2 transition-colors" style={{ color: "var(--text)" }}>
+            {feature.title}
+          </h3>
+          <p className="text-sm transition-colors" style={{ color: "var(--textMuted)" }}>
+            {feature.description}
+          </p>
         </motion.div>
       ))}
     </motion.div>
@@ -961,7 +847,7 @@ function FeatureGrid({ styles, primaryColor, cornerRadius, playfulness, darkMode
 }
 
 // Component: Cart Item
-function CartItem({ styles, primaryColor, cornerRadius, playfulness, darkMode }) {
+function CartItem({ styles, primaryColor, cornerRadius, playfulness }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -970,8 +856,12 @@ function CartItem({ styles, primaryColor, cornerRadius, playfulness, darkMode })
       style={styles}
     >
       <div
-        className={`p-4 flex flex-col sm:flex-row gap-4 border ${darkMode ? "bg-slate-800 border-slate-700" : "bg-white border-slate-200"}`}
-        style={{ borderRadius: `${cornerRadius}px` }}
+        className="p-4 flex flex-col sm:flex-row gap-4 border transition-colors"
+        style={{
+          borderRadius: `${cornerRadius}px`,
+          backgroundColor: "var(--surface)",
+          borderColor: "var(--borderMain)",
+        }}
       >
         {/* Image */}
         <img
@@ -984,10 +874,12 @@ function CartItem({ styles, primaryColor, cornerRadius, playfulness, darkMode })
 
         {/* Details */}
         <div className="flex-1 min-w-0">
-          <h4 className={`font-semibold truncate ${darkMode ? "text-white" : "text-slate-900"}`}>
+          <h4 className="font-semibold truncate transition-colors" style={{ color: "var(--text)" }}>
             Premium Wireless Headphones
           </h4>
-          <p className="text-sm text-slate-500 mb-2">Color: Matte Black</p>
+          <p className="text-sm mb-2" style={{ color: "var(--textMuted)" }}>
+            Color: Matte Black
+          </p>
 
           <div className="flex items-center justify-between">
             <span className="font-bold" style={{ color: primaryColor }}>
@@ -996,20 +888,25 @@ function CartItem({ styles, primaryColor, cornerRadius, playfulness, darkMode })
 
             {/* Quantity Controls */}
             <div
-              className={`flex items-center gap-2 ${darkMode ? "bg-slate-700" : "bg-slate-100"}`}
-              style={{ borderRadius: `${cornerRadius / 2}px` }}
+              className="flex items-center gap-2 transition-colors"
+              style={{
+                borderRadius: `${cornerRadius / 2}px`,
+                backgroundColor: "light-dark(#f1f5f9, #334155)",
+              }}
             >
               <button
-                className={`w-8 h-8 flex items-center justify-center rounded-l-lg ${darkMode ? "text-slate-300 hover:bg-slate-600" : "text-slate-600 hover:bg-slate-200"}`}
+                className="w-8 h-8 flex items-center justify-center rounded-l-lg transition-colors"
+                style={{ color: "var(--textMuted)" }}
                 aria-label="Decrease quantity"
               >
                 -
               </button>
-              <span className={`w-8 text-center text-sm font-medium ${darkMode ? "text-white" : "text-slate-900"}`}>
+              <span className="w-8 text-center text-sm font-medium transition-colors" style={{ color: "var(--text)" }}>
                 2
               </span>
               <button
-                className={`w-8 h-8 flex items-center justify-center rounded-r-lg ${darkMode ? "text-slate-300 hover:bg-slate-600" : "text-slate-600 hover:bg-slate-200"}`}
+                className="w-8 h-8 flex items-center justify-center rounded-r-lg transition-colors"
+                style={{ color: "var(--textMuted)" }}
                 aria-label="Increase quantity"
               >
                 +
@@ -1023,7 +920,7 @@ function CartItem({ styles, primaryColor, cornerRadius, playfulness, darkMode })
 }
 
 // Component: Hero Gradient
-function HeroGradient({ styles, primaryColor, cornerRadius, playfulness, darkMode }) {
+function HeroGradient({ styles, primaryColor, cornerRadius, playfulness }) {
   // Platinum Standard: Use color-mix with 45%/65% ratios for proper contrast
   // Matches Portfolio Nav.module.css swatch pattern
   const accentLight = `color-mix(in srgb, ${primaryColor} 45%, #ffffff)`;
@@ -1035,10 +932,14 @@ function HeroGradient({ styles, primaryColor, cornerRadius, playfulness, darkMod
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       className="relative py-16 sm:py-20 lg:py-24 text-center overflow-hidden px-4"
-      style={styles}
+      style={{
+        ...styles,
+        backgroundColor: "var(--bg)",
+        color: "var(--text)",
+      }}
     >
       {/* Dark Background with subtle accent glow */}
-      <div className="absolute inset-0" style={{ background: "#0b1120" }} />
+      <div className="absolute inset-0" style={{ background: "var(--bg)" }} />
       <motion.div
         animate={{
           backgroundPosition: ["0% 0%", "100% 100%", "0% 0%"],
@@ -1063,8 +964,8 @@ function HeroGradient({ styles, primaryColor, cornerRadius, playfulness, darkMod
             className="px-4 py-2 backdrop-blur-sm font-medium rounded-full border"
             style={{
               background: `color-mix(in srgb, ${primaryColor} 20%, transparent)`,
-              borderColor: `color-mix(in srgb, #ffffff 30%, transparent)`,
-              color: "#ffffff",
+              borderColor: `color-mix(in srgb, var(--text) 30%, transparent)`,
+              color: "var(--text)",
             }}
           >
             ✨ Introducing our newest innovation
@@ -1076,7 +977,7 @@ function HeroGradient({ styles, primaryColor, cornerRadius, playfulness, darkMod
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.3 }}
           className="text-4xl sm:text-5xl md:text-7xl font-black mb-6 leading-tight"
-          style={{ color: "#ffffff" }}
+          style={{ color: "var(--text)" }}
         >
           The Future is
           <br />
@@ -1092,7 +993,8 @@ function HeroGradient({ styles, primaryColor, cornerRadius, playfulness, darkMod
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.4 }}
-          className="text-lg sm:text-xl text-white/90 max-w-2xl mx-auto mb-8 px-4"
+          className="text-lg sm:text-xl max-w-2xl mx-auto mb-8 px-4"
+          style={{ color: "var(--textMuted)" }}
         >
           Experience the next generation of design with our revolutionary platform that transforms ideas into reality.
         </motion.p>
@@ -1103,14 +1005,14 @@ function HeroGradient({ styles, primaryColor, cornerRadius, playfulness, darkMod
           transition={{ delay: 0.5 }}
           className="flex flex-col sm:flex-row gap-4 justify-center items-center px-4"
         >
-          {/* Primary CTA - Accent gradient bg, dark text (Diamond Standard) */}
+          {/* Primary CTA - Accent gradient bg, theme-aware text */}
           <motion.button
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.98 }}
             className="px-8 py-4 font-bold rounded-full shadow-2xl transition-shadow w-full sm:w-auto"
             style={{
               background: `linear-gradient(135deg, ${accentLight}, ${accentDark})`,
-              color: "#0b1120",
+              color: "light-dark(#0f172a, #ffffff)",
               boxShadow: `0 25px 50px -12px color-mix(in srgb, ${primaryColor} 50%, transparent)`,
             }}
           >
@@ -1120,11 +1022,11 @@ function HeroGradient({ styles, primaryColor, cornerRadius, playfulness, darkMod
           <motion.button
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.98 }}
-            className="px-8 py-4 backdrop-blur-sm font-semibold rounded-full border-2 transition-colors w-full sm:w-auto"
+            className="px-8 py-4 backdrop-blur-sm font-semibold rounded-full border-2 transition-colors w-full sm:w-auto hover:bg-[var(--surface-bg)]"
             style={{
-              background: `color-mix(in srgb, #ffffff 10%, transparent)`,
-              color: "#ffffff",
-              borderColor: `color-mix(in srgb, #ffffff 30%, transparent)`,
+              background: "transparent",
+              color: "var(--text)",
+              borderColor: "var(--borderMain)",
             }}
           >
             Watch Demo
@@ -1150,7 +1052,7 @@ function HeroGradient({ styles, primaryColor, cornerRadius, playfulness, darkMod
 }
 
 // Component: Bento Grid
-function BentoGrid({ styles, primaryColor, cornerRadius, playfulness, darkMode }) {
+function BentoGrid({ styles, primaryColor, cornerRadius, playfulness }) {
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -1170,9 +1072,14 @@ function BentoGrid({ styles, primaryColor, cornerRadius, playfulness, darkMode }
         }}
       >
         <div className="relative z-10">
-          <Zap className="w-12 h-12 text-white mb-4" />
-          <h3 className="text-2xl sm:text-3xl font-bold text-white mb-3">Lightning Fast Performance</h3>
-          <p className="text-white/80 text-sm sm:text-base">
+          <Zap className="w-12 h-12 mb-4" style={{ color: "light-dark(#0f172a, #ffffff)" }} />
+          <h3 className="text-2xl sm:text-3xl font-bold mb-3" style={{ color: "light-dark(#0f172a, #ffffff)" }}>
+            Lightning Fast Performance
+          </h3>
+          <p
+            className="text-sm sm:text-base"
+            style={{ color: "light-dark(rgba(15,23,42,0.8), rgba(255,255,255,0.8))" }}
+          >
             Built for speed with cutting-edge optimization techniques that deliver instant results.
           </p>
         </div>
@@ -1184,12 +1091,18 @@ function BentoGrid({ styles, primaryColor, cornerRadius, playfulness, darkMode }
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 0.2 }}
-        className="col-span-1 sm:col-span-1 lg:col-span-2 p-6 bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700"
-        style={{ borderRadius: `${cornerRadius}px` }}
+        className="col-span-1 sm:col-span-1 lg:col-span-2 p-6 border transition-colors"
+        style={{
+          borderRadius: `${cornerRadius}px`,
+          backgroundColor: "var(--surface)",
+          borderColor: "var(--borderDim)",
+        }}
       >
         <Shield className="w-10 h-10 mb-3" style={{ color: primaryColor }} />
-        <h4 className="text-lg font-bold text-neutral-900 dark:text-white mb-2">Enterprise Security</h4>
-        <p className="text-sm text-neutral-600 dark:text-neutral-400">
+        <h4 className="text-lg font-bold mb-2 transition-colors" style={{ color: "var(--text)" }}>
+          Enterprise Security
+        </h4>
+        <p className="text-sm transition-colors" style={{ color: "var(--textMuted)" }}>
           Bank-level encryption and compliance certifications.
         </p>
       </motion.div>
@@ -1199,12 +1112,20 @@ function BentoGrid({ styles, primaryColor, cornerRadius, playfulness, darkMode }
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 0.3 }}
-        className="col-span-1 p-6 bg-gradient-to-br from-neutral-50 to-neutral-100 dark:from-neutral-800 dark:to-neutral-700"
-        style={{ borderRadius: `${cornerRadius}px` }}
+        className="col-span-1 p-6 border transition-colors"
+        style={{
+          borderRadius: `${cornerRadius}px`,
+          backgroundColor: "var(--surface)",
+          borderColor: "var(--borderDim)",
+        }}
       >
         <Heart className="w-8 h-8 mb-2 text-rose-500" />
-        <h4 className="font-bold text-neutral-900 dark:text-white text-sm sm:text-base">User Focused</h4>
-        <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400">Built with love</p>
+        <h4 className="font-bold text-sm sm:text-base transition-colors" style={{ color: "var(--text)" }}>
+          User Focused
+        </h4>
+        <p className="text-xs sm:text-sm transition-colors" style={{ color: "var(--textMuted)" }}>
+          Built with love
+        </p>
       </motion.div>
 
       {/* Small Feature */}
@@ -1212,20 +1133,26 @@ function BentoGrid({ styles, primaryColor, cornerRadius, playfulness, darkMode }
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 0.4 }}
-        className="col-span-1 p-6 bg-gradient-to-br from-neutral-50 to-neutral-100 dark:from-neutral-800 dark:to-neutral-700"
-        style={{ borderRadius: `${cornerRadius}px` }}
+        className="col-span-1 p-6 border transition-colors"
+        style={{
+          borderRadius: `${cornerRadius}px`,
+          backgroundColor: "var(--surface)",
+          borderColor: "var(--borderDim)",
+        }}
       >
         <div className="text-3xl sm:text-4xl font-black mb-2" style={{ color: primaryColor }}>
           99.9%
         </div>
-        <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 font-medium">Uptime Guarantee</p>
+        <p className="text-xs sm:text-sm font-medium transition-colors" style={{ color: "var(--textMuted)" }}>
+          Uptime Guarantee
+        </p>
       </motion.div>
     </motion.div>
   );
 }
 
 // Component: Testimonial Carousel
-function TestimonialCarousel({ styles, primaryColor, cornerRadius, playfulness, darkMode }) {
+function TestimonialCarousel({ styles, primaryColor, cornerRadius, playfulness }) {
   const [index, setIndex] = useState(0);
 
   const testimonials = [
@@ -1263,9 +1190,10 @@ function TestimonialCarousel({ styles, primaryColor, cornerRadius, playfulness, 
         <div className="flex items-center gap-4">
           <button
             onClick={prev}
-            className="hidden sm:flex p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors"
+            className="hidden sm:flex p-2 rounded-full transition-colors"
+            style={{ backgroundColor: "light-dark(rgba(0,0,0,0.05), rgba(255,255,255,0.1))" }}
           >
-            <ChevronLeft className="w-6 h-6 text-neutral-400" />
+            <ChevronLeft className="w-6 h-6" style={{ color: "var(--textMuted)" }} />
           </button>
 
           <div className="flex-1 relative overflow-hidden">
@@ -1275,8 +1203,13 @@ function TestimonialCarousel({ styles, primaryColor, cornerRadius, playfulness, 
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
-                className="p-6 sm:p-10 bg-gradient-to-br from-white to-neutral-50 dark:from-neutral-800 dark:to-neutral-900 border border-neutral-200 dark:border-neutral-700"
-                style={{ borderRadius: `${cornerRadius * 1.5}px` }}
+                className="p-6 sm:p-10 border transition-colors"
+                style={{
+                  borderRadius: `${cornerRadius * 1.5}px`,
+                  background:
+                    "light-dark(linear-gradient(to bottom right, #ffffff, #f9fafb), linear-gradient(to bottom right, #262626, #171717))",
+                  borderColor: "var(--borderMain)",
+                }}
               >
                 {/* Quote Icon */}
                 <div
@@ -1301,7 +1234,10 @@ function TestimonialCarousel({ styles, primaryColor, cornerRadius, playfulness, 
                 </div>
 
                 {/* Quote Text */}
-                <blockquote className="text-xl sm:text-3xl font-medium text-neutral-900 dark:text-white mb-8 leading-relaxed">
+                <blockquote
+                  className="text-xl sm:text-3xl font-medium mb-8 leading-relaxed transition-colors"
+                  style={{ color: "var(--text)" }}
+                >
                   {current.quote}
                 </blockquote>
 
@@ -1314,10 +1250,12 @@ function TestimonialCarousel({ styles, primaryColor, cornerRadius, playfulness, 
                     style={{ borderRadius: `${cornerRadius}px` }}
                   />
                   <div>
-                    <div className="font-bold text-neutral-900 dark:text-white text-base sm:text-lg">
+                    <div className="font-bold text-base sm:text-lg transition-colors" style={{ color: "var(--text)" }}>
                       {current.author}
                     </div>
-                    <div className="text-sm sm:text-base text-neutral-500">{current.role}</div>
+                    <div className="text-sm sm:text-base" style={{ color: "var(--textMuted)" }}>
+                      {current.role}
+                    </div>
                   </div>
                 </div>
               </motion.div>
@@ -1326,9 +1264,10 @@ function TestimonialCarousel({ styles, primaryColor, cornerRadius, playfulness, 
 
           <button
             onClick={next}
-            className="hidden sm:flex p-2 rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors"
+            className="hidden sm:flex p-2 rounded-full transition-colors"
+            style={{ backgroundColor: "light-dark(rgba(0,0,0,0.05), rgba(255,255,255,0.1))" }}
           >
-            <ChevronRight className="w-6 h-6 text-neutral-400" />
+            <ChevronRight className="w-6 h-6" style={{ color: "var(--textMuted)" }} />
           </button>
         </div>
 
@@ -1340,13 +1279,10 @@ function TestimonialCarousel({ styles, primaryColor, cornerRadius, playfulness, 
               onClick={() => setIndex(i)}
               className="w-2 h-2 rounded-full transition-all duration-300"
               style={{
-                backgroundColor: i === index ? primaryColor : undefined,
+                backgroundColor: i === index ? primaryColor : "var(--textMuted)",
                 opacity: i === index ? 1 : 0.3,
-                className: i === index ? "" : "bg-neutral-900 dark:bg-neutral-100",
               }}
-            >
-              {i !== index && <div className="w-full h-full bg-neutral-400 dark:bg-neutral-600 rounded-full" />}
-            </button>
+            />
           ))}
         </div>
       </div>
@@ -1355,7 +1291,7 @@ function TestimonialCarousel({ styles, primaryColor, cornerRadius, playfulness, 
 }
 
 // Component: Product Card Detailed
-function ProductCardDetailed({ styles, primaryColor, cornerRadius, playfulness, darkMode }) {
+function ProductCardDetailed({ styles, primaryColor, cornerRadius, playfulness }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -1364,8 +1300,12 @@ function ProductCardDetailed({ styles, primaryColor, cornerRadius, playfulness, 
       style={styles}
     >
       <div
-        className="bg-white dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 overflow-hidden"
-        style={{ borderRadius: `${cornerRadius}px` }}
+        className="border overflow-hidden transition-colors"
+        style={{
+          borderRadius: `${cornerRadius}px`,
+          backgroundColor: "var(--surface)",
+          borderColor: "var(--borderMain)",
+        }}
       >
         {/* Image with Badge */}
         <div className="aspect-square relative overflow-hidden">
@@ -1379,10 +1319,13 @@ function ProductCardDetailed({ styles, primaryColor, cornerRadius, playfulness, 
           </div>
           <motion.button
             whileHover={{ scale: 1.1 }}
-            className="absolute top-4 right-4 w-10 h-10 bg-white dark:bg-neutral-700 flex items-center justify-center shadow-lg"
-            style={{ borderRadius: `${cornerRadius / 2}px` }}
+            className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center shadow-lg transition-colors"
+            style={{
+              borderRadius: `${cornerRadius / 2}px`,
+              backgroundColor: "var(--surface)",
+            }}
           >
-            <Heart className="w-5 h-5 text-neutral-400 dark:text-neutral-300" />
+            <Heart className="w-5 h-5" style={{ color: "var(--textMuted)" }} />
           </motion.button>
 
           {/* Quick View Button */}
@@ -1392,8 +1335,12 @@ function ProductCardDetailed({ styles, primaryColor, cornerRadius, playfulness, 
             className="absolute bottom-4 left-4 right-4"
           >
             <button
-              className="w-full py-2 bg-white/90 dark:bg-neutral-800/90 backdrop-blur-sm text-neutral-900 dark:text-white text-sm font-semibold"
-              style={{ borderRadius: `${cornerRadius / 2}px` }}
+              className="w-full py-2 backdrop-blur-sm text-sm font-semibold transition-colors"
+              style={{
+                borderRadius: `${cornerRadius / 2}px`,
+                backgroundColor: "light-dark(rgba(255,255,255,0.9), rgba(38,38,38,0.9))",
+                color: "var(--text)",
+              }}
             >
               Quick View
             </button>
@@ -1404,8 +1351,12 @@ function ProductCardDetailed({ styles, primaryColor, cornerRadius, playfulness, 
         <div className="p-5">
           <div className="flex items-start justify-between mb-2">
             <div>
-              <div className="text-xs text-neutral-500 mb-1">PREMIUM COLLECTION</div>
-              <h3 className="font-bold text-neutral-900 dark:text-white text-base sm:text-lg">Designer Leather Bag</h3>
+              <div className="text-xs mb-1" style={{ color: "var(--textMuted)" }}>
+                PREMIUM COLLECTION
+              </div>
+              <h3 className="font-bold text-base sm:text-lg transition-colors" style={{ color: "var(--text)" }}>
+                Designer Leather Bag
+              </h3>
             </div>
           </div>
 
@@ -1420,15 +1371,29 @@ function ProductCardDetailed({ styles, primaryColor, cornerRadius, playfulness, 
                 />
               ))}
             </div>
-            <span className="text-xs text-neutral-500">(128 reviews)</span>
+            <span className="text-xs" style={{ color: "var(--textMuted)" }}>
+              (128 reviews)
+            </span>
           </div>
 
           {/* Features */}
           <div className="flex flex-wrap gap-2 mb-4">
-            <span className="px-2 py-1 bg-neutral-100 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-300 text-xs rounded-md">
+            <span
+              className="px-2 py-1 text-xs rounded-md transition-colors"
+              style={{
+                backgroundColor: "light-dark(#f5f5f5, #404040)",
+                color: "var(--textMuted)",
+              }}
+            >
               Free Shipping
             </span>
-            <span className="px-2 py-1 bg-neutral-100 dark:bg-neutral-700 text-neutral-700 dark:text-neutral-300 text-xs rounded-md">
+            <span
+              className="px-2 py-1 text-xs rounded-md transition-colors"
+              style={{
+                backgroundColor: "light-dark(#f5f5f5, #404040)",
+                color: "var(--textMuted)",
+              }}
+            >
               In Stock
             </span>
           </div>
@@ -1440,9 +1405,13 @@ function ProductCardDetailed({ styles, primaryColor, cornerRadius, playfulness, 
                 <span className="text-xl sm:text-2xl font-bold" style={{ color: primaryColor }}>
                   $179
                 </span>
-                <span className="text-sm text-neutral-400 line-through">$239</span>
+                <span className="text-sm line-through" style={{ color: "var(--textMuted)" }}>
+                  $239
+                </span>
               </div>
-              <div className="text-xs text-neutral-500">or $15/month</div>
+              <div className="text-xs" style={{ color: "var(--textMuted)" }}>
+                or $15/month
+              </div>
             </div>
             <motion.button
               whileHover={{ scale: playfulness > 0.5 ? 1.1 : 1.05 }}
@@ -1463,7 +1432,7 @@ function ProductCardDetailed({ styles, primaryColor, cornerRadius, playfulness, 
 }
 
 // Component: Cart Drawer
-function CartDrawer({ styles, primaryColor, cornerRadius, playfulness, darkMode }) {
+function CartDrawer({ styles, primaryColor, cornerRadius, playfulness }) {
   const items = [
     {
       name: "Wireless Headphones",
@@ -1487,11 +1456,16 @@ function CartDrawer({ styles, primaryColor, cornerRadius, playfulness, darkMode 
       className="max-w-md mx-auto p-6"
       style={styles}
     >
-      <div className="bg-white dark:bg-neutral-800 shadow-2xl" style={{ borderRadius: `${cornerRadius}px` }}>
+      <div
+        className="shadow-2xl transition-colors"
+        style={{ borderRadius: `${cornerRadius}px`, backgroundColor: "var(--surface)" }}
+      >
         {/* Header */}
-        <div className="p-6 border-b border-neutral-200 dark:border-neutral-700">
+        <div className="p-6 border-b transition-colors" style={{ borderColor: "var(--borderMain)" }}>
           <div className="flex items-center justify-between">
-            <h2 className="text-xl font-bold text-neutral-900 dark:text-white">Shopping Cart</h2>
+            <h2 className="text-xl font-bold transition-colors" style={{ color: "var(--text)" }}>
+              Shopping Cart
+            </h2>
             <div
               className="w-8 h-8 flex items-center justify-center text-white text-sm font-bold"
               style={{
@@ -1509,7 +1483,8 @@ function CartDrawer({ styles, primaryColor, cornerRadius, playfulness, darkMode 
           {items.map((item, idx) => (
             <div
               key={idx}
-              className="flex gap-4 pb-4 border-b border-neutral-100 dark:border-neutral-700 last:border-0"
+              className="flex gap-4 pb-4 border-b last:border-0 transition-colors"
+              style={{ borderColor: "var(--borderDim)" }}
             >
               <img
                 src={item.image}
@@ -1518,18 +1493,30 @@ function CartDrawer({ styles, primaryColor, cornerRadius, playfulness, darkMode 
                 style={{ borderRadius: `${cornerRadius / 2}px` }}
               />
               <div className="flex-1">
-                <h4 className="font-semibold text-neutral-900 dark:text-white text-sm">{item.name}</h4>
-                <p className="text-xs text-neutral-500 mb-2">Color: Black</p>
+                <h4 className="font-semibold text-sm transition-colors" style={{ color: "var(--text)" }}>
+                  {item.name}
+                </h4>
+                <p className="text-xs mb-2" style={{ color: "var(--textMuted)" }}>
+                  Color: Black
+                </p>
                 <div className="flex items-center justify-between">
                   <span className="font-bold text-sm" style={{ color: primaryColor }}>
                     ${item.price}
                   </span>
                   <div className="flex items-center gap-2 text-xs">
-                    <button className="w-6 h-6 flex items-center justify-center bg-neutral-100 dark:bg-neutral-700 rounded">
+                    <button
+                      className="w-6 h-6 flex items-center justify-center rounded transition-colors"
+                      style={{ backgroundColor: "light-dark(#f5f5f5, #404040)", color: "var(--text)" }}
+                    >
                       -
                     </button>
-                    <span className="font-medium text-neutral-900 dark:text-white">{item.qty}</span>
-                    <button className="w-6 h-6 flex items-center justify-center bg-neutral-100 dark:bg-neutral-700 rounded">
+                    <span className="font-medium transition-colors" style={{ color: "var(--text)" }}>
+                      {item.qty}
+                    </span>
+                    <button
+                      className="w-6 h-6 flex items-center justify-center rounded transition-colors"
+                      style={{ backgroundColor: "light-dark(#f5f5f5, #404040)", color: "var(--text)" }}
+                    >
                       +
                     </button>
                   </div>
@@ -1540,24 +1527,31 @@ function CartDrawer({ styles, primaryColor, cornerRadius, playfulness, darkMode 
         </div>
 
         {/* Footer */}
-        <div className="p-6 border-t border-neutral-200 dark:border-neutral-700">
+        <div className="p-6 border-t transition-colors" style={{ borderColor: "var(--borderMain)" }}>
           <div className="flex justify-between mb-4">
-            <span className="text-neutral-600 dark:text-neutral-400">Subtotal</span>
-            <span className="font-bold text-neutral-900 dark:text-white">${subtotal}</span>
+            <span className="transition-colors" style={{ color: "var(--textMuted)" }}>
+              Subtotal
+            </span>
+            <span className="font-bold transition-colors" style={{ color: "var(--text)" }}>
+              ${subtotal}
+            </span>
           </div>
           <motion.button
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            className="w-full py-4 text-white font-bold flex items-center justify-center gap-2"
+            className="w-full py-4 font-bold flex items-center justify-center gap-2"
             style={{
               backgroundColor: primaryColor,
               borderRadius: `${cornerRadius}px`,
+              color: "light-dark(#0f172a, #ffffff)",
             }}
           >
             Checkout
             <ChevronRight className="w-5 h-5" />
           </motion.button>
-          <p className="text-center text-xs text-neutral-500 mt-3">Free shipping on orders over $100</p>
+          <p className="text-center text-xs mt-3" style={{ color: "var(--textMuted)" }}>
+            Free shipping on orders over $100
+          </p>
         </div>
       </div>
     </motion.div>
@@ -1565,7 +1559,7 @@ function CartDrawer({ styles, primaryColor, cornerRadius, playfulness, darkMode 
 }
 
 // Component: Pricing Table
-function PricingTable({ styles, primaryColor, cornerRadius, playfulness, darkMode }) {
+function PricingTable({ styles, primaryColor, cornerRadius, playfulness }) {
   const plans = [
     { name: "Starter", price: 19, features: ["5 Projects", "10 GB Storage", "Email Support"] },
     {
@@ -1594,35 +1588,45 @@ function PricingTable({ styles, primaryColor, cornerRadius, playfulness, darkMod
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: idx * 0.1 }}
-          className={`p-6 sm:p-8 bg-white dark:bg-neutral-800 border relative ${
-            plan.popular ? "border-2 scale-105 shadow-xl" : "border-neutral-200 dark:border-neutral-700"
-          }`}
+          className={`p-6 sm:p-8 border relative transition-colors ${plan.popular ? "border-2 scale-105 shadow-xl" : ""}`}
           style={{
-            borderColor: plan.popular ? primaryColor : undefined,
+            borderColor: plan.popular ? primaryColor : "var(--borderMain)",
             borderRadius: `${cornerRadius}px`,
+            backgroundColor: "var(--surface)",
           }}
         >
           {plan.popular && (
             <div
-              className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 text-xs font-bold text-white whitespace-nowrap"
+              className="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 text-xs font-bold whitespace-nowrap"
               style={{
                 backgroundColor: primaryColor,
                 borderRadius: `${cornerRadius / 2}px`,
+                color: "light-dark(#0f172a, #ffffff)",
               }}
             >
               MOST POPULAR
             </div>
           )}
 
-          <h3 className="text-lg sm:text-xl font-bold text-neutral-900 dark:text-white mb-2">{plan.name}</h3>
+          <h3 className="text-lg sm:text-xl font-bold mb-2 transition-colors" style={{ color: "var(--text)" }}>
+            {plan.name}
+          </h3>
           <div className="flex items-baseline gap-1 mb-6">
-            <span className="text-3xl sm:text-4xl font-black text-neutral-900 dark:text-white">${plan.price}</span>
-            <span className="text-neutral-500 text-sm">/mo</span>
+            <span className="text-3xl sm:text-4xl font-black transition-colors" style={{ color: "var(--text)" }}>
+              ${plan.price}
+            </span>
+            <span className="text-sm" style={{ color: "var(--textMuted)" }}>
+              /mo
+            </span>
           </div>
 
           <ul className="space-y-3 mb-8">
             {plan.features.map((feature) => (
-              <li key={feature} className="flex items-center gap-3 text-sm text-neutral-600 dark:text-neutral-300">
+              <li
+                key={feature}
+                className="flex items-center gap-3 text-sm transition-colors"
+                style={{ color: "var(--textMuted)" }}
+              >
                 <Check className="w-5 h-5 shrink-0" style={{ color: primaryColor }} />
                 {feature}
               </li>
@@ -1632,13 +1636,13 @@ function PricingTable({ styles, primaryColor, cornerRadius, playfulness, darkMod
           <motion.button
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            className={`w-full py-3 font-bold ${
-              plan.popular ? "text-white" : "border-2 text-neutral-700 dark:text-neutral-300"
-            }`}
+            className="w-full py-3 font-bold transition-colors"
             style={{
               backgroundColor: plan.popular ? primaryColor : "transparent",
               borderColor: plan.popular ? "transparent" : primaryColor,
+              border: plan.popular ? "none" : `2px solid ${primaryColor}`,
               borderRadius: `${cornerRadius}px`,
+              color: plan.popular ? "#fff" : "var(--text)",
             }}
           >
             {plan.popular ? "Get Started" : "Choose Plan"}
@@ -1650,7 +1654,7 @@ function PricingTable({ styles, primaryColor, cornerRadius, playfulness, darkMod
 }
 
 // Component: Search Input
-function SearchInput({ styles, primaryColor, cornerRadius, playfulness, darkMode }) {
+function SearchInput({ styles, primaryColor, cornerRadius, playfulness }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -1662,21 +1666,24 @@ function SearchInput({ styles, primaryColor, cornerRadius, playfulness, darkMode
         <input
           type="search"
           placeholder="Search for anything..."
-          className="w-full pl-14 pr-12 py-5 text-lg bg-white dark:bg-neutral-800 text-neutral-900 dark:text-white placeholder:text-neutral-400 border-2 border-neutral-200 dark:border-neutral-700 focus:outline-none focus:border-opacity-100 transition-all shadow-lg"
+          className="w-full pl-14 pr-12 py-5 text-lg focus:outline-none focus:border-opacity-100 transition-all shadow-lg"
           style={{
             borderRadius: `${cornerRadius * 1.5}px`,
             borderColor: `${primaryColor}00`,
+            backgroundColor: "var(--surface)",
+            color: "var(--text)",
+            border: "2px solid var(--borderDim)",
           }}
           onFocus={(e) => {
             e.target.style.borderColor = primaryColor;
             e.target.style.boxShadow = `0 0 0 3px ${primaryColor}20`;
           }}
           onBlur={(e) => {
-            e.target.style.borderColor = darkMode ? "#404040" : "#e5e7eb";
+            e.target.style.borderColor = "var(--borderDim)";
             e.target.style.boxShadow = "0 10px 15px -3px rgba(0,0,0,0.1)";
           }}
         />
-        <div className="absolute left-5 top-1/2 -translate-y-1/2 text-neutral-400">
+        <div className="absolute left-5 top-1/2 -translate-y-1/2" style={{ color: "var(--textMuted)" }}>
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path
               strokeLinecap="round"
@@ -1689,10 +1696,11 @@ function SearchInput({ styles, primaryColor, cornerRadius, playfulness, darkMode
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className="absolute right-2 top-1/2 -translate-y-1/2 px-6 py-2 text-white font-semibold"
+          className="absolute right-2 top-1/2 -translate-y-1/2 px-6 py-2 font-semibold"
           style={{
             backgroundColor: primaryColor,
             borderRadius: `${cornerRadius}px`,
+            color: "light-dark(#0f172a, #ffffff)",
           }}
         >
           Search
@@ -1701,12 +1709,18 @@ function SearchInput({ styles, primaryColor, cornerRadius, playfulness, darkMode
 
       {/* Popular Searches */}
       <div className="mt-4 flex flex-wrap gap-2 items-center">
-        <span className="text-sm text-neutral-500">Popular:</span>
+        <span className="text-sm" style={{ color: "var(--textMuted)" }}>
+          Popular:
+        </span>
         {["Design", "Development", "Marketing", "Analytics"].map((term) => (
           <button
             key={term}
-            className="px-3 py-1 text-sm bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-700 transition-colors"
-            style={{ borderRadius: `${cornerRadius / 2}px` }}
+            className="px-3 py-1 text-sm transition-colors"
+            style={{
+              borderRadius: `${cornerRadius / 2}px`,
+              backgroundColor: "light-dark(#f5f5f5, #262626)",
+              color: "var(--textMuted)",
+            }}
           >
             {term}
           </button>
@@ -1717,7 +1731,7 @@ function SearchInput({ styles, primaryColor, cornerRadius, playfulness, darkMode
 }
 
 // Component: Checkbox Group
-function CheckboxGroup({ styles, primaryColor, cornerRadius, playfulness, darkMode }) {
+function CheckboxGroup({ styles, primaryColor, cornerRadius, playfulness }) {
   const [checked, setChecked] = useState({ notifications: true, updates: false, marketing: false });
 
   const options = [
@@ -1733,11 +1747,13 @@ function CheckboxGroup({ styles, primaryColor, cornerRadius, playfulness, darkMo
       className="max-w-md mx-auto p-6 space-y-4"
       style={styles}
     >
-      <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-4">Notification Preferences</h3>
+      <h3 className="text-lg font-semibold mb-4 transition-colors" style={{ color: "var(--text)" }}>
+        Notification Preferences
+      </h3>
       {options.map((option) => (
         <label
           key={option.id}
-          className="flex items-start gap-3 p-3 rounded-lg cursor-pointer hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors"
+          className="flex items-start gap-3 p-3 rounded-lg cursor-pointer transition-colors"
           style={{ borderRadius: `${cornerRadius}px` }}
         >
           <div
@@ -1751,8 +1767,12 @@ function CheckboxGroup({ styles, primaryColor, cornerRadius, playfulness, darkMo
             {checked[option.id] && <Check className="w-3 h-3 text-white" />}
           </div>
           <div className="flex-1">
-            <span className="text-sm font-medium text-neutral-900 dark:text-white">{option.label}</span>
-            <p className="text-xs text-neutral-500 mt-0.5">{option.desc}</p>
+            <span className="text-sm font-medium transition-colors" style={{ color: "var(--text)" }}>
+              {option.label}
+            </span>
+            <p className="text-xs mt-0.5" style={{ color: "var(--textMuted)" }}>
+              {option.desc}
+            </p>
           </div>
         </label>
       ))}
@@ -1761,7 +1781,7 @@ function CheckboxGroup({ styles, primaryColor, cornerRadius, playfulness, darkMo
 }
 
 // Component: Radio Group
-function RadioGroup({ styles, primaryColor, cornerRadius, playfulness, darkMode }) {
+function RadioGroup({ styles, primaryColor, cornerRadius, playfulness }) {
   const [selected, setSelected] = useState("standard");
 
   const options = [
@@ -1777,17 +1797,17 @@ function RadioGroup({ styles, primaryColor, cornerRadius, playfulness, darkMode 
       className="max-w-md mx-auto p-6 space-y-3"
       style={styles}
     >
-      <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-4">Shipping Method</h3>
+      <h3 className="text-lg font-semibold mb-4 transition-colors" style={{ color: "var(--text)" }}>
+        Shipping Method
+      </h3>
       {options.map((option) => (
         <label
           key={option.id}
-          className={`flex items-center gap-3 p-4 rounded-lg cursor-pointer border-2 transition-all ${
-            selected === option.id ? "border-current" : "border-neutral-200 dark:border-neutral-700"
-          }`}
+          className="flex items-center gap-3 p-4 rounded-lg cursor-pointer border-2 transition-all"
           style={{
             borderRadius: `${cornerRadius}px`,
-            borderColor: selected === option.id ? primaryColor : undefined,
-            backgroundColor: selected === option.id ? `${primaryColor}10` : undefined,
+            borderColor: selected === option.id ? primaryColor : "var(--borderMain)",
+            backgroundColor: selected === option.id ? `${primaryColor}10` : "transparent",
           }}
           onClick={() => setSelected(option.id)}
         >
@@ -1800,8 +1820,12 @@ function RadioGroup({ styles, primaryColor, cornerRadius, playfulness, darkMode 
             )}
           </div>
           <div className="flex-1">
-            <span className="text-sm font-medium text-neutral-900 dark:text-white">{option.label}</span>
-            <p className="text-xs text-neutral-500">{option.time}</p>
+            <span className="text-sm font-medium transition-colors" style={{ color: "var(--text)" }}>
+              {option.label}
+            </span>
+            <p className="text-xs" style={{ color: "var(--textMuted)" }}>
+              {option.time}
+            </p>
           </div>
           <span className="text-sm font-semibold" style={{ color: primaryColor }}>
             {option.price}
@@ -1813,7 +1837,7 @@ function RadioGroup({ styles, primaryColor, cornerRadius, playfulness, darkMode 
 }
 
 // Component: Step Indicator
-function StepIndicator({ styles, primaryColor, cornerRadius, playfulness, darkMode }) {
+function StepIndicator({ styles, primaryColor, cornerRadius, playfulness }) {
   const [currentStep, setCurrentStep] = useState(2);
   const steps = ["Account", "Details", "Payment", "Confirm"];
 
@@ -1829,22 +1853,28 @@ function StepIndicator({ styles, primaryColor, cornerRadius, playfulness, darkMo
           <div key={step} className="flex items-center">
             <div className="flex flex-col items-center">
               <motion.div
-                className="w-10 h-10 rounded-full flex items-center justify-center font-semibold text-sm cursor-pointer"
+                className="w-10 h-10 rounded-full flex items-center justify-center font-semibold text-sm cursor-pointer transition-colors"
                 style={{
-                  backgroundColor: i <= currentStep ? primaryColor : "#374151",
-                  color: i <= currentStep ? "#fff" : "#9ca3af",
+                  backgroundColor: i <= currentStep ? primaryColor : "var(--surface)",
+                  color: i <= currentStep ? "#fff" : "var(--textMuted)",
+                  border: i <= currentStep ? "none" : "1px solid var(--borderDim)",
                 }}
                 whileHover={{ scale: 1.1 }}
                 onClick={() => setCurrentStep(i)}
               >
                 {i < currentStep ? <Check className="w-5 h-5" /> : i + 1}
               </motion.div>
-              <span className={`text-xs mt-2 ${i <= currentStep ? "text-white" : "text-neutral-500"}`}>{step}</span>
+              <span
+                className="text-xs mt-2 transition-colors"
+                style={{ color: i <= currentStep ? "var(--text)" : "var(--textMuted)" }}
+              >
+                {step}
+              </span>
             </div>
             {i < steps.length - 1 && (
               <div
-                className="w-12 sm:w-20 h-1 mx-2"
-                style={{ backgroundColor: i < currentStep ? primaryColor : "#374151" }}
+                className="w-12 sm:w-20 h-1 mx-2 transition-colors"
+                style={{ backgroundColor: i < currentStep ? primaryColor : "var(--borderDim)" }}
               />
             )}
           </div>
@@ -1858,7 +1888,8 @@ function StepIndicator({ styles, primaryColor, cornerRadius, playfulness, darkMo
 }
 
 // Component: Multi-step Form
-function MultiStepForm({ styles, primaryColor, cornerRadius, playfulness, darkMode }) {
+// Component: Multi-step Form (Wizard)
+function MultiStepForm({ styles, primaryColor, cornerRadius, playfulness }) {
   const [step, setStep] = useState(0);
   const steps = ["Personal Info", "Contact", "Review"];
 
@@ -1875,11 +1906,11 @@ function MultiStepForm({ styles, primaryColor, cornerRadius, playfulness, darkMo
           <div
             key={s}
             className="flex-1 h-1.5 rounded-full"
-            style={{ backgroundColor: i <= step ? primaryColor : "#374151" }}
+            style={{ backgroundColor: i <= step ? primaryColor : "var(--borderDim)" }}
           />
         ))}
       </div>
-      <p className="text-sm text-neutral-500 mb-4">
+      <p className="text-sm mb-4" style={{ color: "var(--textMuted)" }}>
         Step {step + 1} of {steps.length}: {steps[step]}
       </p>
 
@@ -1896,18 +1927,28 @@ function MultiStepForm({ styles, primaryColor, cornerRadius, playfulness, darkMo
               <input
                 type="text"
                 placeholder="First Name"
-                className="w-full px-4 py-3 bg-neutral-800 text-white placeholder:text-neutral-500 focus:outline-none border-2 border-transparent"
-                style={{ borderRadius: `${cornerRadius}px` }}
+                className="w-full px-4 py-3 focus:outline-none border-2 border-transparent transition-colors"
+                style={{
+                  borderRadius: `${cornerRadius}px`,
+                  backgroundColor: "var(--surface)",
+                  color: "var(--text)",
+                  border: "1px solid var(--borderDim)",
+                }}
                 onFocus={(e) => (e.target.style.borderColor = primaryColor)}
-                onBlur={(e) => (e.target.style.borderColor = "transparent")}
+                onBlur={(e) => (e.target.style.borderColor = "var(--borderDim)")}
               />
               <input
                 type="text"
                 placeholder="Last Name"
-                className="w-full px-4 py-3 bg-neutral-800 text-white placeholder:text-neutral-500 focus:outline-none border-2 border-transparent"
-                style={{ borderRadius: `${cornerRadius}px` }}
+                className="w-full px-4 py-3 focus:outline-none border-2 border-transparent transition-colors"
+                style={{
+                  borderRadius: `${cornerRadius}px`,
+                  backgroundColor: "var(--surface)",
+                  color: "var(--text)",
+                  border: "1px solid var(--borderDim)",
+                }}
                 onFocus={(e) => (e.target.style.borderColor = primaryColor)}
-                onBlur={(e) => (e.target.style.borderColor = "transparent")}
+                onBlur={(e) => (e.target.style.borderColor = "var(--borderDim)")}
               />
             </>
           )}
@@ -1916,26 +1957,40 @@ function MultiStepForm({ styles, primaryColor, cornerRadius, playfulness, darkMo
               <input
                 type="email"
                 placeholder="Email Address"
-                className="w-full px-4 py-3 bg-neutral-800 text-white placeholder:text-neutral-500 focus:outline-none border-2 border-transparent"
-                style={{ borderRadius: `${cornerRadius}px` }}
+                className="w-full px-4 py-3 focus:outline-none border-2 border-transparent transition-colors"
+                style={{
+                  borderRadius: `${cornerRadius}px`,
+                  backgroundColor: "var(--surface)",
+                  color: "var(--text)",
+                  border: "1px solid var(--borderDim)",
+                }}
                 onFocus={(e) => (e.target.style.borderColor = primaryColor)}
-                onBlur={(e) => (e.target.style.borderColor = "transparent")}
+                onBlur={(e) => (e.target.style.borderColor = "var(--borderDim)")}
               />
               <input
                 type="tel"
                 placeholder="Phone Number"
-                className="w-full px-4 py-3 bg-neutral-800 text-white placeholder:text-neutral-500 focus:outline-none border-2 border-transparent"
-                style={{ borderRadius: `${cornerRadius}px` }}
+                className="w-full px-4 py-3 focus:outline-none border-2 border-transparent transition-colors"
+                style={{
+                  borderRadius: `${cornerRadius}px`,
+                  backgroundColor: "var(--surface)",
+                  color: "var(--text)",
+                  border: "1px solid var(--borderDim)",
+                }}
                 onFocus={(e) => (e.target.style.borderColor = primaryColor)}
-                onBlur={(e) => (e.target.style.borderColor = "transparent")}
+                onBlur={(e) => (e.target.style.borderColor = "var(--borderDim)")}
               />
             </>
           )}
           {step === 2 && (
-            <div className="p-4 bg-neutral-800 rounded-lg text-center">
+            <div className="p-4 rounded-lg text-center" style={{ backgroundColor: "var(--surface)" }}>
               <Check className="w-12 h-12 mx-auto mb-3" style={{ color: primaryColor }} />
-              <p className="text-white font-medium">Ready to submit!</p>
-              <p className="text-neutral-400 text-sm mt-1">Review your info and confirm</p>
+              <p className="font-medium" style={{ color: "var(--text)" }}>
+                Ready to submit!
+              </p>
+              <p className="text-sm mt-1" style={{ color: "var(--textMuted)" }}>
+                Review your info and confirm
+              </p>
             </div>
           )}
         </motion.div>
@@ -1946,16 +2001,25 @@ function MultiStepForm({ styles, primaryColor, cornerRadius, playfulness, darkMo
         {step > 0 && (
           <button
             onClick={() => setStep(step - 1)}
-            className="flex-1 px-4 py-2.5 bg-neutral-700 text-white font-medium hover:bg-neutral-600 transition-colors"
-            style={{ borderRadius: `${cornerRadius}px` }}
+            className="flex-1 px-4 py-2.5 font-medium hover:opacity-80 transition-opacity"
+            style={{
+              borderRadius: `${cornerRadius}px`,
+              backgroundColor: "var(--surface)",
+              color: "var(--text)",
+              border: "1px solid var(--borderMain)",
+            }}
           >
             Back
           </button>
         )}
         <button
           onClick={() => (step < 2 ? setStep(step + 1) : null)}
-          className="flex-1 px-4 py-2.5 text-white font-medium transition-colors"
-          style={{ backgroundColor: primaryColor, borderRadius: `${cornerRadius}px` }}
+          className="flex-1 px-4 py-2.5 font-medium transition-colors"
+          style={{
+            backgroundColor: primaryColor,
+            borderRadius: `${cornerRadius}px`,
+            color: "light-dark(#0f172a, #ffffff)",
+          }}
         >
           {step === 2 ? "Submit" : "Continue"}
         </button>
