@@ -155,7 +155,7 @@ module.exports = {
         <div className="flex items-center justify-between p-4 border-b border-slate-800">
           <div>
             <h2 className="text-lg font-semibold text-white">Export Code</h2>
-            <p className="text-sm text-slate-500">Copy code for {comp?.name || "component"}</p>
+            <p className="text-sm text-slate-400">Copy code for {comp?.name || "component"}</p>
           </div>
           <button
             onClick={onClose}
@@ -211,7 +211,7 @@ module.exports = {
 
         {/* Footer */}
         <div className="p-4 border-t border-slate-800 bg-slate-900/50">
-          <div className="flex items-center justify-between text-xs text-slate-500">
+          <div className="flex items-center justify-between text-xs text-slate-400">
             <div className="flex items-center gap-4">
               <span>
                 Brand:{" "}

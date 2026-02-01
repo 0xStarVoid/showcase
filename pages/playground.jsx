@@ -194,10 +194,10 @@ export default function Playground() {
                     className="h-full flex flex-col items-center justify-center text-center"
                   >
                     <div className="w-16 h-16 rounded-xl bg-slate-800/50 flex items-center justify-center mb-4">
-                      <Layers className="w-8 h-8 text-slate-500" />
+                      <Layers className="w-8 h-8 text-slate-400" />
                     </div>
                     <h2 className="text-lg font-semibold text-white mb-2">Select a component</h2>
-                    <p className="text-slate-500 text-sm max-w-xs">Choose from the sidebar to preview and customize.</p>
+                    <p className="text-slate-400 text-sm max-w-xs">Choose from the sidebar to preview and customize.</p>
                   </motion.div>
                 )}
               </AnimatePresence>

@@ -55,7 +55,7 @@ export default function Controls({ onPreview, onExport, collapsed, onToggleColla
               key={type}
               onClick={() => setDevice(type)}
               className={`w-full p-2 rounded-lg transition-colors ${
-                device === type ? "bg-cyan-500/20 text-cyan-400" : "hover:bg-slate-800 text-slate-500"
+                device === type ? "bg-cyan-500/20 text-cyan-400" : "hover:bg-slate-800 text-slate-400"
               }`}
               title={label}
               aria-label={`Switch to ${label} view`}
@@ -74,7 +74,7 @@ export default function Controls({ onPreview, onExport, collapsed, onToggleColla
           </button>
           <button
             onClick={reset}
-            className="w-full p-2 rounded-lg hover:bg-slate-800 text-slate-500 hover:text-slate-300 transition-colors"
+            className="w-full p-2 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-slate-300 transition-colors"
             title="Reset to defaults"
             aria-label="Reset settings"
           >
@@ -99,7 +99,7 @@ export default function Controls({ onPreview, onExport, collapsed, onToggleColla
             {onToggleCollapse && (
               <button
                 onClick={onToggleCollapse}
-                className="p-1.5 rounded-lg hover:bg-slate-800 text-slate-500 hover:text-slate-300 transition-colors"
+                className="p-1.5 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-slate-300 transition-colors"
                 aria-label="Collapse controls panel"
               >
                 <ChevronRight className="w-4 h-4" />
@@ -107,12 +107,12 @@ export default function Controls({ onPreview, onExport, collapsed, onToggleColla
             )}
             <div>
               <h2 className="font-semibold text-white">Brand DNA</h2>
-              <p className="text-xs text-slate-500 mt-0.5">Customize styling</p>
+              <p className="text-xs text-slate-400 mt-0.5">Customize styling</p>
             </div>
           </div>
           <button
             onClick={reset}
-            className="p-2 rounded-lg hover:bg-slate-800 text-slate-500 hover:text-slate-300 transition-colors"
+            className="p-2 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-slate-300 transition-colors"
             title="Reset to defaults"
           >
             <RotateCcw className="w-4 h-4" />
@@ -127,7 +127,7 @@ export default function Controls({ onPreview, onExport, collapsed, onToggleColla
                 key={type}
                 onClick={() => setDevice(type)}
                 className={`relative p-2 rounded transition-colors ${
-                  device === type ? "text-cyan-400" : "text-slate-500 hover:text-slate-300"
+                  device === type ? "text-cyan-400" : "text-slate-400 hover:text-slate-300"
                 }`}
                 title={label}
                 aria-label={`Switch to ${label} view`}
@@ -180,7 +180,7 @@ export default function Controls({ onPreview, onExport, collapsed, onToggleColla
               />
             </div>
 
-            <div className="flex justify-between text-xs font-medium text-slate-500 uppercase tracking-wider">
+            <div className="flex justify-between text-xs font-medium text-slate-400 uppercase tracking-wider">
               <span>Corporate</span>
               <span>Playful</span>
             </div>
@@ -198,7 +198,7 @@ export default function Controls({ onPreview, onExport, collapsed, onToggleColla
             >
               <span className="text-white text-lg font-semibold">A</span>
             </motion.div>
-            <div className="text-xs text-slate-500">
+            <div className="text-xs text-slate-400">
               <p>Radius: {Math.round(play * 24)}px</p>
               <p>Animation: {play > 0.5 ? "Bouncy" : "Subtle"}</p>
             </div>
@@ -283,7 +283,7 @@ export default function Controls({ onPreview, onExport, collapsed, onToggleColla
                 >
                   {o.sample}
                 </div>
-                <div className={`text-xs ${font === o.id ? "text-cyan-400" : "text-slate-500"}`}>{o.label}</div>
+                <div className={`text-xs ${font === o.id ? "text-cyan-400" : "text-slate-400"}`}>{o.label}</div>
               </button>
             ))}
           </div>
@@ -300,9 +300,9 @@ export default function Controls({ onPreview, onExport, collapsed, onToggleColla
               Live Tokens
             </span>
             {showTokens ? (
-              <ChevronUp className="w-4 h-4 text-slate-500" />
+              <ChevronUp className="w-4 h-4 text-slate-400" />
             ) : (
-              <ChevronDown className="w-4 h-4 text-slate-500" />
+              <ChevronDown className="w-4 h-4 text-slate-400" />
             )}
           </button>
 
@@ -316,23 +316,23 @@ export default function Controls({ onPreview, onExport, collapsed, onToggleColla
               >
                 <div className="bg-slate-950 rounded-lg p-3 space-y-2 font-mono text-xs">
                   <div className="flex justify-between">
-                    <span className="text-slate-500">--brand</span>
+                    <span className="text-slate-400">--brand</span>
                     <span className="text-cyan-400">{color}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-slate-500">--radius</span>
+                    <span className="text-slate-400">--radius</span>
                     <span className="text-emerald-400">{r}px</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-slate-500">--duration</span>
+                    <span className="text-slate-400">--duration</span>
                     <span className="text-amber-400">{dur}s</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-slate-500">--font</span>
+                    <span className="text-slate-400">--font</span>
                     <span className="text-violet-400">{font}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-slate-500">--heading-wt</span>
+                    <span className="text-slate-400">--heading-wt</span>
                     <span className="text-rose-400">{hw}</span>
                   </div>
                   <button

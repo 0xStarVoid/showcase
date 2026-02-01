@@ -74,7 +74,7 @@ export default function Nav({ collapsed, onToggleCollapse }) {
                 setExpCats([id]);
                 onToggleCollapse?.();
               }}
-              className="w-full p-2 rounded-lg hover:bg-slate-800 text-slate-500 hover:text-slate-300 transition-colors"
+              className="w-full p-2 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-slate-300 transition-colors"
               title={id.charAt(0).toUpperCase() + id.slice(1)}
               aria-label={`Open ${id} category`}
             >
@@ -93,7 +93,7 @@ export default function Nav({ collapsed, onToggleCollapse }) {
           {onToggleCollapse && (
             <button
               onClick={onToggleCollapse}
-              className="p-1.5 rounded-lg hover:bg-slate-800 text-slate-500 hover:text-slate-300 transition-colors"
+              className="p-1.5 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-slate-300 transition-colors"
               aria-label="Collapse navigation"
             >
               <ChevronLeft className="w-4 h-4" />
@@ -105,24 +105,24 @@ export default function Nav({ collapsed, onToggleCollapse }) {
             </div>
             <div>
               <span className="font-semibold text-white block leading-tight">Showcase</span>
-              <span className="text-xs text-slate-500">Component Library</span>
+              <span className="text-xs text-slate-400">Component Library</span>
             </div>
           </Link>
         </div>
 
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
           <input
             type="text"
             placeholder="Search..."
             value={q}
             onChange={(e) => setQ(e.target.value)}
-            className="w-full pl-9 pr-8 py-2 rounded-lg bg-slate-800/50 border border-slate-700/50 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:border-cyan-500/50"
+            className="w-full pl-9 pr-8 py-2 rounded-lg bg-slate-800/50 border border-slate-700/50 text-sm text-white placeholder:text-slate-400 focus:outline-none focus:border-cyan-500/50"
           />
           {q && (
             <button
               onClick={() => setQ("")}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300"
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-300"
             >
               <X className="w-4 h-4" />
             </button>
@@ -142,7 +142,7 @@ export default function Nav({ collapsed, onToggleCollapse }) {
             >
               {results.length > 0 ? (
                 <>
-                  <p className="px-3 py-2 text-xs font-medium text-slate-500 uppercase tracking-wider">
+                  <p className="px-3 py-2 text-xs font-medium text-slate-400 uppercase tracking-wider">
                     {results.length} result{results.length !== 1 ? "s" : ""}
                   </p>
                   {results.map((c) => (
@@ -154,7 +154,7 @@ export default function Nav({ collapsed, onToggleCollapse }) {
                       }`}
                     >
                       <div className="font-medium text-sm">{c.name}</div>
-                      <div className="text-xs text-slate-500 mt-0.5 capitalize">
+                      <div className="text-xs text-slate-400 mt-0.5 capitalize">
                         {c.cat} / {c.sub}
                       </div>
                     </button>
@@ -184,10 +184,10 @@ export default function Nav({ collapsed, onToggleCollapse }) {
                       onClick={() => toggleCat(cat.id)}
                       className="w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-800/50 transition-colors"
                     >
-                      <Icon className="w-4 h-4 text-slate-500" />
+                      <Icon className="w-4 h-4 text-slate-400" />
                       <span className="flex-1 text-left font-medium text-sm text-white">{cat.name}</span>
                       <motion.div animate={{ rotate: exp ? 0 : -90 }} transition={{ duration: 0.2 }}>
-                        <ChevronDown className="w-4 h-4 text-slate-500" />
+                        <ChevronDown className="w-4 h-4 text-slate-400" />
                       </motion.div>
                     </button>
 
@@ -233,7 +233,7 @@ export default function Nav({ collapsed, onToggleCollapse }) {
                                               className={`w-full text-left px-4 py-1.5 rounded-lg text-sm transition-colors ${
                                                 sel === c.id
                                                   ? "bg-cyan-500/10 text-cyan-400"
-                                                  : "text-slate-500 hover:bg-slate-800/50 hover:text-slate-300"
+                                                  : "text-slate-400 hover:bg-slate-800/50 hover:text-slate-300"
                                               }`}
                                             >
                                               {c.name}
@@ -259,7 +259,7 @@ export default function Nav({ collapsed, onToggleCollapse }) {
       </nav>
 
       <div className="p-4 border-t border-slate-800">
-        <div className="flex items-center gap-2 text-xs text-slate-500">
+        <div className="flex items-center gap-2 text-xs text-slate-400">
           <div className="w-2 h-2 rounded-full bg-green-500" />
           <span>Production ready</span>
         </div>
