@@ -160,6 +160,7 @@ module.exports = {
           <button
             onClick={onClose}
             className="p-2 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white transition-colors"
+            aria-label="Close code panel"
           >
             <X className="w-5 h-5" />
           </button>
