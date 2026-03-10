@@ -118,6 +118,7 @@ export default function Nav({ collapsed, onToggleCollapse }) {
             value={q}
             onChange={(e) => setQ(e.target.value)}
             className="w-full pl-9 pr-8 py-2 rounded-lg bg-slate-800/50 border border-slate-700/50 text-sm text-white placeholder:text-slate-400 focus:outline-none focus:border-cyan-500/50"
+            aria-label="Search components"
           />
           {q && (
             <button

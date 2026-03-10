@@ -11,7 +11,7 @@ export default function Home() {
 
       <div className="min-h-screen bg-[#0f172a] text-slate-200 selection:bg-cyan-500/30">
         {/* Navbar */}
-        <nav className="sticky top-0 z-50 bg-[#0f172a]/80 backdrop-blur-md border-b border-slate-800">
+        <nav className="sticky top-0 z-50 bg-[#0f172a]/80 backdrop-blur-md border-b border-slate-800" aria-label="Main navigation">
           <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
             <Link href="/" className="flex items-center gap-3 group">
               <div className="w-8 h-8 rounded-lg bg-cyan-500 flex items-center justify-center transition-transform group-hover:scale-110">
@@ -29,6 +29,7 @@ export default function Home() {
           </div>
         </nav>
 
+        <main>
         {/* Hero */}
         <section className="pt-24 pb-32 px-6">
           <div className="max-w-4xl mx-auto text-center">
@@ -51,7 +52,7 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link
                 href="/playground"
-                className="w-full sm:w-auto px-6 py-3 md:px-8 md:py-4 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-white font-bold text-lg transition-all shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/40 transform hover:-translate-y-0.5"
+                className="w-full sm:w-auto px-6 py-3 md:px-8 md:py-4 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-lg transition-all shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/40 transform hover:-translate-y-0.5"
               >
                 Open Playground
               </Link>
@@ -68,6 +69,7 @@ export default function Home() {
         {/* Features Grid */}
         <section className="py-20 px-6 border-y border-slate-800/50 bg-slate-900/50">
           <div className="max-w-7xl mx-auto">
+            <h2 className="sr-only">Features</h2>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {[
                 { icon: Layers, title: "Production-ready components", desc: "Production-ready UI elements" },
@@ -142,7 +144,7 @@ export default function Home() {
               </p>
               <Link
                 href="/playground"
-                className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-white font-bold transition-all shadow-lg shadow-cyan-500/20"
+                className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold transition-all shadow-lg shadow-cyan-500/20"
               >
                 Open Playground
               </Link>
@@ -150,6 +152,7 @@ export default function Home() {
           </div>
         </section>
 
+        </main>
         {/* Footer */}
         <footer className="border-t border-slate-800 bg-[#0f172a] py-12 px-6">
           <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">

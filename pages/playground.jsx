@@ -69,7 +69,7 @@ export default function Playground() {
   useEffect(() => {
     if (!ready) return;
     const timeout = setTimeout(() => {
-      const params = encode({ id: sel || "pricing-card", color, play, font, dark });
+      const params = encode({ id: sel || "hero-gradient", color, play, font, dark });
       const newUrl = `${window.location.pathname}?${params}`;
       window.history.replaceState({}, "", newUrl);
     }, 300);

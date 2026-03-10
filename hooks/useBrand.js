@@ -6,7 +6,7 @@ const def = {
   font: "modern",
   dark: true,
   device: "desktop",
-  sel: "pricing-card",
+  sel: "hero-gradient",
 };
 
 export const useBrand = create((set) => ({

@@ -159,7 +159,7 @@ export default function Controls({ onPreview, onExport, collapsed, onToggleColla
         {/* Playfulness Slider */}
         <div>
           <div className="flex items-center justify-between mb-3">
-            <label className="text-sm font-medium text-white flex items-center gap-2">
+            <label htmlFor="playfulness-slider" className="text-sm font-medium text-white flex items-center gap-2">
               <Sparkles className="w-4 h-4 text-violet-400" />
               Playfulness
             </label>
@@ -169,6 +169,7 @@ export default function Controls({ onPreview, onExport, collapsed, onToggleColla
           <div className="space-y-4">
             <div className="relative h-6 flex items-center">
               <input
+                id="playfulness-slider"
                 type="range"
                 min="0"
                 max="1"
@@ -213,7 +214,7 @@ export default function Controls({ onPreview, onExport, collapsed, onToggleColla
           </label>
 
           <div className="flex items-center gap-3">
-            <input type="color" value={color} onChange={(e) => setColor(e.target.value)} className="cursor-pointer" />
+            <input type="color" value={color} onChange={(e) => setColor(e.target.value)} className="cursor-pointer" aria-label="Brand color picker" />
             <div className="flex-1">
               <input
                 type="text"
@@ -223,6 +224,7 @@ export default function Controls({ onPreview, onExport, collapsed, onToggleColla
                   if (/^#[0-9A-Fa-f]{0,6}$/.test(v)) setColor(v);
                 }}
                 className="w-full px-3 py-2 rounded-lg bg-slate-800/50 border border-slate-700/50 text-sm font-mono text-white focus:outline-none focus:border-cyan-500/50"
+                aria-label="Brand color hex value"
               />
             </div>
           </div>
