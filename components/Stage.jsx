@@ -2,7 +2,8 @@
 
 import { motion } from "framer-motion";
 import { useBrand, dims, getStyles } from "@/hooks/useBrand";
-import Render from "./Render";
+import dynamic from "next/dynamic";
+const Render = dynamic(() => import("./Render"), { ssr: false });
 
 export default function Stage({ id, dev }) {
   const { color, play, font, dark } = useBrand();
