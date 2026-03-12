@@ -29,6 +29,11 @@ yarn-error.log*
 *.swp
 *.swo
 
+# AI / tooling
+.claude/
+.cursor/
+.copilot/
+
 # OS
 .DS_Store
 Thumbs.db
