@@ -10,7 +10,7 @@ import Nav from "@/components/Nav";
 import Stage from "@/components/Stage";
 import Controls from "@/components/Controls";
 const QRModal = dynamic(() => import("@/components/QRModal"), { ssr: false });
-import PropsTable from "@/components/PropsTable";
+const PropsTable = dynamic(() => import("@/components/PropsTable"), { ssr: false });
 import { useBrand, getStyles } from "@/hooks/useBrand";
 import { getById } from "@/lib/items";
 import { encode, decode } from "@/lib/link";

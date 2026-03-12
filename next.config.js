@@ -6,12 +6,15 @@ const nextConfig = {
   swcMinify: true,
   compress: true,
   poweredByHeader: false,
+  images: { unoptimized: true },
   compiler: {
     removeConsole: process.env.NODE_ENV === "production",
   },
+  modularizeImports: {
+    "lucide-react": { transform: "lucide-react/dist/esm/icons/{{ kebabCase member }}" },
+  },
   experimental: {
     optimizeCss: true,
-    optimizePackageImports: ["lucide-react", "qrcode.react"],
   },
   webpack: (config) => {
     config.resolve.alias["framer-motion"] = path.resolve(__dirname, "lib/motion.js");

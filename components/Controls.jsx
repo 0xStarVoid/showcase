@@ -38,7 +38,11 @@ export default function Controls({ onPreview, onExport, collapsed, onToggleColla
   // Collapsed view - just icons
   if (collapsed) {
     return (
-      <aside className="w-12 border-l border-slate-800 bg-[#0f172a] flex flex-col shrink-0">
+      <aside
+        className="w-12 border-l border-slate-800 bg-[#0f172a] flex flex-col shrink-0"
+        role="complementary"
+        aria-label="Brand controls"
+      >
         <div className="p-2 border-b border-slate-800">
           <button
             onClick={onToggleCollapse}
@@ -91,7 +95,11 @@ export default function Controls({ onPreview, onExport, collapsed, onToggleColla
   const hw = play > 0.5 ? 600 : 700;
 
   return (
-    <aside className="w-72 border-l border-slate-800 bg-[#0f172a] flex flex-col shrink-0">
+    <aside
+      className="w-72 border-l border-slate-800 bg-[#0f172a] flex flex-col shrink-0"
+      role="complementary"
+      aria-label="Brand controls"
+    >
       {/* Header with collapse button */}
       <div className="p-4 border-b border-slate-800">
         <div className="flex items-center justify-between mb-3">
@@ -214,7 +222,13 @@ export default function Controls({ onPreview, onExport, collapsed, onToggleColla
           </label>
 
           <div className="flex items-center gap-3">
-            <input type="color" value={color} onChange={(e) => setColor(e.target.value)} className="cursor-pointer" aria-label="Brand color picker" />
+            <input
+              type="color"
+              value={color}
+              onChange={(e) => setColor(e.target.value)}
+              className="cursor-pointer"
+              aria-label="Brand color picker"
+            />
             <div className="flex-1">
               <input
                 type="text"

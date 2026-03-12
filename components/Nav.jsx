@@ -48,7 +48,11 @@ export default function Nav({ collapsed, onToggleCollapse }) {
   // Collapsed view - just icons for quick navigation
   if (collapsed) {
     return (
-      <aside className="w-12 h-screen border-r border-slate-800 bg-[#0f172a] flex flex-col shrink-0">
+      <aside
+        className="w-12 h-screen border-r border-slate-800 bg-[#0f172a] flex flex-col shrink-0"
+        role="navigation"
+        aria-label="Component navigation"
+      >
         <div className="p-2 border-b border-slate-800">
           <button
             onClick={onToggleCollapse}
@@ -87,7 +91,11 @@ export default function Nav({ collapsed, onToggleCollapse }) {
   }
 
   return (
-    <aside className="w-64 h-screen border-r border-slate-800 bg-[#0f172a] flex flex-col shrink-0">
+    <aside
+      className="w-64 h-screen border-r border-slate-800 bg-[#0f172a] flex flex-col shrink-0"
+      role="navigation"
+      aria-label="Component navigation"
+    >
       <div className="p-4 border-b border-slate-800">
         <div className="flex items-center gap-2 mb-4">
           {onToggleCollapse && (
