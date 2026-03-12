@@ -1,10 +1,10 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Head from "next/head";
-import { motion } from "framer-motion";
+import dynamic from "next/dynamic";
 import { Layers, ArrowLeft } from "lucide-react";
 import Link from "next/link";
-import Render from "@/components/Render";
+const Render = dynamic(() => import("@/components/Render"), { ssr: false });
 import { decode } from "@/lib/link";
 import { getById } from "@/lib/items";
 
@@ -40,7 +40,7 @@ export default function Preview() {
 
       <div className={`min-h-screen ${cfg?.dark ? "dark" : ""}`}>
         <div className="min-h-screen bg-white dark:bg-neutral-900 architect-grid">
-          <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-neutral-900/80 backdrop-blur-sm border-b border-neutral-100 dark:border-neutral-800">
+          <header className="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-neutral-900/80 border-b border-neutral-100 dark:border-neutral-800">
             <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center">
@@ -70,14 +70,9 @@ export default function Preview() {
 
           <main className="pt-24 pb-12 px-4">
             {cfg ? (
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                className="max-w-4xl mx-auto"
-              >
+              <div data-reveal className="max-w-4xl mx-auto">
                 <Render id={cfg.id} styles={{ color: cfg.color, play: cfg.play, font: cfg.font, dark: cfg.dark }} />
-              </motion.div>
+              </div>
             ) : (
               <div className="text-center py-20">
                 <div className="w-16 h-16 rounded-2xl bg-neutral-100 dark:bg-neutral-800 flex items-center justify-center mx-auto mb-4">
@@ -95,7 +90,7 @@ export default function Preview() {
             )}
           </main>
 
-          <footer className="fixed bottom-0 left-0 right-0 py-4 px-4 text-center bg-white/80 dark:bg-neutral-900/80 backdrop-blur-sm border-t border-neutral-100 dark:border-neutral-800">
+          <footer className="fixed bottom-0 left-0 right-0 py-4 px-4 text-center bg-white/80 dark:bg-neutral-900/80 border-t border-neutral-100 dark:border-neutral-800">
             <p className="text-xs text-neutral-500">
               Built with <span className="font-semibold">Showcase</span>
             </p>

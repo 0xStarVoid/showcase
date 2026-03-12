@@ -1,6 +1,5 @@
 import Head from "next/head";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { Layers, ArrowRight, ChevronRight } from "lucide-react";
 import { cats, all } from "@/lib/items";
 
@@ -12,7 +11,7 @@ export default function Components() {
       </Head>
 
       <div className="min-h-screen bg-[#fafafa] dark:bg-[#0a0a0a] architect-grid">
-        <header className="border-b border-neutral-100 dark:border-neutral-800 bg-white/80 dark:bg-neutral-900/80 backdrop-blur-sm sticky top-0 z-50">
+        <header className="border-b border-neutral-100 dark:border-neutral-800 bg-white/80 dark:bg-neutral-900/80 sticky top-0 z-50">
           <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
             <Link href="/" className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center">
@@ -31,7 +30,7 @@ export default function Components() {
 
         <section className="py-16 px-6">
           <div className="max-w-7xl mx-auto">
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-12">
+            <div data-reveal className="text-center mb-12">
               <h1 className="text-4xl md:text-5xl font-bold text-neutral-900 dark:text-white mb-4 font-serif">
                 Component Library
               </h1>
@@ -39,16 +38,11 @@ export default function Components() {
                 {all.length} production-ready components across {cats.length} categories. Each component responds to
                 your brand DNA settings.
               </p>
-            </motion.div>
+            </div>
 
             <div className="space-y-12">
               {cats.map((cat, i) => (
-                <motion.section
-                  key={cat.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.1 }}
-                >
+                <section key={cat.id} data-reveal style={{ animationDelay: `${i * 0.1}s` }}>
                   <div className="flex items-center gap-3 mb-6">
                     <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-blue-900/50 dark:to-indigo-900/50 flex items-center justify-center">
                       <span className="text-lg">
@@ -99,7 +93,7 @@ export default function Components() {
                       </div>
                     </div>
                   ))}
-                </motion.section>
+                </section>
               ))}
             </div>
           </div>

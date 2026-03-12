@@ -4,6 +4,7 @@ export default function Document() {
   return (
     <Html lang="en" data-accent="purple">
       <Head>
+        <link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
         <meta name="description" content="Component Showcase" />
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />

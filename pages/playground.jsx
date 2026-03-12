@@ -3,12 +3,13 @@
 import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
+import dynamic from "next/dynamic";
 import { AnimatePresence, motion } from "framer-motion";
 import { Layers, Check, Link2, FileCode } from "lucide-react";
 import Nav from "@/components/Nav";
 import Stage from "@/components/Stage";
 import Controls from "@/components/Controls";
-import QRModal from "@/components/QRModal";
+const QRModal = dynamic(() => import("@/components/QRModal"), { ssr: false });
 import PropsTable from "@/components/PropsTable";
 import { useBrand, getStyles } from "@/hooks/useBrand";
 import { getById } from "@/lib/items";
