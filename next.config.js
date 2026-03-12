@@ -1,3 +1,5 @@
+const path = require("path");
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -9,7 +11,11 @@ const nextConfig = {
   },
   experimental: {
     optimizeCss: true,
-    optimizePackageImports: ["lucide-react", "framer-motion", "qrcode.react"],
+    optimizePackageImports: ["lucide-react", "qrcode.react"],
+  },
+  webpack: (config) => {
+    config.resolve.alias["framer-motion"] = path.resolve(__dirname, "lib/motion.js");
+    return config;
   },
 };
 
