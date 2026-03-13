@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { QRCodeSVG } from "qrcode.react";
 import { X, Copy, Check, ExternalLink, Smartphone } from "lucide-react";
 import { useBrand } from "@/hooks/useBrand";
@@ -47,14 +47,14 @@ export default function QRModal({ onClose }) {
   };
 
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4"
       onClick={onClick}
     >
-      <motion.div
+      <m.div
         initial={{ scale: 0.95, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         exit={{ scale: 0.95, opacity: 0 }}
@@ -110,7 +110,7 @@ export default function QRModal({ onClose }) {
             </button>
           </div>
         </div>
-      </motion.div>
-    </motion.div>
+      </m.div>
+    </m.div>
   );
 }

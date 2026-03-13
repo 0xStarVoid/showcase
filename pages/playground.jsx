@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import dynamic from "next/dynamic";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, m, LazyMotion, domAnimation } from "framer-motion";
 import { Layers, Check, Link2, FileCode } from "lucide-react";
 import Nav from "@/components/Nav";
 import Stage from "@/components/Stage";
@@ -107,6 +107,7 @@ export default function Playground() {
         <title>{comp?.name || "Playground"}</title>
       </Head>
 
+      <LazyMotion features={domAnimation}>
       <div className={`h-screen flex overflow-hidden ${dark ? "dark" : ""}`} style={styles}>
         {/* Left Nav - Always visible, collapsible */}
         <Nav collapsed={navCollapsed} onToggleCollapse={() => setNavCollapsed(!navCollapsed)} />
@@ -169,7 +170,7 @@ export default function Playground() {
             {/* Props Table (collapsible) */}
             <AnimatePresence>
               {showProps && comp?.props && (
-                <motion.div
+                <m.div
                   initial={{ height: 0, opacity: 0 }}
                   animate={{ height: "auto", opacity: 1 }}
                   exit={{ height: 0, opacity: 0 }}
@@ -179,7 +180,7 @@ export default function Playground() {
                   <div className="p-4 max-h-64 overflow-auto">
                     <PropsTable props={comp.props} componentName={comp.name} />
                   </div>
-                </motion.div>
+                </m.div>
               )}
             </AnimatePresence>
 
@@ -187,7 +188,7 @@ export default function Playground() {
             <div className="flex-1 overflow-auto bg-slate-900/30">
               <AnimatePresence mode="wait">
                 {comp ? (
-                  <motion.div
+                  <m.div
                     key={sel}
                     initial={{ opacity: 0, scale: 0.98 }}
                     animate={{ opacity: 1, scale: 1 }}
@@ -196,9 +197,9 @@ export default function Playground() {
                     className="min-h-full"
                   >
                     <Stage id={sel} dev={device} />
-                  </motion.div>
+                  </m.div>
                 ) : (
-                  <motion.div
+                  <m.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     className="h-full flex flex-col items-center justify-center text-center"
@@ -208,7 +209,7 @@ export default function Playground() {
                     </div>
                     <h2 className="text-lg font-semibold text-white mb-2">Select a component</h2>
                     <p className="text-slate-400 text-sm max-w-xs">Choose from the sidebar to preview and customize.</p>
-                  </motion.div>
+                  </m.div>
                 )}
               </AnimatePresence>
             </div>
@@ -225,6 +226,7 @@ export default function Playground() {
 
         <AnimatePresence>{showQR && <QRModal onClose={() => setShowQR(false)} />}</AnimatePresence>
       </div>
+      </LazyMotion>
     </>
   );
 }

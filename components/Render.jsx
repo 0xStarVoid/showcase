@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import { useMemo, useState, memo } from "react";
 import {
   Check,
@@ -238,7 +238,7 @@ const PricingCard = memo(function PricingCard({ styles, primaryColor, cornerRadi
   const isPlayful = playfulness > 0.5;
 
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       className="w-full max-w-sm mx-auto p-6"
@@ -304,7 +304,7 @@ const PricingCard = memo(function PricingCard({ styles, primaryColor, cornerRadi
         {/* Features */}
         <ul className="space-y-4 mb-8">
           {PRICING_FEATURES.map((feature, index) => (
-            <motion.li
+            <m.li
               key={feature}
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
@@ -322,12 +322,12 @@ const PricingCard = memo(function PricingCard({ styles, primaryColor, cornerRadi
                 <Check className="w-3 h-3" strokeWidth={3} />
               </div>
               <span className="text-sm font-medium">{feature}</span>
-            </motion.li>
+            </m.li>
           ))}
         </ul>
 
         {/* CTA Button */}
-        <motion.button
+        <m.button
           whileHover={{ scale: isPlayful ? 1.03 : 1.01 }}
           whileTap={{ scale: 0.98 }}
           className="w-full py-4 font-bold transition-all relative overflow-hidden group"
@@ -344,13 +344,13 @@ const PricingCard = memo(function PricingCard({ styles, primaryColor, cornerRadi
           {isPlayful && (
             <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
           )}
-        </motion.button>
+        </m.button>
 
         <p className="text-center text-xs mt-4 transition-colors" style={{ color: "var(--textMuted)" }}>
           14-day free trial • No credit card required
         </p>
       </div>
-    </motion.div>
+    </m.div>
   );
 });
 
@@ -359,7 +359,7 @@ const HeroCentered = memo(function HeroCentered({ styles, primaryColor, cornerRa
   const isPlayful = playfulness > 0.5;
 
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       className="text-center px-8 py-16 relative overflow-visible"
@@ -379,7 +379,7 @@ const HeroCentered = memo(function HeroCentered({ styles, primaryColor, cornerRa
         </>
       )}
 
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium mb-8 border"
@@ -392,9 +392,9 @@ const HeroCentered = memo(function HeroCentered({ styles, primaryColor, cornerRa
       >
         <div className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: primaryColor }} />
         Introducing v2.0
-      </motion.div>
+      </m.div>
 
-      <motion.h1
+      <m.h1
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.1 }}
@@ -406,9 +406,9 @@ const HeroCentered = memo(function HeroCentered({ styles, primaryColor, cornerRa
         Build beautiful products
         <br />
         <span style={{ color: primaryColor }}>faster than ever</span>
-      </motion.h1>
+      </m.h1>
 
-      <motion.p
+      <m.p
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
@@ -417,15 +417,15 @@ const HeroCentered = memo(function HeroCentered({ styles, primaryColor, cornerRa
       >
         The modern toolkit for creating stunning user interfaces. Ship products that users love with our comprehensive
         design system.
-      </motion.p>
+      </m.p>
 
-      <motion.div
+      <m.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3 }}
         className="flex flex-col sm:flex-row gap-4 justify-center"
       >
-        <motion.button
+        <m.button
           whileHover={{ scale: isPlayful ? 1.05 : 1.02 }}
           whileTap={{ scale: 0.98 }}
           className="px-8 py-4 font-bold inline-flex items-center justify-center gap-2 shadow-lg hover:shadow-xl transition-all"
@@ -438,9 +438,9 @@ const HeroCentered = memo(function HeroCentered({ styles, primaryColor, cornerRa
         >
           Start Building
           <ArrowRight className="w-5 h-5" />
-        </motion.button>
+        </m.button>
 
-        <motion.button
+        <m.button
           whileHover={{ scale: isPlayful ? 1.05 : 1.02 }}
           whileTap={{ scale: 0.98 }}
           className="px-8 py-4 font-semibold border transition-colors hover:bg-[var(--surface-bg)]"
@@ -451,16 +451,16 @@ const HeroCentered = memo(function HeroCentered({ styles, primaryColor, cornerRa
           }}
         >
           View Documentation
-        </motion.button>
-      </motion.div>
-    </motion.div>
+        </m.button>
+      </m.div>
+    </m.div>
   );
 });
 
 // Component: Hero Split
 const HeroSplit = memo(function HeroSplit({ styles, primaryColor, cornerRadius, playfulness }) {
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       className="grid md:grid-cols-2 gap-12 items-center px-8 py-12"
@@ -471,7 +471,7 @@ const HeroSplit = memo(function HeroSplit({ styles, primaryColor, cornerRadius, 
       }}
     >
       <div>
-        <motion.span
+        <m.span
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           className="inline-block px-3 py-1 text-xs font-semibold mb-4"
@@ -482,18 +482,18 @@ const HeroSplit = memo(function HeroSplit({ styles, primaryColor, cornerRadius, 
           }}
         >
           NEW RELEASE
-        </motion.span>
+        </m.span>
 
-        <motion.h1
+        <m.h1
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.1 }}
           className="text-3xl md:text-4xl font-bold mb-4 leading-tight"
         >
           Transform your workflow with AI
-        </motion.h1>
+        </m.h1>
 
-        <motion.p
+        <m.p
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.2 }}
@@ -501,9 +501,9 @@ const HeroSplit = memo(function HeroSplit({ styles, primaryColor, cornerRadius, 
           style={{ color: "var(--textMuted)" }}
         >
           Automate repetitive tasks and focus on what matters. Our intelligent platform learns your patterns.
-        </motion.p>
+        </m.p>
 
-        <motion.button
+        <m.button
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.3 }}
@@ -517,10 +517,10 @@ const HeroSplit = memo(function HeroSplit({ styles, primaryColor, cornerRadius, 
         >
           Try it Free
           <ArrowRight className="w-4 h-4" />
-        </motion.button>
+        </m.button>
       </div>
 
-      <motion.div
+      <m.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 0.2 }}
@@ -581,15 +581,15 @@ const HeroSplit = memo(function HeroSplit({ styles, primaryColor, cornerRadius, 
             </g>
           )}
         </svg>
-      </motion.div>
-    </motion.div>
+      </m.div>
+    </m.div>
   );
 });
 
 // Component: Testimonial Card
 const TestimonialCard = memo(function TestimonialCard({ styles, primaryColor, cornerRadius, playfulness }) {
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       className="max-w-md mx-auto p-6"
@@ -635,14 +635,14 @@ const TestimonialCard = memo(function TestimonialCard({ styles, primaryColor, co
           </div>
         </div>
       </div>
-    </motion.div>
+    </m.div>
   );
 });
 
 // Component: Product Card
 const ProductCard = memo(function ProductCard({ styles, primaryColor, cornerRadius, playfulness }) {
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       className="max-w-xs mx-auto p-6"
@@ -664,7 +664,7 @@ const ProductCard = memo(function ProductCard({ styles, primaryColor, cornerRadi
             className="w-full h-full object-cover"
             loading="lazy"
           />
-          <motion.button
+          <m.button
             whileHover={{ scale: 1.1 }}
             className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center shadow-lg transition-colors"
             style={{
@@ -674,7 +674,7 @@ const ProductCard = memo(function ProductCard({ styles, primaryColor, cornerRadi
             aria-label="Add to favorites"
           >
             <Heart className="w-5 h-5" style={{ color: "var(--textMuted)" }} />
-          </motion.button>
+          </m.button>
         </div>
 
         {/* Content */}
@@ -689,7 +689,7 @@ const ProductCard = memo(function ProductCard({ styles, primaryColor, cornerRadi
             <span className="text-lg font-bold" style={{ color: primaryColor }}>
               $129.00
             </span>
-            <motion.button
+            <m.button
               whileHover={{ scale: playfulness > 0.5 ? 1.1 : 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="w-10 h-10 flex items-center justify-center text-white"
@@ -699,18 +699,18 @@ const ProductCard = memo(function ProductCard({ styles, primaryColor, cornerRadi
               }}
             >
               <ShoppingCart className="w-5 h-5" />
-            </motion.button>
+            </m.button>
           </div>
         </div>
       </div>
-    </motion.div>
+    </m.div>
   );
 });
 
 // Component: Text Input
 const TextInput = memo(function TextInput({ styles, primaryColor, cornerRadius, playfulness }) {
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       className="max-w-md mx-auto space-y-6 p-6"
@@ -762,14 +762,14 @@ const TextInput = memo(function TextInput({ styles, primaryColor, cornerRadius, 
           Must be at least 8 characters
         </p>
       </div>
-    </motion.div>
+    </m.div>
   );
 });
 
 // Component: Newsletter Signup
 const NewsletterSignup = memo(function NewsletterSignup({ styles, primaryColor, cornerRadius, playfulness }) {
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       className="max-w-lg mx-auto text-center p-6"
@@ -798,7 +798,7 @@ const NewsletterSignup = memo(function NewsletterSignup({ styles, primaryColor, 
             style={{ color: "var(--text)" }}
           />
         </div>
-        <motion.button
+        <m.button
           whileHover={{ scale: playfulness > 0.5 ? 1.05 : 1.02 }}
           whileTap={{ scale: 0.98 }}
           className="px-6 py-3 font-semibold shrink-0"
@@ -809,13 +809,13 @@ const NewsletterSignup = memo(function NewsletterSignup({ styles, primaryColor, 
           }}
         >
           Subscribe
-        </motion.button>
+        </m.button>
       </div>
 
       <p className="text-xs mt-3 transition-colors" style={{ color: "var(--textDim)" }}>
         No spam, unsubscribe anytime.
       </p>
-    </motion.div>
+    </m.div>
   );
 });
 
@@ -830,7 +830,7 @@ const ToggleSwitch = memo(function ToggleSwitch({ styles, primaryColor, cornerRa
   const toggle = (key) => setToggles((prev) => ({ ...prev, [key]: !prev[key] }));
 
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       className="max-w-md mx-auto space-y-4 p-6"
@@ -855,7 +855,7 @@ const ToggleSwitch = memo(function ToggleSwitch({ styles, primaryColor, cornerRa
             </div>
           </div>
           <button onClick={() => toggle(item.id)} className="rounded-full focus:outline-none">
-            <motion.div
+            <m.div
               initial={false}
               animate={{
                 backgroundColor: toggles[item.id] ? primaryColor : "var(--borderMain)",
@@ -865,17 +865,17 @@ const ToggleSwitch = memo(function ToggleSwitch({ styles, primaryColor, cornerRa
                 backgroundColor: toggles[item.id] ? primaryColor : undefined,
               }}
             >
-              <motion.div
+              <m.div
                 initial={false}
                 animate={{ x: toggles[item.id] ? 22 : 2 }}
                 transition={{ type: "spring", stiffness: 500, damping: 30 }}
                 className="absolute top-1 w-5 h-5 bg-white rounded-full shadow-sm"
               />
-            </motion.div>
+            </m.div>
           </button>
         </div>
       ))}
-    </motion.div>
+    </m.div>
   );
 });
 
@@ -883,14 +883,14 @@ const ToggleSwitch = memo(function ToggleSwitch({ styles, primaryColor, cornerRa
 const FeatureGrid = memo(function FeatureGrid({ styles, primaryColor, cornerRadius, playfulness }) {
 
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       className="grid md:grid-cols-3 gap-6 p-6"
       style={styles}
     >
       {FEATURE_GRID_DATA.map((feature, index) => (
-        <motion.div
+        <m.div
           key={feature.title}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -918,16 +918,16 @@ const FeatureGrid = memo(function FeatureGrid({ styles, primaryColor, cornerRadi
           <p className="text-sm transition-colors" style={{ color: "var(--textMuted)" }}>
             {feature.description}
           </p>
-        </motion.div>
+        </m.div>
       ))}
-    </motion.div>
+    </m.div>
   );
 });
 
 // Component: Cart Item
 const CartItem = memo(function CartItem({ styles, primaryColor, cornerRadius, playfulness }) {
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       className="max-w-md mx-auto p-6"
@@ -993,7 +993,7 @@ const CartItem = memo(function CartItem({ styles, primaryColor, cornerRadius, pl
           </div>
         </div>
       </div>
-    </motion.div>
+    </m.div>
   );
 });
 
@@ -1006,7 +1006,7 @@ const HeroGradient = memo(function HeroGradient({ styles, primaryColor, cornerRa
   const accentStrong = `color-mix(in srgb, ${primaryColor} 74%, #020617)`;
 
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       className="relative py-16 sm:py-20 lg:py-24 text-center overflow-hidden px-4"
@@ -1018,7 +1018,7 @@ const HeroGradient = memo(function HeroGradient({ styles, primaryColor, cornerRa
     >
       {/* Dark Background with subtle accent glow */}
       <div className="absolute inset-0" style={{ background: "var(--bg)" }} />
-      <motion.div
+      <m.div
         animate={{
           backgroundPosition: ["0% 0%", "100% 100%", "0% 0%"],
         }}
@@ -1032,7 +1032,7 @@ const HeroGradient = memo(function HeroGradient({ styles, primaryColor, cornerRa
 
       {/* Content */}
       <div className="relative z-10">
-        <motion.div
+        <m.div
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ delay: 0.2 }}
@@ -1048,9 +1048,9 @@ const HeroGradient = memo(function HeroGradient({ styles, primaryColor, cornerRa
           >
             ✨ Introducing our newest innovation
           </div>
-        </motion.div>
+        </m.div>
 
-        <motion.h1
+        <m.h1
           initial={{ y: 30, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.3 }}
@@ -1065,9 +1065,9 @@ const HeroGradient = memo(function HeroGradient({ styles, primaryColor, cornerRa
           >
             Bright & Bold
           </span>
-        </motion.h1>
+        </m.h1>
 
-        <motion.p
+        <m.p
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.4 }}
@@ -1075,16 +1075,16 @@ const HeroGradient = memo(function HeroGradient({ styles, primaryColor, cornerRa
           style={{ color: "var(--textMuted)" }}
         >
           Experience the next generation of design with our revolutionary platform that transforms ideas into reality.
-        </motion.p>
+        </m.p>
 
-        <motion.div
+        <m.div
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.5 }}
           className="flex flex-col sm:flex-row gap-4 justify-center items-center px-4"
         >
           {/* Primary CTA - Accent gradient bg, theme-aware text */}
-          <motion.button
+          <m.button
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.98 }}
             className="px-8 py-4 font-bold rounded-full shadow-2xl transition-shadow w-full sm:w-auto"
@@ -1095,9 +1095,9 @@ const HeroGradient = memo(function HeroGradient({ styles, primaryColor, cornerRa
             }}
           >
             Get Started Free
-          </motion.button>
+          </m.button>
           {/* Secondary CTA - Ghost style */}
-          <motion.button
+          <m.button
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.98 }}
             className="px-8 py-4 backdrop-blur-sm font-semibold rounded-full border-2 transition-colors w-full sm:w-auto hover:bg-[var(--surface-bg)]"
@@ -1108,38 +1108,38 @@ const HeroGradient = memo(function HeroGradient({ styles, primaryColor, cornerRa
             }}
           >
             Watch Demo
-          </motion.button>
-        </motion.div>
+          </m.button>
+        </m.div>
       </div>
 
       {/* Floating Elements with accent color */}
-      <motion.div
+      <m.div
         animate={{ y: [0, -20, 0], rotate: [0, 5, 0] }}
         transition={{ duration: 4, repeat: Infinity }}
         className="absolute top-20 left-10 w-16 h-16 backdrop-blur-sm rounded-2xl hidden md:block"
         style={{ background: `color-mix(in srgb, ${primaryColor} 25%, transparent)` }}
       />
-      <motion.div
+      <m.div
         animate={{ y: [0, 20, 0], rotate: [0, -5, 0] }}
         transition={{ duration: 5, repeat: Infinity }}
         className="absolute bottom-20 right-10 w-24 h-24 backdrop-blur-sm rounded-full hidden md:block"
         style={{ background: `color-mix(in srgb, ${primaryColor} 20%, transparent)` }}
       />
-    </motion.div>
+    </m.div>
   );
 });
 
 // Component: Bento Grid
 const BentoGrid = memo(function BentoGrid({ styles, primaryColor, cornerRadius, playfulness }) {
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 p-4"
       style={styles}
     >
       {/* Large Feature - Takes 2 columns on lg, full width on mobile */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 0.1 }}
@@ -1162,10 +1162,10 @@ const BentoGrid = memo(function BentoGrid({ styles, primaryColor, cornerRadius, 
           </p>
         </div>
         <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-white/10 rounded-full blur-2xl" />
-      </motion.div>
+      </m.div>
 
       {/* Medium Feature */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 0.2 }}
@@ -1183,10 +1183,10 @@ const BentoGrid = memo(function BentoGrid({ styles, primaryColor, cornerRadius, 
         <p className="text-sm transition-colors" style={{ color: "var(--textMuted)" }}>
           Bank-level encryption and compliance certifications.
         </p>
-      </motion.div>
+      </m.div>
 
       {/* Small Feature */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 0.3 }}
@@ -1204,10 +1204,10 @@ const BentoGrid = memo(function BentoGrid({ styles, primaryColor, cornerRadius, 
         <p className="text-xs sm:text-sm transition-colors" style={{ color: "var(--textMuted)" }}>
           Built with love
         </p>
-      </motion.div>
+      </m.div>
 
       {/* Small Feature */}
-      <motion.div
+      <m.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 0.4 }}
@@ -1224,8 +1224,8 @@ const BentoGrid = memo(function BentoGrid({ styles, primaryColor, cornerRadius, 
         <p className="text-xs sm:text-sm font-medium transition-colors" style={{ color: "var(--textMuted)" }}>
           Uptime Guarantee
         </p>
-      </motion.div>
-    </motion.div>
+      </m.div>
+    </m.div>
   );
 });
 
@@ -1239,7 +1239,7 @@ const TestimonialCarousel = memo(function TestimonialCarousel({ styles, primaryC
   const prev = () => setIndex((i) => (i - 1 + TESTIMONIALS.length) % TESTIMONIALS.length);
 
   return (
-    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="max-w-4xl mx-auto p-6" style={styles}>
+    <m.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="max-w-4xl mx-auto p-6" style={styles}>
       <div className="relative">
         <div className="flex items-center gap-4">
           <button
@@ -1252,7 +1252,7 @@ const TestimonialCarousel = memo(function TestimonialCarousel({ styles, primaryC
 
           <div className="flex-1 relative overflow-hidden">
             <AnimatePresence mode="wait">
-              <motion.div
+              <m.div
                 key={index}
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -1312,7 +1312,7 @@ const TestimonialCarousel = memo(function TestimonialCarousel({ styles, primaryC
                     </div>
                   </div>
                 </div>
-              </motion.div>
+              </m.div>
             </AnimatePresence>
           </div>
 
@@ -1340,14 +1340,14 @@ const TestimonialCarousel = memo(function TestimonialCarousel({ styles, primaryC
           ))}
         </div>
       </div>
-    </motion.div>
+    </m.div>
   );
 });
 
 // Component: Product Card Detailed
 const ProductCardDetailed = memo(function ProductCardDetailed({ styles, primaryColor, cornerRadius, playfulness }) {
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       className="max-w-sm mx-auto p-6"
@@ -1371,7 +1371,7 @@ const ProductCardDetailed = memo(function ProductCardDetailed({ styles, primaryC
           <div className="absolute top-4 left-4 px-3 py-1 bg-red-500 text-white text-xs font-bold rounded-full">
             -25% OFF
           </div>
-          <motion.button
+          <m.button
             whileHover={{ scale: 1.1 }}
             className="absolute top-4 right-4 w-10 h-10 flex items-center justify-center shadow-lg transition-colors"
             style={{
@@ -1380,10 +1380,10 @@ const ProductCardDetailed = memo(function ProductCardDetailed({ styles, primaryC
             }}
           >
             <Heart className="w-5 h-5" style={{ color: "var(--textMuted)" }} />
-          </motion.button>
+          </m.button>
 
           {/* Quick View Button */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: 10 }}
             whileHover={{ opacity: 1, y: 0 }}
             className="absolute bottom-4 left-4 right-4"
@@ -1398,7 +1398,7 @@ const ProductCardDetailed = memo(function ProductCardDetailed({ styles, primaryC
             >
               Quick View
             </button>
-          </motion.div>
+          </m.div>
         </div>
 
         {/* Content */}
@@ -1467,7 +1467,7 @@ const ProductCardDetailed = memo(function ProductCardDetailed({ styles, primaryC
                 or $15/month
               </div>
             </div>
-            <motion.button
+            <m.button
               whileHover={{ scale: playfulness > 0.5 ? 1.1 : 1.05 }}
               whileTap={{ scale: 0.95 }}
               className="w-12 h-12 flex items-center justify-center text-white"
@@ -1477,11 +1477,11 @@ const ProductCardDetailed = memo(function ProductCardDetailed({ styles, primaryC
               }}
             >
               <ShoppingCart className="w-5 h-5" />
-            </motion.button>
+            </m.button>
           </div>
         </div>
       </div>
-    </motion.div>
+    </m.div>
   );
 });
 
@@ -1491,7 +1491,7 @@ const CART_TOTAL_QTY = CART_ITEMS.reduce((sum, item) => sum + item.qty, 0);
 const CartDrawer = memo(function CartDrawer({ styles, primaryColor, cornerRadius, playfulness }) {
 
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, x: 20 }}
       animate={{ opacity: 1, x: 0 }}
       className="max-w-md mx-auto p-6"
@@ -1577,7 +1577,7 @@ const CartDrawer = memo(function CartDrawer({ styles, primaryColor, cornerRadius
               ${CART_SUBTOTAL}
             </span>
           </div>
-          <motion.button
+          <m.button
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             className="w-full py-4 font-bold flex items-center justify-center gap-2"
@@ -1589,13 +1589,13 @@ const CartDrawer = memo(function CartDrawer({ styles, primaryColor, cornerRadius
           >
             Checkout
             <ChevronRight className="w-5 h-5" />
-          </motion.button>
+          </m.button>
           <p className="text-center text-xs mt-3" style={{ color: "var(--textMuted)" }}>
             Free shipping on orders over $100
           </p>
         </div>
       </div>
-    </motion.div>
+    </m.div>
   );
 });
 
@@ -1603,14 +1603,14 @@ const CartDrawer = memo(function CartDrawer({ styles, primaryColor, cornerRadius
 const PricingTable = memo(function PricingTable({ styles, primaryColor, cornerRadius, playfulness }) {
 
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 p-4"
       style={styles}
     >
       {PRICING_PLANS.map((plan, idx) => (
-        <motion.div
+        <m.div
           key={plan.name}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -1660,7 +1660,7 @@ const PricingTable = memo(function PricingTable({ styles, primaryColor, cornerRa
             ))}
           </ul>
 
-          <motion.button
+          <m.button
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             className="w-full py-3 font-bold transition-colors"
@@ -1673,17 +1673,17 @@ const PricingTable = memo(function PricingTable({ styles, primaryColor, cornerRa
             }}
           >
             {plan.popular ? "Get Started" : "Choose Plan"}
-          </motion.button>
-        </motion.div>
+          </m.button>
+        </m.div>
       ))}
-    </motion.div>
+    </m.div>
   );
 });
 
 // Component: Search Input
 const SearchInput = memo(function SearchInput({ styles, primaryColor, cornerRadius, playfulness }) {
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       className="max-w-2xl mx-auto p-6"
@@ -1720,7 +1720,7 @@ const SearchInput = memo(function SearchInput({ styles, primaryColor, cornerRadi
             />
           </svg>
         </div>
-        <motion.button
+        <m.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           className="absolute right-2 top-1/2 -translate-y-1/2 px-6 py-2 font-semibold"
@@ -1731,7 +1731,7 @@ const SearchInput = memo(function SearchInput({ styles, primaryColor, cornerRadi
           }}
         >
           Search
-        </motion.button>
+        </m.button>
       </div>
 
       {/* Popular Searches */}
@@ -1753,7 +1753,7 @@ const SearchInput = memo(function SearchInput({ styles, primaryColor, cornerRadi
           </button>
         ))}
       </div>
-    </motion.div>
+    </m.div>
   );
 });
 
@@ -1762,7 +1762,7 @@ const CheckboxGroup = memo(function CheckboxGroup({ styles, primaryColor, corner
   const [checked, setChecked] = useState({ notifications: true, updates: false, marketing: false });
 
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       className="max-w-md mx-auto p-6 space-y-4"
@@ -1797,7 +1797,7 @@ const CheckboxGroup = memo(function CheckboxGroup({ styles, primaryColor, corner
           </div>
         </label>
       ))}
-    </motion.div>
+    </m.div>
   );
 });
 
@@ -1806,7 +1806,7 @@ const RadioGroup = memo(function RadioGroup({ styles, primaryColor, cornerRadius
   const [selected, setSelected] = useState("standard");
 
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       className="max-w-md mx-auto p-6 space-y-3"
@@ -1847,7 +1847,7 @@ const RadioGroup = memo(function RadioGroup({ styles, primaryColor, cornerRadius
           </span>
         </label>
       ))}
-    </motion.div>
+    </m.div>
   );
 });
 
@@ -1856,7 +1856,7 @@ const StepIndicator = memo(function StepIndicator({ styles, primaryColor, corner
   const [currentStep, setCurrentStep] = useState(2);
 
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       className="max-w-lg mx-auto p-6"
@@ -1866,7 +1866,7 @@ const StepIndicator = memo(function StepIndicator({ styles, primaryColor, corner
         {WIZARD_STEPS.map((step, i) => (
           <div key={step} className="flex items-center">
             <div className="flex flex-col items-center">
-              <motion.div
+              <m.div
                 className="w-10 h-10 rounded-full flex items-center justify-center font-semibold text-sm cursor-pointer transition-colors"
                 style={{
                   backgroundColor: i <= currentStep ? primaryColor : "var(--surface)",
@@ -1877,7 +1877,7 @@ const StepIndicator = memo(function StepIndicator({ styles, primaryColor, corner
                 onClick={() => setCurrentStep(i)}
               >
                 {i < currentStep ? <Check className="w-5 h-5" /> : i + 1}
-              </motion.div>
+              </m.div>
               <span
                 className="text-xs mt-2 transition-colors"
                 style={{ color: i <= currentStep ? "var(--text)" : "var(--textMuted)" }}
@@ -1897,7 +1897,7 @@ const StepIndicator = memo(function StepIndicator({ styles, primaryColor, corner
       <div className="text-center">
         <p className="text-neutral-400 text-sm">Click on steps to navigate</p>
       </div>
-    </motion.div>
+    </m.div>
   );
 });
 
@@ -1906,7 +1906,7 @@ const MultiStepForm = memo(function MultiStepForm({ styles, primaryColor, corner
   const [step, setStep] = useState(0);
 
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       className="max-w-md mx-auto p-6"
@@ -1927,7 +1927,7 @@ const MultiStepForm = memo(function MultiStepForm({ styles, primaryColor, corner
       </p>
 
       <AnimatePresence mode="wait">
-        <motion.div
+        <m.div
           key={step}
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
@@ -2005,7 +2005,7 @@ const MultiStepForm = memo(function MultiStepForm({ styles, primaryColor, corner
               </p>
             </div>
           )}
-        </motion.div>
+        </m.div>
       </AnimatePresence>
 
       {/* Navigation */}
@@ -2036,6 +2036,6 @@ const MultiStepForm = memo(function MultiStepForm({ styles, primaryColor, corner
           {step === 2 ? "Submit" : "Continue"}
         </button>
       </div>
-    </motion.div>
+    </m.div>
   );
 });

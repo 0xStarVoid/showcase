@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import {
   Sparkles,
   RotateCcw,
@@ -141,7 +141,7 @@ export default function Controls({ onPreview, onExport, collapsed, onToggleColla
                 aria-label={`Switch to ${label} view`}
               >
                 {device === type && (
-                  <motion.div
+                  <m.div
                     layoutId="device-indicator-controls"
                     className="absolute inset-0 bg-slate-700/50 rounded"
                     transition={{ type: "spring", stiffness: 500, damping: 35 }}
@@ -197,7 +197,7 @@ export default function Controls({ onPreview, onExport, collapsed, onToggleColla
 
           {/* Visual Indicator */}
           <div className="mt-4 flex items-center gap-3">
-            <motion.div
+            <m.div
               animate={{
                 borderRadius: `${4 + play * 20}px`,
                 backgroundColor: `hsl(${220 + play * 30}, ${50 + play * 30}%, ${50 + play * 10}%)`,
@@ -206,7 +206,7 @@ export default function Controls({ onPreview, onExport, collapsed, onToggleColla
               className="w-12 h-12 flex items-center justify-center"
             >
               <span className="text-white text-lg font-semibold">A</span>
-            </motion.div>
+            </m.div>
             <div className="text-xs text-slate-400">
               <p>Radius: {Math.round(play * 24)}px</p>
               <p>Animation: {play > 0.5 ? "Bouncy" : "Subtle"}</p>
@@ -324,7 +324,7 @@ export default function Controls({ onPreview, onExport, collapsed, onToggleColla
 
           <AnimatePresence>
             {showTokens && (
-              <motion.div
+              <m.div
                 initial={{ height: 0, opacity: 0 }}
                 animate={{ height: "auto", opacity: 1 }}
                 exit={{ height: 0, opacity: 0 }}
@@ -364,7 +364,7 @@ export default function Controls({ onPreview, onExport, collapsed, onToggleColla
                     {tokensCopied ? "Copied!" : "Copy Tokens"}
                   </button>
                 </div>
-              </motion.div>
+              </m.div>
             )}
           </AnimatePresence>
         </div>

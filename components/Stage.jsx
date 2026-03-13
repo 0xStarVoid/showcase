@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { useBrand, dims, getStyles } from "@/hooks/useBrand";
 import dynamic from "next/dynamic";
 const Render = dynamic(() => import("./Render"), { ssr: false });
@@ -35,7 +35,7 @@ export default function Stage({ id, dev }) {
         }}
       >
         <div className={`${getW()} mx-auto px-4`}>
-          <motion.div
+          <m.div
             layout
             className="rounded-lg overflow-hidden ring-1 ring-white/10"
             style={{
@@ -45,9 +45,9 @@ export default function Stage({ id, dev }) {
             }}
           >
             <Render id={id} styles={{ color, play, font, dark }} />
-          </motion.div>
+          </m.div>
 
-          <motion.div
+          <m.div
             layout
             className="flex items-center justify-center gap-2 mt-4 pb-4"
             initial={{ opacity: 0 }}
@@ -64,7 +64,7 @@ export default function Stage({ id, dev }) {
               {d.width}px
             </div>
             <span className="text-xs font-medium uppercase tracking-wider">{d.label}</span>
-          </motion.div>
+          </m.div>
         </div>
       </div>
     );
@@ -81,12 +81,12 @@ export default function Stage({ id, dev }) {
         colorScheme: dark ? "dark" : "light",
       }}
     >
-      <motion.div
+      <m.div
         layout
         transition={{ type: "spring", stiffness: 200, damping: 25 }}
         className={`${getW()} w-full z-10`}
       >
-        <motion.div
+        <m.div
           layout
           className={`
             relative shadow-2xl ring-1 ring-white/10
@@ -104,7 +104,7 @@ export default function Stage({ id, dev }) {
             </div>
           )}
 
-          <motion.div
+          <m.div
             layout
             className={`
               overflow-hidden relative
@@ -136,16 +136,16 @@ export default function Stage({ id, dev }) {
             >
               <Render id={id} styles={{ color, play, font, dark }} />
             </div>
-          </motion.div>
+          </m.div>
 
           {dev === "mobile" && (
             <div className="flex justify-center pt-3 pb-1">
               <div className="w-32 h-1 bg-slate-600/50 rounded-full" />
             </div>
           )}
-        </motion.div>
+        </m.div>
 
-        <motion.div
+        <m.div
           layout
           className="flex items-center justify-center gap-2 mt-4 text-slate-500"
           initial={{ opacity: 0 }}
@@ -155,8 +155,8 @@ export default function Stage({ id, dev }) {
             {d.width}px
           </div>
           <span className="text-xs font-medium uppercase tracking-wider text-slate-600">{d.label}</span>
-        </motion.div>
-      </motion.div>
+        </m.div>
+      </m.div>
     </div>
   );
 }

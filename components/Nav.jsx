@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import {
   Search,
   Layers,
@@ -143,7 +143,7 @@ export default function Nav({ collapsed, onToggleCollapse }) {
       <nav className="flex-1 overflow-y-auto p-3">
         <AnimatePresence mode="wait">
           {q ? (
-            <motion.div
+            <m.div
               key="search"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -175,9 +175,9 @@ export default function Nav({ collapsed, onToggleCollapse }) {
                   <p className="text-slate-400 text-sm">No components found</p>
                 </div>
               )}
-            </motion.div>
+            </m.div>
           ) : (
-            <motion.div
+            <m.div
               key="categories"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -196,14 +196,14 @@ export default function Nav({ collapsed, onToggleCollapse }) {
                     >
                       <Icon className="w-4 h-4 text-slate-400" />
                       <span className="flex-1 text-left font-medium text-sm text-white">{cat.name}</span>
-                      <motion.div animate={{ rotate: exp ? 0 : -90 }} transition={{ duration: 0.2 }}>
+                      <m.div animate={{ rotate: exp ? 0 : -90 }} transition={{ duration: 0.2 }}>
                         <ChevronDown className="w-4 h-4 text-slate-400" />
-                      </motion.div>
+                      </m.div>
                     </button>
 
                     <AnimatePresence>
                       {exp && (
-                        <motion.div
+                        <m.div
                           initial={{ height: 0, opacity: 0 }}
                           animate={{ height: "auto", opacity: 1 }}
                           exit={{ height: 0, opacity: 0 }}
@@ -219,16 +219,16 @@ export default function Nav({ collapsed, onToggleCollapse }) {
                                     onClick={() => toggleSub(sub.id)}
                                     className="w-full flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-slate-800/50 transition-colors text-sm text-slate-400"
                                   >
-                                    <motion.div animate={{ rotate: subExp ? 90 : 0 }} transition={{ duration: 0.15 }}>
+                                    <m.div animate={{ rotate: subExp ? 90 : 0 }} transition={{ duration: 0.15 }}>
                                       <ChevronRight className="w-3.5 h-3.5" />
-                                    </motion.div>
+                                    </m.div>
                                     <span className="flex-1 text-left">{sub.name}</span>
                                     <span className="text-xs text-slate-600">{sub.items.length}</span>
                                   </button>
 
                                   <AnimatePresence>
                                     {subExp && (
-                                      <motion.div
+                                      <m.div
                                         initial={{ height: 0, opacity: 0 }}
                                         animate={{ height: "auto", opacity: 1 }}
                                         exit={{ height: 0, opacity: 0 }}
@@ -250,20 +250,20 @@ export default function Nav({ collapsed, onToggleCollapse }) {
                                             </button>
                                           ))}
                                         </div>
-                                      </motion.div>
+                                      </m.div>
                                     )}
                                   </AnimatePresence>
                                 </div>
                               );
                             })}
                           </div>
-                        </motion.div>
+                        </m.div>
                       )}
                     </AnimatePresence>
                   </div>
                 );
               })}
-            </motion.div>
+            </m.div>
           )}
         </AnimatePresence>
       </nav>

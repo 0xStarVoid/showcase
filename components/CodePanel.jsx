@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { X, Copy, Check, Code2, Palette, Settings } from "lucide-react";
 import { useBrand, getStyles } from "@/hooks/useBrand";
 import { getById } from "@/lib/items";
@@ -138,14 +138,14 @@ module.exports = {
   };
 
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
       onClick={(e) => e.target === e.currentTarget && onClose()}
     >
-      <motion.div
+      <m.div
         initial={{ opacity: 0, scale: 0.95, y: 20 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.95, y: 20 }}
@@ -179,7 +179,7 @@ module.exports = {
               <tab.icon className="w-4 h-4" />
               {tab.label}
               {activeTab === tab.id && (
-                <motion.div layoutId="activeTab" className="absolute bottom-0 left-0 right-0 h-0.5 bg-cyan-400" />
+                <m.div layoutId="activeTab" className="absolute bottom-0 left-0 right-0 h-0.5 bg-cyan-400" />
               )}
             </button>
           ))}
@@ -230,7 +230,7 @@ module.exports = {
             <span>Tip: Adjust settings in the sidebar, code updates live</span>
           </div>
         </div>
-      </motion.div>
-    </motion.div>
+      </m.div>
+    </m.div>
   );
 }

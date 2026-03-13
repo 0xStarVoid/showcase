@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { Sun, Moon, Monitor, Tablet, Smartphone } from "lucide-react";
 import { useBrand } from "@/hooks/useBrand";
 
@@ -27,7 +27,7 @@ export default function Switcher() {
             title={label}
           >
             {device === type && (
-              <motion.div
+              <m.div
                 layoutId="device-indicator"
                 className="absolute inset-0 bg-slate-700/50 rounded"
                 transition={{ type: "spring", stiffness: 500, damping: 35 }}

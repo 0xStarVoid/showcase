@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 import { Code, Info } from "lucide-react";
 
 /**
@@ -18,7 +18,7 @@ export default function PropsTable({ props = [], componentName = "" }) {
   }
 
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       className="rounded-xl overflow-hidden border border-slate-700 bg-slate-800/50"
@@ -51,7 +51,7 @@ export default function PropsTable({ props = [], componentName = "" }) {
           </thead>
           <tbody className="divide-y divide-slate-700/50">
             {props.map((prop, i) => (
-              <motion.tr
+              <m.tr
                 key={prop.name}
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -70,11 +70,11 @@ export default function PropsTable({ props = [], componentName = "" }) {
                   <code className="text-amber-400 font-mono text-xs">{prop.default}</code>
                 </td>
                 <td className="px-4 py-3 text-slate-300 text-xs">{prop.desc}</td>
-              </motion.tr>
+              </m.tr>
             ))}
           </tbody>
         </table>
       </div>
-    </motion.div>
+    </m.div>
   );
 }
