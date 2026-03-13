@@ -28,13 +28,15 @@ export default function Playground() {
 
   const { sel, setSel, color, play, font, dark, device, setColor, setPlay, setFont } = useBrand();
 
-  // Auto-collapse on small screens
+  // Auto-collapse on small screens (debounced resize)
   useEffect(() => {
+    let timer;
     const checkWidth = () => {
-      if (window.innerWidth < 768) {
+      const w = window.innerWidth;
+      if (w < 768) {
         setNavCollapsed(true);
         setControlsCollapsed(true);
-      } else if (window.innerWidth < 1024) {
+      } else if (w < 1024) {
         setNavCollapsed(false);
         setControlsCollapsed(true);
       } else {
@@ -42,9 +44,16 @@ export default function Playground() {
         setControlsCollapsed(false);
       }
     };
+    const onResize = () => {
+      clearTimeout(timer);
+      timer = setTimeout(checkWidth, 150);
+    };
     checkWidth();
-    window.addEventListener("resize", checkWidth);
-    return () => window.removeEventListener("resize", checkWidth);
+    window.addEventListener("resize", onResize);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener("resize", onResize);
+    };
   }, []);
 
   // Load state from URL on mount - set ready AFTER parsing to prevent race condition

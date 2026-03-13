@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { useMemo, useState } from "react";
+import { useMemo, useState, memo } from "react";
 import {
   Check,
   Star,
@@ -22,6 +22,115 @@ import {
  * Uses light-dark() for automatic theme switching
  * No darkMode param needed - respects colorScheme from Stage
  */
+// Pre-computed constants for SVG grids (avoid .map() allocation on every render)
+const GRID_COORDS = [80, 160, 240, 320];
+const GRID_LINES_V = GRID_COORDS.map((x) => (
+  <line key={`v${x}`} x1={x} y1="0" x2={x} y2="400" />
+));
+const GRID_LINES_H = GRID_COORDS.map((y) => (
+  <line key={`h${y}`} x1="0" y1={y} x2="400" y2={y} />
+));
+
+// Static data arrays extracted to module scope (avoid re-creation per render)
+const STAR_KEYS = [1, 2, 3, 4, 5];
+const HERO_SPLIT_NODES = [
+  { cx: 200, cy: 60, icon: "M195 55 L200 50 L205 55 L205 65 L200 70 L195 65 Z" },
+  { cx: 340, cy: 200, icon: "M335 195 L345 195 L345 205 L335 205 Z" },
+  { cx: 200, cy: 340, icon: "M192 340 A8 8 0 1 1 208 340 A8 8 0 1 1 192 340" },
+  { cx: 60, cy: 200, icon: "M52 200 L60 192 L68 200 L60 208 Z" },
+  { cx: 305, cy: 95, icon: "M300 90 L310 90 L310 100 L300 100 Z" },
+  { cx: 95, cy: 305, icon: "M87 305 A8 8 0 1 1 103 305 A8 8 0 1 1 87 305" },
+];
+const FLOATING_PARTICLES = [
+  { cx: 150, cy: 120, r: 4 },
+  { cx: 280, cy: 150, r: 3 },
+  { cx: 120, cy: 270, r: 5 },
+  { cx: 300, cy: 280, r: 4 },
+  { cx: 340, cy: 130, r: 3 },
+  { cx: 70, cy: 130, r: 4 },
+];
+const PRICING_FEATURES = [
+  "Unlimited projects",
+  "Advanced analytics",
+  "Priority support",
+  "Custom integrations",
+  "Team collaboration",
+];
+const FEATURE_GRID_DATA = [
+  { icon: Zap, title: "Lightning Fast", description: "Optimized for speed and performance" },
+  { icon: Shield, title: "Secure by Default", description: "Enterprise-grade security built in" },
+  { icon: Heart, title: "Made with Care", description: "Crafted with attention to detail" },
+];
+const TOGGLE_ITEMS = [
+  { id: "email", label: "Email notifications", sublabel: "Receive email updates" },
+  { id: "push", label: "Push notifications", sublabel: "Get push alerts on your device" },
+  { id: "marketing", label: "Marketing emails", sublabel: "Receive promotional content" },
+];
+const TESTIMONIALS = [
+  {
+    quote: "This tool has revolutionized our workflow. The efficiency gains are remarkable!",
+    author: "Alex Rivera",
+    role: "CTO, TechFlow",
+    rating: 5,
+    avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop",
+  },
+  {
+    quote: "Best investment we've made this year. The ROI was immediate.",
+    author: "Sam Chen",
+    role: "Founder, StartupX",
+    rating: 5,
+    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop",
+  },
+  {
+    quote: "The attention to detail and customization options are unparalleled.",
+    author: "Jordan Lee",
+    role: "Product Lead, DesignCo",
+    rating: 5,
+    avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop",
+  },
+];
+const CART_ITEMS = [
+  {
+    name: "Wireless Headphones",
+    price: 299,
+    qty: 1,
+    image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=200&h=200&fit=crop",
+  },
+  {
+    name: "Smart Watch",
+    price: 399,
+    qty: 2,
+    image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=200&h=200&fit=crop",
+  },
+];
+const PRICING_PLANS = [
+  { name: "Starter", price: 19, features: ["5 Projects", "10 GB Storage", "Email Support"] },
+  {
+    name: "Pro",
+    price: 49,
+    features: ["Unlimited Projects", "100 GB Storage", "Priority Support", "Advanced Analytics"],
+    popular: true,
+  },
+  {
+    name: "Enterprise",
+    price: 99,
+    features: ["Unlimited Everything", "Custom Integration", "Dedicated Manager", "SLA"],
+  },
+];
+const POPULAR_SEARCH_TERMS = ["Design", "Development", "Marketing", "Analytics"];
+const CHECKBOX_OPTIONS = [
+  { id: "notifications", label: "Push notifications", desc: "Receive alerts on your device" },
+  { id: "updates", label: "Product updates", desc: "Get notified about new features" },
+  { id: "marketing", label: "Marketing emails", desc: "Receive promotional content" },
+];
+const RADIO_OPTIONS = [
+  { id: "economy", label: "Economy", price: "$4.99", time: "5-7 days" },
+  { id: "standard", label: "Standard", price: "$9.99", time: "3-5 days" },
+  { id: "express", label: "Express", price: "$19.99", time: "1-2 days" },
+];
+const WIZARD_STEPS = ["Account", "Details", "Payment", "Confirm"];
+const FORM_STEPS = ["Personal Info", "Contact", "Review"];
+
 const themeStyles = {
   // Background styles (use as style prop)
   bg: { backgroundColor: "var(--bg)" },
@@ -125,15 +234,7 @@ export default function Render({ id, styles: s }) {
 }
 
 // Component: Pricing Card
-function PricingCard({ styles, primaryColor, cornerRadius, playfulness }) {
-  const features = [
-    "Unlimited projects",
-    "Advanced analytics",
-    "Priority support",
-    "Custom integrations",
-    "Team collaboration",
-  ];
-
+const PricingCard = memo(function PricingCard({ styles, primaryColor, cornerRadius, playfulness }) {
   const isPlayful = playfulness > 0.5;
 
   return (
@@ -202,7 +303,7 @@ function PricingCard({ styles, primaryColor, cornerRadius, playfulness }) {
 
         {/* Features */}
         <ul className="space-y-4 mb-8">
-          {features.map((feature, index) => (
+          {PRICING_FEATURES.map((feature, index) => (
             <motion.li
               key={feature}
               initial={{ opacity: 0, x: -10 }}
@@ -251,10 +352,10 @@ function PricingCard({ styles, primaryColor, cornerRadius, playfulness }) {
       </div>
     </motion.div>
   );
-}
+});
 
 // Component: Hero Centered
-function HeroCentered({ styles, primaryColor, cornerRadius, playfulness }) {
+const HeroCentered = memo(function HeroCentered({ styles, primaryColor, cornerRadius, playfulness }) {
   const isPlayful = playfulness > 0.5;
 
   return (
@@ -354,10 +455,10 @@ function HeroCentered({ styles, primaryColor, cornerRadius, playfulness }) {
       </motion.div>
     </motion.div>
   );
-}
+});
 
 // Component: Hero Split
-function HeroSplit({ styles, primaryColor, cornerRadius, playfulness }) {
+const HeroSplit = memo(function HeroSplit({ styles, primaryColor, cornerRadius, playfulness }) {
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -442,14 +543,10 @@ function HeroSplit({ styles, primaryColor, cornerRadius, playfulness }) {
           {/* Background */}
           <rect width="400" height="400" style={{ fill: "light-dark(#f1f5f9, #1e293b)" }} rx={cornerRadius * 1.5} />
 
-          {/* Decorative grid */}
+          {/* Decorative grid (pre-computed) */}
           <g style={{ stroke: "light-dark(#e2e8f0, #334155)" }} strokeWidth="1" opacity="0.5">
-            {[80, 160, 240, 320].map((x) => (
-              <line key={`v${x}`} x1={x} y1="0" x2={x} y2="400" />
-            ))}
-            {[80, 160, 240, 320].map((y) => (
-              <line key={`h${y}`} x1="0" y1={y} x2="400" y2={y} />
-            ))}
+            {GRID_LINES_V}
+            {GRID_LINES_H}
           </g>
 
           {/* Central hub circle */}
@@ -468,14 +565,7 @@ function HeroSplit({ styles, primaryColor, cornerRadius, playfulness }) {
           </g>
 
           {/* Outer nodes */}
-          {[
-            { cx: 200, cy: 60, icon: "M195 55 L200 50 L205 55 L205 65 L200 70 L195 65 Z" },
-            { cx: 340, cy: 200, icon: "M335 195 L345 195 L345 205 L335 205 Z" },
-            { cx: 200, cy: 340, icon: "M192 340 A8 8 0 1 1 208 340 A8 8 0 1 1 192 340" },
-            { cx: 60, cy: 200, icon: "M52 200 L60 192 L68 200 L60 208 Z" },
-            { cx: 305, cy: 95, icon: "M300 90 L310 90 L310 100 L300 100 Z" },
-            { cx: 95, cy: 305, icon: "M87 305 A8 8 0 1 1 103 305 A8 8 0 1 1 87 305" },
-          ].map((node, i) => (
+          {HERO_SPLIT_NODES.map((node, i) => (
             <g key={i}>
               <circle cx={node.cx} cy={node.cy} r="24" fill="url(#heroGrad2)" />
               <path d={node.icon} fill="white" />
@@ -485,22 +575,19 @@ function HeroSplit({ styles, primaryColor, cornerRadius, playfulness }) {
           {/* Floating particles */}
           {playfulness > 0.3 && (
             <g fill={primaryColor} opacity="0.4">
-              <circle cx="150" cy="120" r="4" />
-              <circle cx="280" cy="150" r="3" />
-              <circle cx="120" cy="270" r="5" />
-              <circle cx="300" cy="280" r="4" />
-              <circle cx="340" cy="130" r="3" />
-              <circle cx="70" cy="130" r="4" />
+              {FLOATING_PARTICLES.map((p, i) => (
+                <circle key={i} cx={p.cx} cy={p.cy} r={p.r} />
+              ))}
             </g>
           )}
         </svg>
       </motion.div>
     </motion.div>
   );
-}
+});
 
 // Component: Testimonial Card
-function TestimonialCard({ styles, primaryColor, cornerRadius, playfulness }) {
+const TestimonialCard = memo(function TestimonialCard({ styles, primaryColor, cornerRadius, playfulness }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -518,7 +605,7 @@ function TestimonialCard({ styles, primaryColor, cornerRadius, playfulness }) {
       >
         {/* Stars */}
         <div className="flex gap-1 mb-4">
-          {[1, 2, 3, 4, 5].map((star) => (
+          {STAR_KEYS.map((star) => (
             <Star key={star} className="w-5 h-5 fill-current" style={{ color: primaryColor }} />
           ))}
         </div>
@@ -550,10 +637,10 @@ function TestimonialCard({ styles, primaryColor, cornerRadius, playfulness }) {
       </div>
     </motion.div>
   );
-}
+});
 
 // Component: Product Card
-function ProductCard({ styles, primaryColor, cornerRadius, playfulness }) {
+const ProductCard = memo(function ProductCard({ styles, primaryColor, cornerRadius, playfulness }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -618,10 +705,10 @@ function ProductCard({ styles, primaryColor, cornerRadius, playfulness }) {
       </div>
     </motion.div>
   );
-}
+});
 
 // Component: Text Input
-function TextInput({ styles, primaryColor, cornerRadius, playfulness }) {
+const TextInput = memo(function TextInput({ styles, primaryColor, cornerRadius, playfulness }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -677,10 +764,10 @@ function TextInput({ styles, primaryColor, cornerRadius, playfulness }) {
       </div>
     </motion.div>
   );
-}
+});
 
 // Component: Newsletter Signup
-function NewsletterSignup({ styles, primaryColor, cornerRadius, playfulness }) {
+const NewsletterSignup = memo(function NewsletterSignup({ styles, primaryColor, cornerRadius, playfulness }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -730,10 +817,10 @@ function NewsletterSignup({ styles, primaryColor, cornerRadius, playfulness }) {
       </p>
     </motion.div>
   );
-}
+});
 
 // Component: Toggle Switch
-function ToggleSwitch({ styles, primaryColor, cornerRadius, playfulness }) {
+const ToggleSwitch = memo(function ToggleSwitch({ styles, primaryColor, cornerRadius, playfulness }) {
   const [toggles, setToggles] = useState({
     email: true,
     push: false,
@@ -749,11 +836,7 @@ function ToggleSwitch({ styles, primaryColor, cornerRadius, playfulness }) {
       className="max-w-md mx-auto space-y-4 p-6"
       style={styles}
     >
-      {[
-        { id: "email", label: "Email notifications", sublabel: "Receive email updates" },
-        { id: "push", label: "Push notifications", sublabel: "Get push alerts on your device" },
-        { id: "marketing", label: "Marketing emails", sublabel: "Receive promotional content" },
-      ].map((item) => (
+      {TOGGLE_ITEMS.map((item) => (
         <div
           key={item.id}
           className="flex items-center justify-between p-4 transition-colors"
@@ -794,15 +877,10 @@ function ToggleSwitch({ styles, primaryColor, cornerRadius, playfulness }) {
       ))}
     </motion.div>
   );
-}
+});
 
 // Component: Feature Grid
-function FeatureGrid({ styles, primaryColor, cornerRadius, playfulness }) {
-  const features = [
-    { icon: Zap, title: "Lightning Fast", description: "Optimized for speed and performance" },
-    { icon: Shield, title: "Secure by Default", description: "Enterprise-grade security built in" },
-    { icon: Heart, title: "Made with Care", description: "Crafted with attention to detail" },
-  ];
+const FeatureGrid = memo(function FeatureGrid({ styles, primaryColor, cornerRadius, playfulness }) {
 
   return (
     <motion.div
@@ -811,7 +889,7 @@ function FeatureGrid({ styles, primaryColor, cornerRadius, playfulness }) {
       className="grid md:grid-cols-3 gap-6 p-6"
       style={styles}
     >
-      {features.map((feature, index) => (
+      {FEATURE_GRID_DATA.map((feature, index) => (
         <motion.div
           key={feature.title}
           initial={{ opacity: 0, y: 20 }}
@@ -844,10 +922,10 @@ function FeatureGrid({ styles, primaryColor, cornerRadius, playfulness }) {
       ))}
     </motion.div>
   );
-}
+});
 
 // Component: Cart Item
-function CartItem({ styles, primaryColor, cornerRadius, playfulness }) {
+const CartItem = memo(function CartItem({ styles, primaryColor, cornerRadius, playfulness }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -917,10 +995,10 @@ function CartItem({ styles, primaryColor, cornerRadius, playfulness }) {
       </div>
     </motion.div>
   );
-}
+});
 
 // Component: Hero Gradient
-function HeroGradient({ styles, primaryColor, cornerRadius, playfulness }) {
+const HeroGradient = memo(function HeroGradient({ styles, primaryColor, cornerRadius, playfulness }) {
   // Platinum Standard: Use color-mix with 45%/65% ratios for proper contrast
   // Matches Portfolio Nav.module.css swatch pattern
   const accentLight = `color-mix(in srgb, ${primaryColor} 45%, #ffffff)`;
@@ -1049,10 +1127,10 @@ function HeroGradient({ styles, primaryColor, cornerRadius, playfulness }) {
       />
     </motion.div>
   );
-}
+});
 
 // Component: Bento Grid
-function BentoGrid({ styles, primaryColor, cornerRadius, playfulness }) {
+const BentoGrid = memo(function BentoGrid({ styles, primaryColor, cornerRadius, playfulness }) {
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -1149,40 +1227,16 @@ function BentoGrid({ styles, primaryColor, cornerRadius, playfulness }) {
       </motion.div>
     </motion.div>
   );
-}
+});
 
 // Component: Testimonial Carousel
-function TestimonialCarousel({ styles, primaryColor, cornerRadius, playfulness }) {
+const TestimonialCarousel = memo(function TestimonialCarousel({ styles, primaryColor, cornerRadius, playfulness }) {
   const [index, setIndex] = useState(0);
 
-  const testimonials = [
-    {
-      quote: "This tool has revolutionized our workflow. The efficiency gains are remarkable!",
-      author: "Alex Rivera",
-      role: "CTO, TechFlow",
-      rating: 5,
-      avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop",
-    },
-    {
-      quote: "Best investment we've made this year. The ROI was immediate.",
-      author: "Sam Chen",
-      role: "Founder, StartupX",
-      rating: 5,
-      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop",
-    },
-    {
-      quote: "The attention to detail and customization options are unparalleled.",
-      author: "Jordan Lee",
-      role: "Product Lead, DesignCo",
-      rating: 5,
-      avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop",
-    },
-  ];
+  const current = TESTIMONIALS[index];
 
-  const current = testimonials[index];
-
-  const next = () => setIndex((i) => (i + 1) % testimonials.length);
-  const prev = () => setIndex((i) => (i - 1 + testimonials.length) % testimonials.length);
+  const next = () => setIndex((i) => (i + 1) % TESTIMONIALS.length);
+  const prev = () => setIndex((i) => (i - 1 + TESTIMONIALS.length) % TESTIMONIALS.length);
 
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="max-w-4xl mx-auto p-6" style={styles}>
@@ -1224,7 +1278,7 @@ function TestimonialCarousel({ styles, primaryColor, cornerRadius, playfulness }
 
                 {/* Stars */}
                 <div className="flex gap-1 mb-6">
-                  {[1, 2, 3, 4, 5].map((star) => (
+                  {STAR_KEYS.map((star) => (
                     <Star
                       key={star}
                       className="w-5 h-5 sm:w-6 sm:h-6 fill-current transition-colors duration-300"
@@ -1273,7 +1327,7 @@ function TestimonialCarousel({ styles, primaryColor, cornerRadius, playfulness }
 
         {/* Navigation Dots */}
         <div className="flex justify-center gap-2 mt-6">
-          {testimonials.map((_, i) => (
+          {TESTIMONIALS.map((_, i) => (
             <button
               key={i}
               onClick={() => setIndex(i)}
@@ -1288,10 +1342,10 @@ function TestimonialCarousel({ styles, primaryColor, cornerRadius, playfulness }
       </div>
     </motion.div>
   );
-}
+});
 
 // Component: Product Card Detailed
-function ProductCardDetailed({ styles, primaryColor, cornerRadius, playfulness }) {
+const ProductCardDetailed = memo(function ProductCardDetailed({ styles, primaryColor, cornerRadius, playfulness }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -1363,7 +1417,7 @@ function ProductCardDetailed({ styles, primaryColor, cornerRadius, playfulness }
           {/* Rating */}
           <div className="flex items-center gap-2 mb-3">
             <div className="flex gap-0.5">
-              {[1, 2, 3, 4, 5].map((star) => (
+              {STAR_KEYS.map((star) => (
                 <Star
                   key={star}
                   className="w-4 h-4 fill-current"
@@ -1429,25 +1483,12 @@ function ProductCardDetailed({ styles, primaryColor, cornerRadius, playfulness }
       </div>
     </motion.div>
   );
-}
+});
 
 // Component: Cart Drawer
-function CartDrawer({ styles, primaryColor, cornerRadius, playfulness }) {
-  const items = [
-    {
-      name: "Wireless Headphones",
-      price: 299,
-      qty: 1,
-      image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=200&h=200&fit=crop",
-    },
-    {
-      name: "Smart Watch",
-      price: 399,
-      qty: 2,
-      image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=200&h=200&fit=crop",
-    },
-  ];
-  const subtotal = items.reduce((sum, item) => sum + item.price * item.qty, 0);
+const CART_SUBTOTAL = CART_ITEMS.reduce((sum, item) => sum + item.price * item.qty, 0);
+const CART_TOTAL_QTY = CART_ITEMS.reduce((sum, item) => sum + item.qty, 0);
+const CartDrawer = memo(function CartDrawer({ styles, primaryColor, cornerRadius, playfulness }) {
 
   return (
     <motion.div
@@ -1473,14 +1514,14 @@ function CartDrawer({ styles, primaryColor, cornerRadius, playfulness }) {
                 borderRadius: "50%",
               }}
             >
-              {items.reduce((sum, item) => sum + item.qty, 0)}
+              {CART_TOTAL_QTY}
             </div>
           </div>
         </div>
 
         {/* Items */}
         <div className="p-6 space-y-4 max-h-96 overflow-y-auto">
-          {items.map((item, idx) => (
+          {CART_ITEMS.map((item, idx) => (
             <div
               key={idx}
               className="flex gap-4 pb-4 border-b last:border-0 transition-colors"
@@ -1533,7 +1574,7 @@ function CartDrawer({ styles, primaryColor, cornerRadius, playfulness }) {
               Subtotal
             </span>
             <span className="font-bold transition-colors" style={{ color: "var(--text)" }}>
-              ${subtotal}
+              ${CART_SUBTOTAL}
             </span>
           </div>
           <motion.button
@@ -1556,24 +1597,10 @@ function CartDrawer({ styles, primaryColor, cornerRadius, playfulness }) {
       </div>
     </motion.div>
   );
-}
+});
 
 // Component: Pricing Table
-function PricingTable({ styles, primaryColor, cornerRadius, playfulness }) {
-  const plans = [
-    { name: "Starter", price: 19, features: ["5 Projects", "10 GB Storage", "Email Support"] },
-    {
-      name: "Pro",
-      price: 49,
-      features: ["Unlimited Projects", "100 GB Storage", "Priority Support", "Advanced Analytics"],
-      popular: true,
-    },
-    {
-      name: "Enterprise",
-      price: 99,
-      features: ["Unlimited Everything", "Custom Integration", "Dedicated Manager", "SLA"],
-    },
-  ];
+const PricingTable = memo(function PricingTable({ styles, primaryColor, cornerRadius, playfulness }) {
 
   return (
     <motion.div
@@ -1582,7 +1609,7 @@ function PricingTable({ styles, primaryColor, cornerRadius, playfulness }) {
       className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 p-4"
       style={styles}
     >
-      {plans.map((plan, idx) => (
+      {PRICING_PLANS.map((plan, idx) => (
         <motion.div
           key={plan.name}
           initial={{ opacity: 0, y: 20 }}
@@ -1651,10 +1678,10 @@ function PricingTable({ styles, primaryColor, cornerRadius, playfulness }) {
       ))}
     </motion.div>
   );
-}
+});
 
 // Component: Search Input
-function SearchInput({ styles, primaryColor, cornerRadius, playfulness }) {
+const SearchInput = memo(function SearchInput({ styles, primaryColor, cornerRadius, playfulness }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -1712,7 +1739,7 @@ function SearchInput({ styles, primaryColor, cornerRadius, playfulness }) {
         <span className="text-sm" style={{ color: "var(--textMuted)" }}>
           Popular:
         </span>
-        {["Design", "Development", "Marketing", "Analytics"].map((term) => (
+        {POPULAR_SEARCH_TERMS.map((term) => (
           <button
             key={term}
             className="px-3 py-1 text-sm transition-colors"
@@ -1728,17 +1755,11 @@ function SearchInput({ styles, primaryColor, cornerRadius, playfulness }) {
       </div>
     </motion.div>
   );
-}
+});
 
 // Component: Checkbox Group
-function CheckboxGroup({ styles, primaryColor, cornerRadius, playfulness }) {
+const CheckboxGroup = memo(function CheckboxGroup({ styles, primaryColor, cornerRadius, playfulness }) {
   const [checked, setChecked] = useState({ notifications: true, updates: false, marketing: false });
-
-  const options = [
-    { id: "notifications", label: "Push notifications", desc: "Receive alerts on your device" },
-    { id: "updates", label: "Product updates", desc: "Get notified about new features" },
-    { id: "marketing", label: "Marketing emails", desc: "Receive promotional content" },
-  ];
 
   return (
     <motion.div
@@ -1750,7 +1771,7 @@ function CheckboxGroup({ styles, primaryColor, cornerRadius, playfulness }) {
       <h3 className="text-lg font-semibold mb-4 transition-colors" style={{ color: "var(--text)" }}>
         Notification Preferences
       </h3>
-      {options.map((option) => (
+      {CHECKBOX_OPTIONS.map((option) => (
         <label
           key={option.id}
           className="flex items-start gap-3 p-3 rounded-lg cursor-pointer transition-colors"
@@ -1778,17 +1799,11 @@ function CheckboxGroup({ styles, primaryColor, cornerRadius, playfulness }) {
       ))}
     </motion.div>
   );
-}
+});
 
 // Component: Radio Group
-function RadioGroup({ styles, primaryColor, cornerRadius, playfulness }) {
+const RadioGroup = memo(function RadioGroup({ styles, primaryColor, cornerRadius, playfulness }) {
   const [selected, setSelected] = useState("standard");
-
-  const options = [
-    { id: "economy", label: "Economy", price: "$4.99", time: "5-7 days" },
-    { id: "standard", label: "Standard", price: "$9.99", time: "3-5 days" },
-    { id: "express", label: "Express", price: "$19.99", time: "1-2 days" },
-  ];
 
   return (
     <motion.div
@@ -1800,7 +1815,7 @@ function RadioGroup({ styles, primaryColor, cornerRadius, playfulness }) {
       <h3 className="text-lg font-semibold mb-4 transition-colors" style={{ color: "var(--text)" }}>
         Shipping Method
       </h3>
-      {options.map((option) => (
+      {RADIO_OPTIONS.map((option) => (
         <label
           key={option.id}
           className="flex items-center gap-3 p-4 rounded-lg cursor-pointer border-2 transition-all"
@@ -1834,12 +1849,11 @@ function RadioGroup({ styles, primaryColor, cornerRadius, playfulness }) {
       ))}
     </motion.div>
   );
-}
+});
 
 // Component: Step Indicator
-function StepIndicator({ styles, primaryColor, cornerRadius, playfulness }) {
+const StepIndicator = memo(function StepIndicator({ styles, primaryColor, cornerRadius, playfulness }) {
   const [currentStep, setCurrentStep] = useState(2);
-  const steps = ["Account", "Details", "Payment", "Confirm"];
 
   return (
     <motion.div
@@ -1849,7 +1863,7 @@ function StepIndicator({ styles, primaryColor, cornerRadius, playfulness }) {
       style={styles}
     >
       <div className="flex items-center justify-between mb-8">
-        {steps.map((step, i) => (
+        {WIZARD_STEPS.map((step, i) => (
           <div key={step} className="flex items-center">
             <div className="flex flex-col items-center">
               <motion.div
@@ -1871,7 +1885,7 @@ function StepIndicator({ styles, primaryColor, cornerRadius, playfulness }) {
                 {step}
               </span>
             </div>
-            {i < steps.length - 1 && (
+            {i < WIZARD_STEPS.length - 1 && (
               <div
                 className="w-12 sm:w-20 h-1 mx-2 transition-colors"
                 style={{ backgroundColor: i < currentStep ? primaryColor : "var(--borderDim)" }}
@@ -1885,13 +1899,11 @@ function StepIndicator({ styles, primaryColor, cornerRadius, playfulness }) {
       </div>
     </motion.div>
   );
-}
+});
 
-// Component: Multi-step Form
 // Component: Multi-step Form (Wizard)
-function MultiStepForm({ styles, primaryColor, cornerRadius, playfulness }) {
+const MultiStepForm = memo(function MultiStepForm({ styles, primaryColor, cornerRadius, playfulness }) {
   const [step, setStep] = useState(0);
-  const steps = ["Personal Info", "Contact", "Review"];
 
   return (
     <motion.div
@@ -1902,7 +1914,7 @@ function MultiStepForm({ styles, primaryColor, cornerRadius, playfulness }) {
     >
       {/* Progress */}
       <div className="flex gap-2 mb-6">
-        {steps.map((s, i) => (
+        {FORM_STEPS.map((s, i) => (
           <div
             key={s}
             className="flex-1 h-1.5 rounded-full"
@@ -1911,7 +1923,7 @@ function MultiStepForm({ styles, primaryColor, cornerRadius, playfulness }) {
         ))}
       </div>
       <p className="text-sm mb-4" style={{ color: "var(--textMuted)" }}>
-        Step {step + 1} of {steps.length}: {steps[step]}
+        Step {step + 1} of {FORM_STEPS.length}: {FORM_STEPS[step]}
       </p>
 
       <AnimatePresence mode="wait">
@@ -2026,4 +2038,4 @@ function MultiStepForm({ styles, primaryColor, cornerRadius, playfulness }) {
       </div>
     </motion.div>
   );
-}
+});
