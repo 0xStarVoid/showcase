@@ -15,6 +15,7 @@ const nextConfig = {
   },
   experimental: {
     optimizeCss: true,
+    optimizePackageImports: ["lucide-react"],
   },
   webpack: (config) => {
     config.resolve.alias["framer-motion"] = path.resolve(__dirname, "lib/motion.js");
