@@ -98,10 +98,10 @@ export default function Nav({ collapsed, onToggleCollapse }) {
               <ChevronLeft className="w-4 h-4" />
             </button>
           )}
-          <Link href="/" className="flex items-center gap-1.5 flex-1">
-            <VantiveLogo size={18} className="text-cyan-400" />
-            <span className="font-semibold text-white leading-tight">Vantive</span>
-            <span className="font-semibold text-cyan-400 leading-tight">UI</span>
+          <Link href="/" className="flex items-center flex-1">
+            <VantiveLogo size={20} className="text-cyan-400 -mr-px" />
+            <span className="font-semibold text-white leading-tight">antive</span>
+            <span className="font-semibold text-cyan-400 leading-tight ml-1.5">UI</span>
           </Link>
         </div>
 

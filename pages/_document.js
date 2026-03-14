@@ -5,11 +5,11 @@ export default function Document() {
     <Html lang="en" data-accent="purple">
       <Head>
         <link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
-        <meta name="description" content="Component Showcase" />
+        <meta name="description" content="Production-ready UI components with live customization" />
         <link rel="icon" href="/favicon.ico" sizes="any" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
       </Head>
-      <body className="antialiased">
+      <body className="antialiased" suppressHydrationWarning>
         <Main />
         <NextScript />
       </body>
