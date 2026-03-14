@@ -163,7 +163,7 @@ export default function Home() {
               <Layers className="w-5 h-5 text-cyan-500" />
               <span className="font-semibold text-white">Component Showcase</span>
             </div>
-            <p className="text-slate-400 text-sm">© 2026 Vantive.</p>
+            <p className="text-slate-400 text-sm">© 2026 Vantive Studios.</p>
           </div>
         </footer>
       </div>

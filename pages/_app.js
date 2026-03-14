@@ -12,8 +12,6 @@ export default function App({ Component, pageProps }) {
   }, [dark]);
 
   useEffect(() => {
-    const els = document.querySelectorAll("[data-reveal]:not(.revealed)");
-    if (!els.length) return;
     const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((e) => {
@@ -25,8 +23,24 @@ export default function App({ Component, pageProps }) {
       },
       { rootMargin: "0px 0px 60px 0px" },
     );
-    els.forEach((el) => io.observe(el));
-    return () => io.disconnect();
+
+    const scan = () =>
+      document.querySelectorAll("[data-reveal]:not(.revealed)").forEach((el) => io.observe(el));
+
+    const idle = window.requestIdleCallback || ((cb) => setTimeout(cb, 1));
+    let pending = idle(scan);
+
+    const mo = new MutationObserver(() => {
+      (window.cancelIdleCallback || clearTimeout)(pending);
+      pending = idle(scan);
+    });
+    mo.observe(document.body, { childList: true, subtree: true });
+
+    return () => {
+      (window.cancelIdleCallback || clearTimeout)(pending);
+      io.disconnect();
+      mo.disconnect();
+    };
   }, []);
 
   return (
