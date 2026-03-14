@@ -3,17 +3,8 @@
 import { useState, useMemo } from "react";
 import Link from "next/link";
 import { m, AnimatePresence } from "framer-motion";
-import {
-  Search,
-  Layers,
-  ChevronDown,
-  ChevronRight,
-  ChevronLeft,
-  Megaphone,
-  ShoppingBag,
-  FormInput,
-  X,
-} from "lucide-react";
+import { Search, ChevronDown, ChevronRight, ChevronLeft, Megaphone, ShoppingBag, FormInput, X } from "lucide-react";
+import VantiveLogo from "@/components/ui/VantiveLogo";
 import { cats, search } from "@/lib/items";
 import { useBrand } from "@/hooks/useBrand";
 
@@ -68,7 +59,7 @@ export default function Nav({ collapsed, onToggleCollapse }) {
             className="block p-2 rounded-lg hover:bg-slate-800 text-cyan-400 transition-colors"
             aria-label="Home"
           >
-            <Layers className="w-4 h-4 mx-auto" />
+            <VantiveLogo size={16} className="text-cyan-400 mx-auto" />
           </Link>
           <div className="border-t border-slate-700 my-2" />
           {Object.entries(icons).map(([id, Icon]) => (
@@ -108,11 +99,9 @@ export default function Nav({ collapsed, onToggleCollapse }) {
             </button>
           )}
           <Link href="/" className="flex items-center gap-3 flex-1">
-            <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center">
-              <Layers className="w-5 h-5 text-white" />
-            </div>
+            <VantiveLogo size={24} className="text-cyan-400" />
             <div>
-              <span className="font-semibold text-white block leading-tight">Showcase</span>
+              <span className="font-semibold text-white block leading-tight">Vantive</span>
               <span className="text-xs text-slate-400">Component Library</span>
             </div>
           </Link>
@@ -185,7 +174,7 @@ export default function Nav({ collapsed, onToggleCollapse }) {
               className="space-y-1"
             >
               {cats.map((cat) => {
-                const Icon = icons[cat.id] || Layers;
+                const Icon = icons[cat.id] || Megaphone;
                 const exp = expCats.includes(cat.id);
 
                 return (

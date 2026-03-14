@@ -1,23 +1,22 @@
 import Head from "next/head";
 import Link from "next/link";
-import { ArrowRight, Layers, Palette, Smartphone, Sparkles, Zap } from "lucide-react";
+import { ArrowRight, Palette, Smartphone, Sparkles, Zap } from "lucide-react";
+import VantiveLogo from "@/components/ui/VantiveLogo";
 
 export default function Home() {
   return (
     <>
       <Head>
-        <title>Component Showcase</title>
+        <title>Vantive UI — Component Showcase</title>
       </Head>
 
       <div className="min-h-screen bg-[#0f172a] text-slate-200 selection:bg-cyan-500/30">
         {/* Navbar */}
         <nav className="sticky top-0 z-50 bg-[#0f172a]/95 border-b border-slate-800" aria-label="Main navigation">
           <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-            <Link href="/" className="flex items-center gap-3 group">
-              <div className="w-8 h-8 rounded-lg bg-cyan-500 flex items-center justify-center transition-transform group-hover:scale-110">
-                <Layers className="w-5 h-5 text-white" />
-              </div>
-              <span className="font-bold text-white tracking-tight">Component Showcase</span>
+            <Link href="/" className="flex items-center gap-2 group">
+              <VantiveLogo size={24} className="text-cyan-400 transition-transform group-hover:scale-110" />
+              <span className="font-bold text-white tracking-tight">Vantive</span>
             </Link>
             <Link
               href="/playground"
@@ -52,13 +51,13 @@ export default function Home() {
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <Link
                   href="/playground"
-                  className="w-full sm:w-auto px-6 py-3 md:px-8 md:py-4 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-lg transition-all shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/40 transform hover:-translate-y-0.5"
+                  className="w-full sm:w-auto px-6 py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-base sm:text-lg transition-all shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/40 transform hover:-translate-y-0.5"
                 >
                   Open Playground
                 </Link>
                 <Link
                   href="/components"
-                  className="w-full sm:w-auto px-6 py-3 md:px-8 md:py-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold text-lg border border-slate-700 hover:border-slate-600 transition-all"
+                  className="w-full sm:w-auto px-6 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold text-base sm:text-lg border border-slate-700 hover:border-slate-600 transition-all"
                 >
                   Browse Components
                 </Link>
@@ -72,7 +71,12 @@ export default function Home() {
               <h2 className="sr-only">Features</h2>
               <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                 {[
-                  { icon: Layers, title: "Production-ready components", desc: "Production-ready UI elements" },
+                  {
+                    icon: VantiveLogo,
+                    title: "Production-ready components",
+                    desc: "Production-ready UI elements",
+                    isLogo: true,
+                  },
                   {
                     icon: Palette,
                     title: "Global theming and shared tokens",
@@ -85,7 +89,11 @@ export default function Home() {
                     key={f.title}
                     className="p-6 rounded-2xl bg-slate-800/30 border border-slate-700/50 hover:border-slate-600 transition-colors"
                   >
-                    <f.icon className="w-8 h-8 text-cyan-400 mb-4" />
+                    {f.isLogo ? (
+                      <f.icon size={32} className="text-cyan-400 mb-4" />
+                    ) : (
+                      <f.icon className="w-8 h-8 text-cyan-400 mb-4" />
+                    )}
                     <h3 className="text-lg font-bold text-white mb-2">{f.title}</h3>
                     <p className="text-slate-400 text-sm leading-relaxed">{f.desc}</p>
                   </div>
@@ -160,10 +168,10 @@ export default function Home() {
         <footer className="border-t border-slate-800 bg-[#0f172a] py-12 px-6">
           <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
             <div className="flex items-center gap-2">
-              <Layers className="w-5 h-5 text-cyan-500" />
-              <span className="font-semibold text-white">Component Showcase</span>
+              <VantiveLogo size={20} className="text-cyan-400" />
+              <span className="font-semibold text-white">Vantive</span>
             </div>
-            <p className="text-slate-400 text-sm">© 2026 Vantive Studios.</p>
+            <p className="text-slate-400 text-sm">&copy; 2026 Vantive Studios. All rights reserved.</p>
           </div>
         </footer>
       </div>

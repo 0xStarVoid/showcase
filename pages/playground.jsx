@@ -5,7 +5,8 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 import dynamic from "next/dynamic";
 import { AnimatePresence, m, LazyMotion, domAnimation } from "framer-motion";
-import { Layers, Check, Link2, FileCode } from "lucide-react";
+import { Check, Link2, FileCode } from "lucide-react";
+import VantiveLogo from "@/components/ui/VantiveLogo";
 import Nav from "@/components/Nav";
 import Stage from "@/components/Stage";
 import Controls from "@/components/Controls";
@@ -108,124 +109,126 @@ export default function Playground() {
       </Head>
 
       <LazyMotion features={domAnimation}>
-      <div className={`h-screen flex overflow-hidden ${dark ? "dark" : ""}`} style={styles}>
-        {/* Left Nav - Always visible, collapsible */}
-        <Nav collapsed={navCollapsed} onToggleCollapse={() => setNavCollapsed(!navCollapsed)} />
+        <div className={`h-screen flex overflow-hidden ${dark ? "dark" : ""}`} style={styles}>
+          {/* Left Nav - Always visible, collapsible */}
+          <Nav collapsed={navCollapsed} onToggleCollapse={() => setNavCollapsed(!navCollapsed)} />
 
-        <main className="flex-1 flex flex-col h-screen bg-[#0f172a] overflow-hidden relative">
-          <header className="h-14 border-b border-slate-800 bg-[#0f172a] flex items-center justify-between px-4 sm:px-6 shrink-0 z-30">
-            <div className="flex items-center gap-3">
-              <div className="flex items-center gap-2">
-                <Layers className="w-4 h-4 text-cyan-400" />
-                <span className="font-medium text-white hidden sm:inline">Playground</span>
-              </div>
-              {comp && (
-                <>
-                  <span className="text-slate-600 hidden sm:inline">/</span>
-                  <span className="text-slate-400 text-sm sm:text-base truncate max-w-[120px] sm:max-w-none">
-                    {comp.name}
-                  </span>
-                </>
-              )}
-            </div>
-            <div className="flex items-center gap-2 sm:gap-3">
-              {/* Props Documentation Toggle */}
-              {comp?.props && comp.props.length > 0 && (
-                <button
-                  onClick={() => setShowProps(!showProps)}
-                  className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm transition-colors ${
-                    showProps ? "bg-cyan-500/20 text-cyan-400" : "bg-slate-800 hover:bg-slate-700 text-slate-300"
-                  }`}
-                  title="View component props documentation"
-                  aria-label={showProps ? "Hide props" : "Show props"}
-                  aria-pressed={showProps}
-                >
-                  <FileCode className="w-4 h-4" />
-                  <span className="hidden sm:inline">Props</span>
-                </button>
-              )}
-              {/* Share Setup Button */}
-              <button
-                onClick={copyLink}
-                className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-sm transition-colors"
-                title="Copy a link with these brand settings and component"
-                aria-label={copied ? "Link copied" : "Copy share link"}
-              >
-                {copied ? (
+          <main className="flex-1 flex flex-col h-screen bg-[#0f172a] overflow-hidden relative">
+            <header className="h-14 border-b border-slate-800 bg-[#0f172a] flex items-center justify-between px-4 sm:px-6 shrink-0 z-30">
+              <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2">
+                  <VantiveLogo size={16} className="text-cyan-400" />
+                  <span className="font-medium text-white hidden sm:inline">Playground</span>
+                </div>
+                {comp && (
                   <>
-                    <Check className="w-4 h-4 text-green-400" />
-                    <span className="text-green-400 hidden sm:inline">Copied!</span>
-                  </>
-                ) : (
-                  <>
-                    <Link2 className="w-4 h-4" />
-                    <span className="hidden sm:inline">Share</span>
+                    <span className="text-slate-600 hidden sm:inline">/</span>
+                    <span className="text-slate-400 text-sm sm:text-base truncate max-w-[120px] sm:max-w-none">
+                      {comp.name}
+                    </span>
                   </>
                 )}
-              </button>
-            </div>
-          </header>
-
-          <div className="flex-1 flex flex-col overflow-hidden">
-            {/* Props Table (collapsible) */}
-            <AnimatePresence>
-              {showProps && comp?.props && (
-                <m.div
-                  initial={{ height: 0, opacity: 0 }}
-                  animate={{ height: "auto", opacity: 1 }}
-                  exit={{ height: 0, opacity: 0 }}
-                  transition={{ duration: 0.2 }}
-                  className="shrink-0 border-b border-slate-800 overflow-hidden"
+              </div>
+              <div className="flex items-center gap-2 sm:gap-3">
+                {/* Props Documentation Toggle */}
+                {comp?.props && comp.props.length > 0 && (
+                  <button
+                    onClick={() => setShowProps(!showProps)}
+                    className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm transition-colors ${
+                      showProps ? "bg-cyan-500/20 text-cyan-400" : "bg-slate-800 hover:bg-slate-700 text-slate-300"
+                    }`}
+                    title="View component props documentation"
+                    aria-label={showProps ? "Hide props" : "Show props"}
+                    aria-pressed={showProps}
+                  >
+                    <FileCode className="w-4 h-4" />
+                    <span className="hidden sm:inline">Props</span>
+                  </button>
+                )}
+                {/* Share Setup Button */}
+                <button
+                  onClick={copyLink}
+                  className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-sm transition-colors"
+                  title="Copy a link with these brand settings and component"
+                  aria-label={copied ? "Link copied" : "Copy share link"}
                 >
-                  <div className="p-4 max-h-64 overflow-auto">
-                    <PropsTable props={comp.props} componentName={comp.name} />
-                  </div>
-                </m.div>
-              )}
-            </AnimatePresence>
+                  {copied ? (
+                    <>
+                      <Check className="w-4 h-4 text-green-400" />
+                      <span className="text-green-400 hidden sm:inline">Copied!</span>
+                    </>
+                  ) : (
+                    <>
+                      <Link2 className="w-4 h-4" />
+                      <span className="hidden sm:inline">Share</span>
+                    </>
+                  )}
+                </button>
+              </div>
+            </header>
 
-            {/* Stage Area */}
-            <div className="flex-1 overflow-auto bg-slate-900/30">
-              <AnimatePresence mode="wait">
-                {comp ? (
+            <div className="flex-1 flex flex-col overflow-hidden">
+              {/* Props Table (collapsible) */}
+              <AnimatePresence>
+                {showProps && comp?.props && (
                   <m.div
-                    key={sel}
-                    initial={{ opacity: 0, scale: 0.98 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0, scale: 0.98 }}
-                    transition={{ duration: 0.3 }}
-                    className="min-h-full"
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.2 }}
+                    className="shrink-0 border-b border-slate-800 overflow-hidden"
                   >
-                    <Stage id={sel} dev={device} />
-                  </m.div>
-                ) : (
-                  <m.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    className="h-full flex flex-col items-center justify-center text-center"
-                  >
-                    <div className="w-16 h-16 rounded-xl bg-slate-800/50 flex items-center justify-center mb-4">
-                      <Layers className="w-8 h-8 text-slate-400" />
+                    <div className="p-4 max-h-64 overflow-auto">
+                      <PropsTable props={comp.props} componentName={comp.name} />
                     </div>
-                    <h2 className="text-lg font-semibold text-white mb-2">Select a component</h2>
-                    <p className="text-slate-400 text-sm max-w-xs">Choose from the sidebar to preview and customize.</p>
                   </m.div>
                 )}
               </AnimatePresence>
+
+              {/* Stage Area */}
+              <div className="flex-1 overflow-auto bg-slate-900/30">
+                <AnimatePresence mode="wait">
+                  {comp ? (
+                    <m.div
+                      key={sel}
+                      initial={{ opacity: 0, scale: 0.98 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.98 }}
+                      transition={{ duration: 0.3 }}
+                      className="min-h-full"
+                    >
+                      <Stage id={sel} dev={device} />
+                    </m.div>
+                  ) : (
+                    <m.div
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      className="h-full flex flex-col items-center justify-center text-center"
+                    >
+                      <div className="w-16 h-16 rounded-xl bg-slate-800/50 flex items-center justify-center mb-4">
+                        <VantiveLogo size={32} className="text-slate-400" />
+                      </div>
+                      <h2 className="text-lg font-semibold text-white mb-2">Select a component</h2>
+                      <p className="text-slate-400 text-sm max-w-xs">
+                        Choose from the sidebar to preview and customize.
+                      </p>
+                    </m.div>
+                  )}
+                </AnimatePresence>
+              </div>
             </div>
-          </div>
-        </main>
+          </main>
 
-        {/* Right Controls - Always visible, collapsible */}
-        <Controls
-          onPreview={() => setShowQR(true)}
-          onExport={() => setShowCode(true)}
-          collapsed={controlsCollapsed}
-          onToggleCollapse={() => setControlsCollapsed(!controlsCollapsed)}
-        />
+          {/* Right Controls - Always visible, collapsible */}
+          <Controls
+            onPreview={() => setShowQR(true)}
+            onExport={() => setShowCode(true)}
+            collapsed={controlsCollapsed}
+            onToggleCollapse={() => setControlsCollapsed(!controlsCollapsed)}
+          />
 
-        <AnimatePresence>{showQR && <QRModal onClose={() => setShowQR(false)} />}</AnimatePresence>
-      </div>
+          <AnimatePresence>{showQR && <QRModal onClose={() => setShowQR(false)} />}</AnimatePresence>
+        </div>
       </LazyMotion>
     </>
   );
