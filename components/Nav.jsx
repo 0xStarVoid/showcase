@@ -99,11 +99,11 @@ export default function Nav({ collapsed, onToggleCollapse }) {
             </button>
           )}
           <Link href="/" className="flex items-center gap-3 flex-1">
-            <VantiveLogo size={24} className="text-cyan-400" />
-            <div>
-              <span className="font-semibold text-white block leading-tight">Vantive</span>
-              <span className="text-xs text-slate-400">UI Library</span>
+            <div className="flex items-center">
+              <VantiveLogo size={22} className="text-cyan-400 -mr-0.5" />
+              <span className="font-semibold text-white leading-tight">antive</span>
             </div>
+            <span className="text-xs text-slate-400">UI Library</span>
           </Link>
         </div>
 

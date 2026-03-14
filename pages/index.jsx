@@ -14,9 +14,9 @@ export default function Home() {
         {/* Navbar */}
         <nav className="sticky top-0 z-50 bg-[#0f172a]/95 border-b border-slate-800" aria-label="Main navigation">
           <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-            <Link href="/" className="flex items-center gap-2 group">
-              <VantiveLogo size={24} className="text-cyan-400 transition-transform group-hover:scale-110" />
-              <span className="font-bold text-white tracking-tight">Vantive</span>
+            <Link href="/" className="flex items-center group">
+              <VantiveLogo size={22} className="text-cyan-400 transition-transform group-hover:scale-110 -mr-0.5" />
+              <span className="font-bold text-white tracking-tight">antive</span>
             </Link>
             <Link
               href="/playground"
