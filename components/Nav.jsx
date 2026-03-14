@@ -5,6 +5,7 @@ import Link from "next/link";
 import { m, AnimatePresence } from "framer-motion";
 import { Search, ChevronDown, ChevronRight, ChevronLeft, Megaphone, ShoppingBag, FormInput, X } from "lucide-react";
 import VantiveLogo from "@/components/ui/VantiveLogo";
+import VantiveBrand from "@/components/ui/VantiveBrand";
 import { cats, search } from "@/lib/items";
 import { useBrand } from "@/hooks/useBrand";
 
@@ -99,9 +100,7 @@ export default function Nav({ collapsed, onToggleCollapse }) {
             </button>
           )}
           <Link href="/" className="flex items-center flex-1">
-            <VantiveLogo size={20} className="text-cyan-400 -mr-px" />
-            <span className="font-semibold text-white leading-tight">antive</span>
-            <span className="font-semibold text-cyan-400 leading-tight ml-1.5">UI</span>
+            <VantiveBrand size={22} color="#38bdf8" suffix="UI" />
           </Link>
         </div>
 

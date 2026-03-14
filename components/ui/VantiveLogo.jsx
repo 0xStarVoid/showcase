@@ -1,4 +1,4 @@
-export default function VantiveLogo({ size = 20, className = "" }) {
+export default function VantiveLogo({ size = 20, className = "", style }) {
   return (
     <svg
       width={size}
@@ -7,6 +7,7 @@ export default function VantiveLogo({ size = 20, className = "" }) {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
+      style={style}
       aria-hidden="true"
     >
       <g transform="translate(0,1080) scale(1,-1)">

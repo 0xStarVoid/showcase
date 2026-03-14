@@ -2,6 +2,7 @@ import Head from "next/head";
 import Link from "next/link";
 import { ArrowRight, Palette, Smartphone, Sparkles, Zap } from "lucide-react";
 import VantiveLogo from "@/components/ui/VantiveLogo";
+import VantiveBrand from "@/components/ui/VantiveBrand";
 
 export default function Home() {
   return (
@@ -14,10 +15,13 @@ export default function Home() {
         {/* Navbar */}
         <nav className="sticky top-0 z-50 bg-[#0f172a]/95 border-b border-slate-800" aria-label="Main navigation">
           <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-            <Link href="/" className="flex items-center group">
-              <VantiveLogo size={20} className="text-cyan-400 transition-transform group-hover:scale-110 -mr-px" />
-              <span className="font-bold text-white tracking-tight">antive</span>
-              <span className="font-bold text-cyan-400 tracking-tight ml-1.5">UI</span>
+            <Link href="/" className="group">
+              <VantiveBrand
+                size={22}
+                color="#38bdf8"
+                suffix="UI"
+                className="transition-transform group-hover:scale-105"
+              />
             </Link>
             <Link
               href="/playground"
@@ -169,9 +173,7 @@ export default function Home() {
         <footer className="border-t border-slate-800 bg-[#0f172a] py-12 px-6">
           <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
             <div className="flex items-center">
-              <VantiveLogo size={18} className="text-cyan-400 -mr-px" />
-              <span className="font-semibold text-white">antive</span>
-              <span className="font-semibold text-cyan-400 ml-1.5">UI</span>
+              <VantiveBrand size={20} color="#38bdf8" suffix="UI" />
             </div>
             <p className="text-slate-400 text-sm">&copy; 2026 Vantive. All rights reserved.</p>
           </div>

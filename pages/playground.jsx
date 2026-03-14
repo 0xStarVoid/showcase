@@ -7,6 +7,7 @@ import dynamic from "next/dynamic";
 import { AnimatePresence, m, LazyMotion, domAnimation } from "framer-motion";
 import { Check, Link2, FileCode } from "lucide-react";
 import VantiveLogo from "@/components/ui/VantiveLogo";
+import VantiveBrand from "@/components/ui/VantiveBrand";
 import Nav from "@/components/Nav";
 import Stage from "@/components/Stage";
 import Controls from "@/components/Controls";
@@ -116,10 +117,8 @@ export default function Playground() {
           <main className="flex-1 flex flex-col h-screen bg-[#0f172a] overflow-hidden relative">
             <header className="h-14 border-b border-slate-800 bg-[#0f172a] flex items-center justify-between px-4 sm:px-6 shrink-0 z-30">
               <div className="flex items-center gap-3">
-                <div className="flex items-center">
-                  <VantiveLogo size={14} className="text-cyan-400 -mr-px" />
-                  <span className="font-medium text-white hidden sm:inline">Playground</span>
-                </div>
+                <VantiveBrand size={18} color="#38bdf8" suffix="Playground" className="hidden sm:inline-flex" />
+                <VantiveLogo size={14} className="text-cyan-400 sm:hidden" />
                 {comp && (
                   <>
                     <span className="text-slate-600 hidden sm:inline">/</span>
