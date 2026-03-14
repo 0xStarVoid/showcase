@@ -102,7 +102,7 @@ export default function Nav({ collapsed, onToggleCollapse }) {
             <VantiveLogo size={24} className="text-cyan-400" />
             <div>
               <span className="font-semibold text-white block leading-tight">Vantive</span>
-              <span className="text-xs text-slate-400">Component Library</span>
+              <span className="text-xs text-slate-400">UI Library</span>
             </div>
           </Link>
         </div>

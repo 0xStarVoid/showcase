@@ -1,7 +1,7 @@
 {
   "name": "Vantive UI",
   "short_name": "Vantive",
-  "description": "Vantive Component Library - Production-Ready UI Components",
+  "description": "Production-ready UI components with live customization",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0f172a",

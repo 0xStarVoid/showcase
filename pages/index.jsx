@@ -7,7 +7,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Vantive UI — Component Showcase</title>
+        <title>Vantive UI</title>
       </Head>
 
       <div className="min-h-screen bg-[#0f172a] text-slate-200 selection:bg-cyan-500/30">
