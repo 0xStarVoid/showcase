@@ -3,7 +3,7 @@ export default function VantiveLogo({ size = 20, className = "" }) {
     <svg
       width={size}
       height={size}
-      viewBox="0 0 1080 1080"
+      viewBox="115 255 770 590"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
