@@ -116,8 +116,8 @@ export default function Playground() {
           <main className="flex-1 flex flex-col h-screen bg-[#0f172a] overflow-hidden relative">
             <header className="h-14 border-b border-slate-800 bg-[#0f172a] flex items-center justify-between px-4 sm:px-6 shrink-0 z-30">
               <div className="flex items-center gap-3">
-                <div className="flex items-center gap-2">
-                  <VantiveLogo size={16} className="text-cyan-400" />
+                <div className="flex items-center gap-1.5">
+                  <VantiveLogo size={14} className="text-cyan-400" />
                   <span className="font-medium text-white hidden sm:inline">Playground</span>
                 </div>
                 {comp && (

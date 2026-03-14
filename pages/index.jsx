@@ -14,9 +14,10 @@ export default function Home() {
         {/* Navbar */}
         <nav className="sticky top-0 z-50 bg-[#0f172a]/95 border-b border-slate-800" aria-label="Main navigation">
           <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-            <Link href="/" className="flex items-center group">
-              <VantiveLogo size={22} className="text-cyan-400 transition-transform group-hover:scale-110 -mr-0.5" />
-              <span className="font-bold text-white tracking-tight">antive</span>
+            <Link href="/" className="flex items-center gap-1.5 group">
+              <VantiveLogo size={18} className="text-cyan-400 transition-transform group-hover:scale-110" />
+              <span className="font-bold text-white tracking-tight">Vantive</span>
+              <span className="font-bold text-cyan-400 tracking-tight">UI</span>
             </Link>
             <Link
               href="/playground"
@@ -167,11 +168,12 @@ export default function Home() {
         {/* Footer */}
         <footer className="border-t border-slate-800 bg-[#0f172a] py-12 px-6">
           <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-            <div className="flex items-center gap-2">
-              <VantiveLogo size={20} className="text-cyan-400" />
+            <div className="flex items-center gap-1.5">
+              <VantiveLogo size={18} className="text-cyan-400" />
               <span className="font-semibold text-white">Vantive</span>
+              <span className="font-semibold text-cyan-400">UI</span>
             </div>
-            <p className="text-slate-400 text-sm">&copy; 2026 Vantive Studios. All rights reserved.</p>
+            <p className="text-slate-400 text-sm">&copy; 2026 Vantive. All rights reserved.</p>
           </div>
         </footer>
       </div>
