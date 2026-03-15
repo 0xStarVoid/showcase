@@ -4,7 +4,7 @@ export default function VantiveBrand({ color = "currentColor", suffix = "", size
   return (
     <span className={`inline-flex items-center ${className}`} aria-label={`Vantive${suffix ? ` ${suffix}` : ""}`}>
       <VantiveLogo size={size} className="-mr-px" style={{ color }} />
-      <span className="font-bold text-white" style={{ fontSize: size * 0.75 }}>
+      <span className="font-bold text-white" style={{ fontSize: size * 0.75, letterSpacing: "0.04em" }}>
         antive
       </span>
       {suffix && (
