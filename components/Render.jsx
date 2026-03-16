@@ -72,21 +72,21 @@ const TESTIMONIALS = [
     author: "Alex Rivera",
     role: "CTO, TechFlow",
     rating: 5,
-    avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop",
+    avatar: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=100&h=100&fit=crop",
   },
   {
     quote: "Best investment we've made this year. The ROI was immediate.",
     author: "Sam Chen",
     role: "Founder, StartupX",
     rating: 5,
-    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop",
+    avatar: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=100&h=100&fit=crop",
   },
   {
     quote: "The attention to detail and customization options are unparalleled.",
     author: "Jordan Lee",
     role: "Product Lead, DesignCo",
     rating: 5,
-    avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop",
+    avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&h=100&fit=crop",
   },
 ];
 const CART_ITEMS = [
@@ -94,13 +94,13 @@ const CART_ITEMS = [
     name: "Wireless Headphones",
     price: 299,
     qty: 1,
-    image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=200&h=200&fit=crop",
+    image: "https://images.unsplash.com/photo-1583394838336-acd977736f90?w=200&h=200&fit=crop",
   },
   {
     name: "Smart Watch",
     price: 399,
     qty: 2,
-    image: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=200&h=200&fit=crop",
+    image: "https://images.unsplash.com/photo-1546868871-af0de0ae72be?w=200&h=200&fit=crop",
   },
 ];
 const PRICING_PLANS = [
@@ -619,7 +619,7 @@ const TestimonialCard = memo(function TestimonialCard({ styles, primaryColor, co
         {/* Author */}
         <div className="flex items-center gap-4">
           <img
-            src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop"
+            src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=100&h=100&fit=crop"
             alt="Sarah Johnson"
             className="w-12 h-12 object-cover"
             loading="lazy"
@@ -659,7 +659,7 @@ const ProductCard = memo(function ProductCard({ styles, primaryColor, cornerRadi
         {/* Image */}
         <div className="aspect-square relative overflow-hidden">
           <img
-            src="https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=400&h=400&fit=crop"
+            src="https://images.unsplash.com/photo-1611930022073-b7a4ba5fcccd?w=400&h=400&fit=crop"
             alt="Premium Desk Lamp"
             className="w-full h-full object-cover"
             loading="lazy"
@@ -943,7 +943,7 @@ const CartItem = memo(function CartItem({ styles, primaryColor, cornerRadius, pl
       >
         {/* Image */}
         <img
-          src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=200&h=200&fit=crop"
+          src="https://images.unsplash.com/photo-1583394838336-acd977736f90?w=200&h=200&fit=crop"
           alt="Premium Wireless Headphones"
           className="w-full sm:w-24 h-24 object-cover shrink-0"
           loading="lazy"
@@ -1364,7 +1364,7 @@ const ProductCardDetailed = memo(function ProductCardDetailed({ styles, primaryC
         {/* Image with Badge */}
         <div className="aspect-square relative overflow-hidden">
           <img
-            src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=400&h=400&fit=crop"
+            src="https://images.unsplash.com/photo-1622560480605-d83c853bc5c3?w=400&h=400&fit=crop"
             alt="Designer Leather Bag"
             className="w-full h-full object-cover"
           />
