@@ -10,14 +10,12 @@ const nextConfig = {
   compiler: {
     removeConsole: process.env.NODE_ENV === "production",
   },
+  modularizeImports: {
+    "lucide-react": { transform: "lucide-react/dist/esm/icons/{{ kebabCase member }}" },
+  },
   experimental: {
     optimizeCss: true,
     optimizePackageImports: ["lucide-react"],
-  },
-  turbopack: {
-    resolveAlias: {
-      "framer-motion": "./lib/motion.js",
-    },
   },
   webpack: (config) => {
     config.resolve.alias["framer-motion"] = path.resolve(__dirname, "lib/motion.js");
