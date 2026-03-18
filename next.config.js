@@ -14,7 +14,6 @@ const nextConfig = {
     "lucide-react": { transform: "lucide-react/dist/esm/icons/{{ kebabCase member }}" },
   },
   experimental: {
-    optimizeCss: true,
     optimizePackageImports: ["lucide-react"],
   },
   webpack: (config) => {
