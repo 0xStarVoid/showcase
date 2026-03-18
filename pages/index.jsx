@@ -4,6 +4,7 @@ import Link from "next/link";
 import { ArrowRight, Palette, Smartphone, Sparkles, Zap, Code2, Eye, Layers } from "lucide-react";
 import VantiveLogo from "@/components/ui/VantiveLogo";
 import VantiveBrand from "@/components/ui/VantiveBrand";
+import Button from "@/components/ui/Button";
 
 /* ── mouse-follow glow card row (ported from legacy CardRow) ── */
 function GlowGrid({ children, className = "" }) {
@@ -116,14 +117,16 @@ export default function Home() {
               >
                 Components
               </Link>
-              <Link
+              <Button
                 href="/playground"
-                prefetch={false}
-                className="flex items-center gap-2 px-4 py-2 rounded-lg bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 text-sm font-semibold transition-all border border-cyan-500/20 hover:border-cyan-500/40"
+                size="sm"
+                icon={ArrowRight}
+                gradient="linear-gradient(135deg, #06b6d4, #3b82f6)"
+                color="#0a0f1a"
+                background="#0a0f1a"
               >
-                Open Playground
-                <ArrowRight className="w-3.5 h-3.5" />
-              </Link>
+                Playground
+              </Button>
             </div>
           </div>
         </nav>
@@ -151,40 +154,52 @@ export default function Home() {
             />
 
             <div className="max-w-4xl mx-auto text-center relative">
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-semibold mb-8 backdrop-blur-sm">
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-semibold mb-8 backdrop-blur-sm" style={{ color: "#22d3ee" }}>
                 <Zap className="w-3.5 h-3.5" aria-hidden="true" />
                 <span>Component System</span>
               </div>
 
-              <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 tracking-tight leading-[1.1]">
+              <h1
+                className="text-5xl md:text-7xl font-bold text-white mb-6 tracking-tight leading-[1.1]"
+                style={{ color: "#fff", fontWeight: 700, lineHeight: 1.1, letterSpacing: "-0.025em", fontSize: "clamp(3rem, 5vw, 4.5rem)" }}
+              >
                 Build interfaces
                 <br />
-                <span className="bg-gradient-to-r from-cyan-400 via-sky-400 to-blue-500 bg-clip-text text-transparent">
+                <span
+                  className="bg-gradient-to-r from-cyan-400 via-sky-400 to-blue-500 bg-clip-text text-transparent"
+                  style={{ backgroundImage: "linear-gradient(to right, #22d3ee, #38bdf8, #3b82f6)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}
+                >
                   that feel right.
                 </span>
               </h1>
 
-              <p className="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed">
+              <p className="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed" style={{ color: "#94a3b8" }}>
                 21 production-ready components with live brand customization.
                 <br className="hidden md:block" />
                 Adjust colors, typography, and radius — preview instantly on any device.
               </p>
 
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <Link
+                <Button
                   href="/playground"
-                  prefetch={false}
-                  className="group w-full sm:w-auto px-8 py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-slate-950 font-bold text-lg transition-all shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/40 transform hover:-translate-y-0.5"
+                  size="lg"
+                  icon={ArrowRight}
+                  gradient="linear-gradient(135deg, #06b6d4, #3b82f6)"
+                  color="#0a0f1a"
+                  background="#0a0f1a"
                 >
                   Open Playground
-                  <ArrowRight className="w-4 h-4 inline ml-2 transition-transform group-hover:translate-x-1" aria-hidden="true" />
-                </Link>
-                <Link
+                </Button>
+                <Button
                   href="/components"
-                  className="w-full sm:w-auto px-8 py-3.5 rounded-xl text-white font-semibold text-lg border border-white/10 hover:border-white/20 hover:bg-white/[0.03] transition-all"
+                  variant="outline"
+                  size="lg"
+                  gradient="linear-gradient(135deg, #06b6d4, #3b82f6)"
+                  color="#0a0f1a"
+                  background="#0a0f1a"
                 >
                   Browse Components
-                </Link>
+                </Button>
               </div>
 
               {/* Stats bar */}
@@ -295,13 +310,18 @@ export default function Home() {
                   <h2 className="text-3xl font-bold text-white mb-2">Explore Categories</h2>
                   <p className="text-slate-400">Browse our collection of adaptive, themeable components.</p>
                 </div>
-                <Link
+                <Button
                   href="/playground"
-                  prefetch={false}
-                  className="hidden md:flex items-center gap-2 text-cyan-400 hover:text-cyan-300 font-medium transition-colors shrink-0"
+                  size="sm"
+                  variant="outline"
+                  icon={ArrowRight}
+                  gradient="linear-gradient(135deg, #06b6d4, #3b82f6)"
+                  color="#0a0f1a"
+                  background="rgba(15, 23, 42, 0.3)"
+                  className="hidden md:inline-flex"
                 >
-                  View all <ArrowRight className="w-4 h-4" />
-                </Link>
+                  View all
+                </Button>
               </div>
 
               <GlowGrid className="grid md:grid-cols-3 gap-6">
@@ -369,14 +389,16 @@ export default function Home() {
                 <p className="text-slate-400 max-w-lg mx-auto mb-10 text-lg">
                   Open the playground, pick a component, customize your brand — ship in minutes.
                 </p>
-                <Link
+                <Button
                   href="/playground"
-                  prefetch={false}
-                  className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-slate-950 font-bold transition-all shadow-lg shadow-cyan-500/25 hover:shadow-cyan-500/40 transform hover:-translate-y-0.5"
+                  size="lg"
+                  icon={ArrowRight}
+                  gradient="linear-gradient(135deg, #06b6d4, #3b82f6)"
+                  color="#0a0f1a"
+                  background="#0a0f1a"
                 >
                   Open Playground
-                  <ArrowRight className="w-4 h-4" aria-hidden="true" />
-                </Link>
+                </Button>
               </div>
             </div>
           </section>
