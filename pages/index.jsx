@@ -173,7 +173,7 @@ export default function Home() {
                 </span>
               </h1>
 
-              <p className="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed" style={{ color: "#94a3b8", fontSize: "1.125rem", lineHeight: 1.75, maxWidth: "42rem", margin: "0 auto 2.5rem", textAlign: "center", display: "block" }}>
+              <p style={{ color: "#94a3b8", fontSize: "1.125rem", lineHeight: 1.75, maxWidth: "42rem", margin: "0 auto 2.5rem", textAlign: "center" }}>
                 21 production-ready components with live brand customization.
                 <br className="hidden md:block" />
                 Adjust colors, typography, and radius — preview instantly on any device.
