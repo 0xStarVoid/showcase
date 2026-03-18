@@ -17,6 +17,7 @@ export default function Button({
   color,
   background,
   style = {},
+  ...rest
 }) {
   const alt = variant === "outline";
   const Component = href ? "a" : "button";
@@ -39,6 +40,7 @@ export default function Button({
       disabled={disabled}
       aria-disabled={disabled}
       style={{ ...vars, ...style }}
+      {...rest}
     >
       <span className={styles.content}>
         {Icon && iconPos === "left" && <Icon size={18} />}
