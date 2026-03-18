@@ -1,0 +1,233 @@
+.btn {
+  --btnTransition: 400ms;
+  --btnHeight: 48px;
+  --btnWidth: auto;
+  --btnPadding: 0 32px;
+  --btnRadius: 999px;
+  --btnFontSize: 1rem;
+  --btnGradient: var(--gradient-brand, linear-gradient(135deg, #6366f1, #8b5cf6));
+  --btnColor: var(--btn-text, hsl(var(--bg-base, 0 0% 100%)));
+  --btnBackground: var(--btn-bg, hsl(var(--bg-base, 0 0% 7%)));
+
+  height: var(--btnHeight);
+  width: var(--btnWidth);
+  padding: var(--btnPadding);
+  border-radius: var(--btnRadius);
+  border: 2px solid transparent;
+  background-image: var(--btnGradient), var(--btnGradient);
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  color: var(--btnColor);
+  font-weight: 700;
+  font-size: var(--btnFontSize);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+  font-family: inherit;
+  line-height: 1;
+  transition:
+    background-image var(--btnTransition) ease,
+    transform 200ms var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)),
+    box-shadow 200ms var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1));
+  white-space: nowrap;
+}
+
+/* Hover lift */
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md, 0 4px 14px rgba(0, 0, 0, 0.15));
+}
+
+.content {
+  pointer-events: none;
+  position: relative;
+  z-index: 3;
+  transition: all var(--btnTransition) ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ── Cell hover animation grid ── */
+.cells {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  z-index: 1;
+}
+
+.cells::before {
+  content: "";
+  position: absolute;
+  position-anchor: --hoveredCell;
+  left: calc(anchor(left) - 20px);
+  right: calc(anchor(right) - 20px);
+  top: calc(anchor(top) - 20px);
+  bottom: calc(anchor(bottom) - 20px);
+  margin: 0 auto auto;
+  width: 10px;
+  aspect-ratio: 1;
+  background: var(--btnColor);
+  border-radius: 100vw;
+  transition: transform var(--btnTransition) ease, margin 0ms var(--btnTransition);
+  transition-behavior: allow-discrete;
+  transform: scale(0);
+}
+
+.cells:has(> :nth-child(n + 11):hover)::before {
+  margin: auto auto 0;
+}
+
+.cells:hover::before {
+  transform: scale(55);
+  transition: transform var(--btnTransition) ease, margin 0ms 0ms;
+}
+
+.cells span {
+  position: relative;
+}
+
+.cells:not(:hover) span {
+  transition: anchor-name 0ms var(--btnTransition);
+  transition-behavior: allow-discrete;
+}
+
+.cells span:hover {
+  anchor-name: --hoveredCell;
+  transition: anchor-name 0ms;
+}
+
+@supports not (anchor-name: --hoveredCell) {
+  .cells::before {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(0);
+  }
+
+  .cells:hover::before {
+    transform: translate(-50%, -50%) scale(55);
+  }
+}
+
+/* Primary: gradient fill + dark text */
+/* Primary hover → becomes secondary: outline + gradient text */
+.btn:hover .content,
+.btn:focus-visible .content {
+  background: var(--btnGradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+.btn:hover .content svg,
+.btn:focus-visible .content svg {
+  -webkit-text-fill-color: initial;
+  color: hsl(var(--primary, 245 58% 51%));
+  stroke: currentColor;
+}
+
+.btn:hover,
+.btn:focus-visible {
+  background-image: linear-gradient(var(--btnBackground), var(--btnBackground)), var(--btnGradient);
+}
+
+/* ── Secondary/outline (reverse) ── */
+/* Default: outline + gradient text (= primary's hover state) */
+.btn.reverse {
+  background-image: linear-gradient(var(--btnBackground), var(--btnBackground)), var(--btnGradient);
+  color: transparent;
+}
+
+.btn.reverse .content {
+  background: var(--btnGradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.btn.reverse .content svg {
+  color: hsl(var(--primary, 245 58% 51%));
+  stroke: currentColor;
+  -webkit-text-fill-color: initial;
+}
+
+.btn.reverse .cells::before {
+  background: var(--btnGradient);
+}
+
+/* Secondary hover → becomes primary: gradient fill + dark text */
+.btn.reverse:hover,
+.btn.reverse:focus-visible {
+  background-image: var(--btnGradient), var(--btnGradient);
+  color: var(--btnColor);
+}
+
+.btn.reverse:hover .content,
+.btn.reverse:focus-visible .content {
+  background: none;
+  -webkit-text-fill-color: var(--btnColor);
+  background-clip: unset;
+  color: var(--btnColor);
+}
+
+.btn.reverse:hover .content svg,
+.btn.reverse:focus-visible .content svg {
+  color: var(--btnColor);
+  stroke: var(--btnColor);
+}
+
+.btn.reverse:hover .cells::before {
+  background: transparent;
+}
+
+.btn:focus-visible {
+  outline: 2px solid hsl(var(--primary, 245 58% 51%));
+  outline-offset: 3px;
+}
+
+.btn:disabled,
+.btn[aria-disabled="true"] {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Size variants */
+.sm {
+  --btnHeight: 40px;
+  --btnPadding: 0 20px;
+  --btnFontSize: 0.875rem;
+}
+
+.lg {
+  --btnHeight: 60px;
+  --btnPadding: 0 40px;
+  --btnFontSize: 1.1rem;
+}
+
+/* ── Mobile touch-target refinements ── */
+@media (max-width: 600px) {
+  .btn {
+    --btnHeight: 44px;
+    --btnPadding: 0 24px;
+    --btnFontSize: 0.875rem;
+  }
+  .sm {
+    --btnHeight: 38px;
+    --btnPadding: 0 18px;
+    --btnFontSize: 0.8125rem;
+  }
+  .lg {
+    --btnHeight: 48px;
+    --btnPadding: 0 28px;
+    --btnFontSize: 0.95rem;
+  }
+}
