@@ -16,6 +16,7 @@ import {
   Heart,
   ChevronLeft,
 } from "lucide-react";
+import Button from "@/components/ui/Button";
 
 /**
  * Theme utility - CSS variable-based theming
@@ -327,24 +328,15 @@ const PricingCard = memo(function PricingCard({ styles, primaryColor, cornerRadi
         </ul>
 
         {/* CTA Button */}
-        <m.button
-          whileHover={{ scale: isPlayful ? 1.03 : 1.01 }}
-          whileTap={{ scale: 0.98 }}
-          className="w-full py-4 font-bold transition-all relative overflow-hidden group"
-          style={{
-            backgroundColor: primaryColor,
-            borderRadius: `${cornerRadius}px`,
-            color: "light-dark(#0f172a, #ffffff)",
-          }}
+        <Button
+          icon={ArrowRight}
+          gradient={`linear-gradient(135deg, ${primaryColor}, color-mix(in srgb, ${primaryColor} 65%, #020617))`}
+          color="light-dark(#0f172a, #ffffff)"
+          background="var(--bg)"
+          style={{ "--btnRadius": `${cornerRadius}px`, width: "100%" }}
         >
-          <span className="relative z-10 flex items-center justify-center gap-2">
-            Get Started
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-          </span>
-          {isPlayful && (
-            <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
-          )}
-        </m.button>
+          Get Started
+        </Button>
 
         <p className="text-center text-xs mt-4 transition-colors" style={{ color: "var(--textMuted)" }}>
           14-day free trial • No credit card required
@@ -425,33 +417,27 @@ const HeroCentered = memo(function HeroCentered({ styles, primaryColor, cornerRa
         transition={{ delay: 0.3 }}
         className="flex flex-col sm:flex-row gap-4 justify-center"
       >
-        <m.button
-          whileHover={{ scale: isPlayful ? 1.05 : 1.02 }}
-          whileTap={{ scale: 0.98 }}
-          className="px-8 py-4 font-bold inline-flex items-center justify-center gap-2 shadow-lg hover:shadow-xl transition-all"
-          style={{
-            backgroundColor: primaryColor,
-            borderRadius: `${cornerRadius}px`,
-            boxShadow: `0 10px 25px -5px ${primaryColor}40`,
-            color: "light-dark(#0f172a, #ffffff)",
-          }}
+        <Button
+          size="lg"
+          icon={ArrowRight}
+          gradient={`linear-gradient(135deg, ${primaryColor}, color-mix(in srgb, ${primaryColor} 65%, #020617))`}
+          color="light-dark(#0f172a, #ffffff)"
+          background="var(--bg)"
+          style={{ "--btnRadius": `${cornerRadius}px` }}
         >
           Start Building
-          <ArrowRight className="w-5 h-5" />
-        </m.button>
+        </Button>
 
-        <m.button
-          whileHover={{ scale: isPlayful ? 1.05 : 1.02 }}
-          whileTap={{ scale: 0.98 }}
-          className="px-8 py-4 font-semibold border transition-colors hover:bg-[var(--surface-bg)]"
-          style={{
-            borderColor: "var(--borderMain)",
-            color: "var(--text)",
-            borderRadius: `${cornerRadius}px`,
-          }}
+        <Button
+          variant="outline"
+          size="lg"
+          gradient={`linear-gradient(135deg, ${primaryColor}, color-mix(in srgb, ${primaryColor} 65%, #020617))`}
+          color="light-dark(#0f172a, #ffffff)"
+          background="var(--bg)"
+          style={{ "--btnRadius": `${cornerRadius}px` }}
         >
           View Documentation
-        </m.button>
+        </Button>
       </m.div>
     </m.div>
   );
@@ -503,21 +489,15 @@ const HeroSplit = memo(function HeroSplit({ styles, primaryColor, cornerRadius, 
           Automate repetitive tasks and focus on what matters. Our intelligent platform learns your patterns.
         </m.p>
 
-        <m.button
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ delay: 0.3 }}
-          whileHover={{ scale: playfulness > 0.5 ? 1.05 : 1.02 }}
-          className="px-6 py-3 font-semibold inline-flex items-center gap-2"
-          style={{
-            backgroundColor: primaryColor,
-            borderRadius: `${cornerRadius}px`,
-            color: "light-dark(#0f172a, #ffffff)",
-          }}
+        <Button
+          icon={ArrowRight}
+          gradient={`linear-gradient(135deg, ${primaryColor}, color-mix(in srgb, ${primaryColor} 65%, #020617))`}
+          color="light-dark(#0f172a, #ffffff)"
+          background="var(--bg)"
+          style={{ "--btnRadius": `${cornerRadius}px` }}
         >
           Try it Free
-          <ArrowRight className="w-4 h-4" />
-        </m.button>
+        </Button>
       </div>
 
       <m.div
@@ -798,18 +778,16 @@ const NewsletterSignup = memo(function NewsletterSignup({ styles, primaryColor, 
             style={{ color: "var(--text)" }}
           />
         </div>
-        <m.button
-          whileHover={{ scale: playfulness > 0.5 ? 1.05 : 1.02 }}
-          whileTap={{ scale: 0.98 }}
-          className="px-6 py-3 font-semibold shrink-0"
-          style={{
-            backgroundColor: primaryColor,
-            borderRadius: `${cornerRadius - 4}px`,
-            color: "light-dark(#0f172a, #ffffff)",
-          }}
+        <Button
+          size="sm"
+          gradient={`linear-gradient(135deg, ${primaryColor}, color-mix(in srgb, ${primaryColor} 65%, #020617))`}
+          color="light-dark(#0f172a, #ffffff)"
+          background="var(--bg)"
+          className="shrink-0"
+          style={{ "--btnRadius": `${Math.max(4, cornerRadius - 4)}px` }}
         >
           Subscribe
-        </m.button>
+        </Button>
       </div>
 
       <p className="text-xs mt-3 transition-colors" style={{ color: "var(--textDim)" }}>
@@ -1083,32 +1061,29 @@ const HeroGradient = memo(function HeroGradient({ styles, primaryColor, cornerRa
           transition={{ delay: 0.5 }}
           className="flex flex-col sm:flex-row gap-4 justify-center items-center px-4"
         >
-          {/* Primary CTA - Accent gradient bg, theme-aware text */}
-          <m.button
-            whileHover={{ scale: 1.05, y: -2 }}
-            whileTap={{ scale: 0.98 }}
-            className="px-8 py-4 font-bold rounded-full shadow-2xl transition-shadow w-full sm:w-auto"
-            style={{
-              background: `linear-gradient(135deg, ${accentLight}, ${accentDark})`,
-              color: "light-dark(#0f172a, #ffffff)",
-              boxShadow: `0 25px 50px -12px color-mix(in srgb, ${primaryColor} 50%, transparent)`,
-            }}
+          {/* Primary CTA */}
+          <Button
+            size="lg"
+            gradient={`linear-gradient(135deg, ${accentLight}, ${accentDark})`}
+            color="light-dark(#0f172a, #ffffff)"
+            background="var(--bg)"
+            className="w-full sm:w-auto"
+            style={{ "--btnRadius": `${cornerRadius}px` }}
           >
             Get Started Free
-          </m.button>
-          {/* Secondary CTA - Ghost style */}
-          <m.button
-            whileHover={{ scale: 1.05, y: -2 }}
-            whileTap={{ scale: 0.98 }}
-            className="px-8 py-4 backdrop-blur-sm font-semibold rounded-full border-2 transition-colors w-full sm:w-auto hover:bg-[var(--surface-bg)]"
-            style={{
-              background: "transparent",
-              color: "var(--text)",
-              borderColor: "var(--borderMain)",
-            }}
+          </Button>
+          {/* Secondary CTA */}
+          <Button
+            variant="outline"
+            size="lg"
+            gradient={`linear-gradient(135deg, ${accentLight}, ${accentDark})`}
+            color="light-dark(#0f172a, #ffffff)"
+            background="var(--bg)"
+            className="w-full sm:w-auto"
+            style={{ "--btnRadius": `${cornerRadius}px` }}
           >
             Watch Demo
-          </m.button>
+          </Button>
         </m.div>
       </div>
 
@@ -1577,19 +1552,15 @@ const CartDrawer = memo(function CartDrawer({ styles, primaryColor, cornerRadius
               ${CART_SUBTOTAL}
             </span>
           </div>
-          <m.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            className="w-full py-4 font-bold flex items-center justify-center gap-2"
-            style={{
-              backgroundColor: primaryColor,
-              borderRadius: `${cornerRadius}px`,
-              color: "light-dark(#0f172a, #ffffff)",
-            }}
+          <Button
+            icon={ChevronRight}
+            gradient={`linear-gradient(135deg, ${primaryColor}, color-mix(in srgb, ${primaryColor} 65%, #020617))`}
+            color="light-dark(#0f172a, #ffffff)"
+            background="var(--bg)"
+            style={{ "--btnRadius": `${cornerRadius}px`, width: "100%" }}
           >
             Checkout
-            <ChevronRight className="w-5 h-5" />
-          </m.button>
+          </Button>
           <p className="text-center text-xs mt-3" style={{ color: "var(--textMuted)" }}>
             Free shipping on orders over $100
           </p>
@@ -1660,20 +1631,15 @@ const PricingTable = memo(function PricingTable({ styles, primaryColor, cornerRa
             ))}
           </ul>
 
-          <m.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            className="w-full py-3 font-bold transition-colors"
-            style={{
-              backgroundColor: plan.popular ? primaryColor : "transparent",
-              borderColor: plan.popular ? "transparent" : primaryColor,
-              border: plan.popular ? "none" : `2px solid ${primaryColor}`,
-              borderRadius: `${cornerRadius}px`,
-              color: plan.popular ? "#fff" : "var(--text)",
-            }}
+          <Button
+            variant={plan.popular ? "primary" : "outline"}
+            gradient={`linear-gradient(135deg, ${primaryColor}, color-mix(in srgb, ${primaryColor} 65%, #020617))`}
+            color={plan.popular ? "light-dark(#0f172a, #ffffff)" : "var(--text)"}
+            background="var(--bg)"
+            style={{ "--btnRadius": `${cornerRadius}px`, width: "100%" }}
           >
             {plan.popular ? "Get Started" : "Choose Plan"}
-          </m.button>
+          </Button>
         </m.div>
       ))}
     </m.div>
@@ -2011,30 +1977,26 @@ const MultiStepForm = memo(function MultiStepForm({ styles, primaryColor, corner
       {/* Navigation */}
       <div className="flex gap-3 mt-6">
         {step > 0 && (
-          <button
+          <Button
+            variant="outline"
             onClick={() => setStep(step - 1)}
-            className="flex-1 px-4 py-2.5 font-medium hover:opacity-80 transition-opacity"
-            style={{
-              borderRadius: `${cornerRadius}px`,
-              backgroundColor: "var(--surface)",
-              color: "var(--text)",
-              border: "1px solid var(--borderMain)",
-            }}
+            gradient={`linear-gradient(135deg, ${primaryColor}, color-mix(in srgb, ${primaryColor} 65%, #020617))`}
+            color="light-dark(#0f172a, #ffffff)"
+            background="var(--bg)"
+            style={{ "--btnRadius": `${cornerRadius}px`, flex: 1 }}
           >
             Back
-          </button>
+          </Button>
         )}
-        <button
+        <Button
           onClick={() => (step < 2 ? setStep(step + 1) : null)}
-          className="flex-1 px-4 py-2.5 font-medium transition-colors"
-          style={{
-            backgroundColor: primaryColor,
-            borderRadius: `${cornerRadius}px`,
-            color: "light-dark(#0f172a, #ffffff)",
-          }}
+          gradient={`linear-gradient(135deg, ${primaryColor}, color-mix(in srgb, ${primaryColor} 65%, #020617))`}
+          color="light-dark(#0f172a, #ffffff)"
+          background="var(--bg)"
+          style={{ "--btnRadius": `${cornerRadius}px`, flex: 1 }}
         >
           {step === 2 ? "Submit" : "Continue"}
-        </button>
+        </Button>
       </div>
     </m.div>
   );
