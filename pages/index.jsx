@@ -118,6 +118,7 @@ export default function Home() {
               </Link>
               <Link
                 href="/playground"
+                prefetch={false}
                 className="flex items-center gap-2 px-4 py-2 rounded-lg bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 text-sm font-semibold transition-all border border-cyan-500/20 hover:border-cyan-500/40"
               >
                 Open Playground
@@ -172,6 +173,7 @@ export default function Home() {
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <Link
                   href="/playground"
+                  prefetch={false}
                   className="group w-full sm:w-auto px-8 py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-slate-950 font-bold text-lg transition-all shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/40 transform hover:-translate-y-0.5"
                 >
                   Open Playground
@@ -190,11 +192,11 @@ export default function Home() {
                 {stats.map((s) => (
                   <div key={s.label} className="text-center">
                     <div className="text-2xl md:text-3xl font-bold text-white">{s.value}</div>
-                    <div className="text-xs text-slate-500 mt-1 uppercase tracking-wider">{s.label}</div>
+                    <div className="text-xs text-slate-400 mt-1 uppercase tracking-wider">{s.label}</div>
                   </div>
                 ))}
               </div>
-              <p className="text-[10px] text-slate-600 mt-3">*No runtime dependencies beyond React</p>
+              <p className="text-[10px] text-slate-500 mt-3">*No runtime dependencies beyond React</p>
             </div>
           </section>
 
@@ -295,6 +297,7 @@ export default function Home() {
                 </div>
                 <Link
                   href="/playground"
+                  prefetch={false}
                   className="hidden md:flex items-center gap-2 text-cyan-400 hover:text-cyan-300 font-medium transition-colors shrink-0"
                 >
                   View all <ArrowRight className="w-4 h-4" />
@@ -306,6 +309,7 @@ export default function Home() {
                   <Link
                     key={cat.name}
                     href={`/playground?category=${cat.name.toLowerCase()}`}
+                    prefetch={false}
                     data-glow
                     className="group relative block p-8 rounded-2xl border border-white/[0.06] bg-white/[0.02] hover:bg-white/[0.04] transition-all duration-300 overflow-hidden"
                   >
@@ -333,7 +337,7 @@ export default function Home() {
                         {cat.items.map((item) => (
                           <span
                             key={item}
-                            className="px-2 py-0.5 rounded text-[10px] font-medium text-slate-500 bg-white/[0.03] border border-white/[0.04]"
+                            className="px-2 py-0.5 rounded text-[10px] font-medium text-slate-400 bg-white/[0.05] border border-white/[0.06]"
                           >
                             {item}
                           </span>
@@ -367,6 +371,7 @@ export default function Home() {
                 </p>
                 <Link
                   href="/playground"
+                  prefetch={false}
                   className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-400 hover:to-blue-400 text-slate-950 font-bold transition-all shadow-lg shadow-cyan-500/25 hover:shadow-cyan-500/40 transform hover:-translate-y-0.5"
                 >
                   Open Playground
@@ -381,7 +386,7 @@ export default function Home() {
         <footer className="border-t border-white/[0.04] py-10 px-6" role="contentinfo">
           <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
             <VantiveBrand size={20} color="#38bdf8" suffix="UI" />
-            <p className="text-slate-500 text-sm">&copy; 2026 Vantive. All rights reserved.</p>
+            <p className="text-slate-400 text-sm">&copy; 2026 Vantive. All rights reserved.</p>
           </div>
         </footer>
       </div>
