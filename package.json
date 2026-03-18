@@ -10,6 +10,7 @@
     "postinstall": "node scripts/patch-polyfills.js"
   },
   "dependencies": {
+    "critters": "^0.0.23",
     "lucide-react": "^0.475.0",
     "next": "14.2.29",
     "qrcode.react": "^4.2.0",
