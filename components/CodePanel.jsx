@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { m } from "framer-motion";
 import { X, Copy, Check, Code2, Palette, Settings } from "lucide-react";
 import { useBrand, getStyles } from "@/hooks/useBrand";
@@ -8,6 +8,13 @@ import { getById } from "@/lib/items";
 
 export default function CodePanel({ onClose }) {
   const [activeTab, setActiveTab] = useState("jsx");
+
+  // Close on Escape key
+  useEffect(() => {
+    const handleEscape = (e) => e.key === "Escape" && onClose();
+    document.addEventListener("keydown", handleEscape);
+    return () => document.removeEventListener("keydown", handleEscape);
+  }, [onClose]);
   const [copied, setCopied] = useState(false);
 
   const { sel, color, play, font, dark } = useBrand();
@@ -150,11 +157,14 @@ module.exports = {
         animate={{ opacity: 1, scale: 1, y: 0 }}
         exit={{ opacity: 0, scale: 0.95, y: 20 }}
         className="bg-slate-900 border border-slate-700 rounded-2xl shadow-2xl w-full max-w-3xl max-h-[80vh] flex flex-col overflow-hidden"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="code-panel-title"
       >
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-slate-800">
           <div>
-            <h2 className="text-lg font-semibold text-white">Export Code</h2>
+            <h2 id="code-panel-title" className="text-lg font-semibold text-white">Export Code</h2>
             <p className="text-sm text-slate-400">Copy code for {comp?.name || "component"}</p>
           </div>
           <button
@@ -167,10 +177,13 @@ module.exports = {
         </div>
 
         {/* Tabs */}
-        <div className="flex border-b border-slate-800">
+        <div className="flex border-b border-slate-800" role="tablist" aria-label="Code export formats">
           {tabs.map((tab) => (
             <button
               key={tab.id}
+              role="tab"
+              aria-selected={activeTab === tab.id}
+              aria-controls={`tabpanel-${tab.id}`}
               onClick={() => setActiveTab(tab.id)}
               className={`flex items-center gap-2 px-4 py-3 text-sm font-medium transition-colors relative ${
                 activeTab === tab.id ? "text-cyan-400" : "text-slate-400 hover:text-slate-300"
@@ -186,7 +199,7 @@ module.exports = {
         </div>
 
         {/* Code Content */}
-        <div className="flex-1 overflow-auto p-4">
+        <div className="flex-1 overflow-auto p-4" role="tabpanel" id={`tabpanel-${activeTab}`} aria-label={activeTab}>
           <div className="relative">
             <pre className="text-sm font-mono text-slate-300 bg-slate-950 rounded-lg p-4 overflow-x-auto">
               <code>{codeContent[activeTab]}</code>

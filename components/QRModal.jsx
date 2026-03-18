@@ -60,10 +60,13 @@ export default function QRModal({ onClose }) {
         exit={{ scale: 0.95, opacity: 0 }}
         transition={{ type: "spring", stiffness: 300, damping: 25 }}
         className="bg-neutral-900 border border-white/10 rounded-3xl max-w-md w-full p-8 shadow-2xl"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="qr-modal-title"
       >
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h2 className="text-xl font-bold text-white">Preview on Device</h2>
+            <h2 id="qr-modal-title" className="text-xl font-bold text-white">Preview on Device</h2>
             <p className="text-sm text-neutral-500 mt-1">Scan to view on your phone</p>
           </div>
           <button

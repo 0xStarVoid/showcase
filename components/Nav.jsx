@@ -135,6 +135,8 @@ export default function Nav({ collapsed, onToggleCollapse }) {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               className="space-y-1"
+              aria-live="polite"
+              aria-atomic="true"
             >
               {results.length > 0 ? (
                 <>
@@ -179,6 +181,7 @@ export default function Nav({ collapsed, onToggleCollapse }) {
                     <button
                       onClick={() => toggleCat(cat.id)}
                       className="w-full flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-slate-800/50 transition-colors"
+                      aria-expanded={exp}
                     >
                       <Icon className="w-4 h-4 text-slate-400" />
                       <span className="flex-1 text-left font-medium text-sm text-white">{cat.name}</span>
@@ -204,6 +207,7 @@ export default function Nav({ collapsed, onToggleCollapse }) {
                                   <button
                                     onClick={() => toggleSub(sub.id)}
                                     className="w-full flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-slate-800/50 transition-colors text-sm text-slate-400"
+                                    aria-expanded={subExp}
                                   >
                                     <m.div animate={{ rotate: subExp ? 90 : 0 }} transition={{ duration: 0.15 }}>
                                       <ChevronRight className="w-3.5 h-3.5" />

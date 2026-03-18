@@ -35,16 +35,16 @@ export default function PropsTable({ props = [], componentName = "" }) {
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-slate-700 bg-slate-800/40">
-              <th className="px-4 py-2 text-left text-xs font-semibold text-slate-400 uppercase tracking-wider">
+              <th scope="col" className="px-4 py-2 text-left text-xs font-semibold text-slate-400 uppercase tracking-wider">
                 Prop
               </th>
-              <th className="px-4 py-2 text-left text-xs font-semibold text-slate-400 uppercase tracking-wider">
+              <th scope="col" className="px-4 py-2 text-left text-xs font-semibold text-slate-400 uppercase tracking-wider">
                 Type
               </th>
-              <th className="px-4 py-2 text-left text-xs font-semibold text-slate-400 uppercase tracking-wider">
+              <th scope="col" className="px-4 py-2 text-left text-xs font-semibold text-slate-400 uppercase tracking-wider">
                 Default
               </th>
-              <th className="px-4 py-2 text-left text-xs font-semibold text-slate-400 uppercase tracking-wider">
+              <th scope="col" className="px-4 py-2 text-left text-xs font-semibold text-slate-400 uppercase tracking-wider">
                 Description
               </th>
             </tr>
