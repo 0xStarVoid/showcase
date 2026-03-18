@@ -153,21 +153,19 @@ export default function Home() {
               aria-hidden="true"
             />
 
-            <div className="max-w-4xl mx-auto text-center relative">
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-semibold mb-8 backdrop-blur-sm" style={{ color: "#22d3ee" }}>
-                <Zap className="w-3.5 h-3.5" aria-hidden="true" />
+            <div style={{ maxWidth: "56rem", margin: "0 auto", textAlign: "center", position: "relative" }}>
+              <div style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", padding: "0.375rem 0.75rem", borderRadius: "9999px", background: "rgba(6,182,212,0.1)", border: "1px solid rgba(6,182,212,0.2)", color: "#22d3ee", fontSize: "0.75rem", fontWeight: 600, marginBottom: "2rem" }}>
+                <Zap style={{ width: "0.875rem", height: "0.875rem" }} aria-hidden="true" />
                 <span>Component System</span>
               </div>
 
               <h1
-                className="text-5xl md:text-7xl font-bold text-white mb-6 tracking-tight leading-[1.1]"
-                style={{ color: "#fff", fontWeight: 700, lineHeight: 1.1, letterSpacing: "-0.025em", fontSize: "clamp(3rem, 5vw, 4.5rem)" }}
+                style={{ color: "#fff", fontWeight: 700, lineHeight: 1.1, letterSpacing: "-0.025em", fontSize: "clamp(3rem, 5vw, 4.5rem)", marginBottom: "1.5rem" }}
               >
                 Build interfaces
                 <br />
                 <span
-                  className="bg-gradient-to-r from-cyan-400 via-sky-400 to-blue-500 bg-clip-text text-transparent"
-                  style={{ backgroundImage: "linear-gradient(to right, #22d3ee, #38bdf8, #3b82f6)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}
+                  style={{ backgroundImage: "linear-gradient(to right, #22d3ee, #38bdf8, #3b82f6)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text" }}
                 >
                   that feel right.
                 </span>
@@ -175,11 +173,11 @@ export default function Home() {
 
               <p style={{ color: "#94a3b8", fontSize: "1.125rem", lineHeight: 1.75, maxWidth: "42rem", margin: "0 auto 2.5rem", textAlign: "center" }}>
                 21 production-ready components with live brand customization.
-                <br className="hidden md:block" />
+                <br />
                 Adjust colors, typography, and radius — preview instantly on any device.
               </p>
 
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "1rem" }}>
                 <Button
                   href="/playground"
                   size="lg"
