@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { useReveal } from "@/hooks/useReveal";
 import Head from "next/head";
 import dynamic from "next/dynamic";
 import { Layers, ArrowLeft } from "lucide-react";
@@ -9,6 +10,7 @@ import { decode } from "@/lib/link";
 import { getById } from "@/lib/items";
 
 export default function Preview() {
+  useReveal();
   const router = useRouter();
   const [cfg, setCfg] = useState(null);
   const [ready, setReady] = useState(false);

@@ -2,8 +2,10 @@ import Head from "next/head";
 import Link from "next/link";
 import { Layers, ArrowRight, ChevronRight } from "lucide-react";
 import { cats, all } from "@/lib/items";
+import { useReveal } from "@/hooks/useReveal";
 
 export default function Components() {
+  useReveal();
   return (
     <>
       <Head>
