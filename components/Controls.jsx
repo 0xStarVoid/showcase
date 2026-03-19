@@ -54,11 +54,11 @@ export default function Controls({ onPreview, onExport, collapsed, onToggleColla
           <div className="flex items-center justify-between mb-3">
             <div className="flex items-center gap-2">
               <button
-                onClick={onMobileClose}
+                onClick={reset}
                 className="p-1.5 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-slate-300 transition-colors"
-                aria-label="Close controls"
+                title="Reset to defaults"
               >
-                <ChevronRight className="w-5 h-5" />
+                <RotateCcw className="w-4 h-4" />
               </button>
               <div>
                 <h2 className="font-semibold text-white">Brand DNA</h2>
@@ -66,11 +66,11 @@ export default function Controls({ onPreview, onExport, collapsed, onToggleColla
               </div>
             </div>
             <button
-              onClick={reset}
+              onClick={onMobileClose}
               className="p-2 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-slate-300 transition-colors"
-              title="Reset to defaults"
+              aria-label="Close controls"
             >
-              <RotateCcw className="w-4 h-4" />
+              <ChevronRight className="w-5 h-5" />
             </button>
           </div>
 
@@ -403,27 +403,27 @@ export default function Controls({ onPreview, onExport, collapsed, onToggleColla
       <div className="p-4 border-b border-slate-800">
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">
-            {onToggleCollapse && (
-              <button
-                onClick={onToggleCollapse}
-                className="p-1.5 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-slate-300 transition-colors"
-                aria-label="Collapse controls panel"
-              >
-                <ChevronRight className="w-4 h-4" />
-              </button>
-            )}
+            <button
+              onClick={reset}
+              className="p-1.5 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-slate-300 transition-colors"
+              title="Reset to defaults"
+            >
+              <RotateCcw className="w-4 h-4" />
+            </button>
             <div>
               <h2 className="font-semibold text-white">Brand DNA</h2>
               <p className="text-xs text-slate-400 mt-0.5">Customize styling</p>
             </div>
           </div>
-          <button
-            onClick={reset}
-            className="p-2 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-slate-300 transition-colors"
-            title="Reset to defaults"
-          >
-            <RotateCcw className="w-4 h-4" />
-          </button>
+          {onToggleCollapse && (
+            <button
+              onClick={onToggleCollapse}
+              className="p-2 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-slate-300 transition-colors"
+              aria-label="Collapse controls panel"
+            >
+              <ChevronRight className="w-4 h-4" />
+            </button>
+          )}
         </div>
 
         {/* Device & Theme Switcher - always visible here */}
