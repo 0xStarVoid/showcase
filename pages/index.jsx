@@ -3,8 +3,6 @@ import Link from "next/link";
 import { ArrowRight, Palette, Smartphone, Sparkles, Zap, Code2, Eye, Layers } from "lucide-react";
 import VantiveLogo from "@/components/ui/VantiveLogo";
 import VantiveBrand from "@/components/ui/VantiveBrand";
-import Button from "@/components/ui/Button";
-
 const stats = [
   { value: "21", label: "Components" },
   { value: "3", label: "Categories" },
@@ -42,16 +40,13 @@ export default function Home() {
               >
                 Components
               </Link>
-              <Button
+              <Link
                 href="/playground"
-                size="sm"
-                icon={ArrowRight}
-                gradient="linear-gradient(135deg, #06b6d4, #3b82f6)"
-                color="#0a0f1a"
-                background="#0a0f1a"
+                className="flex items-center gap-2 px-4 py-2 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-sm font-bold text-slate-950 transition-all"
               >
                 Playground
-              </Button>
+                <ArrowRight className="w-3.5 h-3.5" />
+              </Link>
             </div>
           </div>
         </nav>
@@ -76,30 +71,23 @@ export default function Home() {
               <p className="text-lg text-slate-400 max-w-2xl mx-auto mb-10 leading-relaxed">
                 21 production-ready components with live brand customization.
                 <br />
-                Adjust colors, typography, and radius — preview instantly on any device.
+                Adjust colors, typography, and radius -preview instantly on any device.
               </p>
 
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <Button
+                <Link
                   href="/playground"
-                  size="lg"
-                  icon={ArrowRight}
-                  gradient="linear-gradient(135deg, #06b6d4, #3b82f6)"
-                  color="#0a0f1a"
-                  background="#0a0f1a"
+                  className="w-full sm:w-auto px-6 py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-base sm:text-lg transition-all shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/40 transform hover:-translate-y-0.5 inline-flex items-center justify-center gap-2"
                 >
                   Open Playground
-                </Button>
-                <Button
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+                <Link
                   href="/components"
-                  variant="outline"
-                  size="lg"
-                  gradient="linear-gradient(135deg, #06b6d4, #3b82f6)"
-                  color="#0a0f1a"
-                  background="#0a0f1a"
+                  className="w-full sm:w-auto px-6 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold text-base sm:text-lg border border-slate-700 hover:border-slate-600 transition-all inline-flex items-center justify-center"
                 >
                   Browse Components
-                </Button>
+                </Link>
               </div>
 
               {/* Stats bar */}
@@ -111,7 +99,7 @@ export default function Home() {
                   </div>
                 ))}
               </div>
-              <p className="text-[10px] text-slate-500 mt-3">*No runtime dependencies beyond React</p>
+              <p className="text-[10px] text-slate-400 mt-3">*No runtime dependencies beyond React</p>
             </div>
           </section>
 
@@ -124,13 +112,13 @@ export default function Home() {
                   {
                     icon: VantiveLogo,
                     title: "21 Production Components",
-                    desc: "Hero sections, pricing tables, auth forms, dashboards — all tested and accessible.",
+                    desc: "Hero sections, pricing tables, auth forms, dashboards -all tested and accessible.",
                     isLogo: true,
                   },
                   {
                     icon: Palette,
                     title: "Live Brand Theming",
-                    desc: "Change colors, radius, typography, and playfulness — every component updates instantly.",
+                    desc: "Change colors, radius, typography, and playfulness -every component updates instantly.",
                   },
                   {
                     icon: Smartphone,
@@ -140,7 +128,7 @@ export default function Home() {
                   {
                     icon: Sparkles,
                     title: "Export-Ready Code",
-                    desc: "Copy JSX, CSS tokens, or Tailwind config — generated from your exact brand settings.",
+                    desc: "Copy JSX, CSS tokens, or Tailwind config -generated from your exact brand settings.",
                   },
                 ].map((f) => (
                   <div
@@ -188,7 +176,7 @@ export default function Home() {
                     step: "03",
                     icon: Code2,
                     title: "Export code",
-                    desc: "Copy production-ready JSX, CSS design tokens, or Tailwind config — all generated live.",
+                    desc: "Copy production-ready JSX, CSS design tokens, or Tailwind config -all generated live.",
                   },
                 ].map((s) => (
                   <div key={s.step} className="relative">
@@ -293,18 +281,15 @@ export default function Home() {
                   Ready to build?
                 </h2>
                 <p className="text-slate-400 max-w-lg mx-auto mb-10 text-lg">
-                  Open the playground, pick a component, customize your brand — ship in minutes.
+                  Open the playground, pick a component, customize your brand -ship in minutes.
                 </p>
-                <Button
+                <Link
                   href="/playground"
-                  size="lg"
-                  icon={ArrowRight}
-                  gradient="linear-gradient(135deg, #06b6d4, #3b82f6)"
-                  color="#0a0f1a"
-                  background="#0a0f1a"
+                  className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold transition-all shadow-lg shadow-cyan-500/20"
                 >
                   Open Playground
-                </Button>
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
               </div>
             </div>
           </section>
