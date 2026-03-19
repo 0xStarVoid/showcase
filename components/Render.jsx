@@ -268,7 +268,7 @@ const PricingCard = memo(function PricingCard({ styles, primaryColor, cornerRadi
           style={{
             backgroundColor: primaryColor,
             borderRadius: `${cornerRadius / (isPlayful ? 1 : 2)}px`,
-            color: "light-dark(#0f172a, #ffffff)",
+            color: "var(--bg)",
           }}
         >
           Most Popular
@@ -331,7 +331,7 @@ const PricingCard = memo(function PricingCard({ styles, primaryColor, cornerRadi
         <Button
           icon={ArrowRight}
           gradient={`linear-gradient(135deg, ${primaryColor}, color-mix(in srgb, ${primaryColor} 65%, #020617))`}
-          color="light-dark(#0f172a, #ffffff)"
+          color="var(--bg)"
           background="var(--bg)"
           style={{ "--btnRadius": `${cornerRadius}px`, width: "100%" }}
         >
@@ -421,7 +421,7 @@ const HeroCentered = memo(function HeroCentered({ styles, primaryColor, cornerRa
           size="lg"
           icon={ArrowRight}
           gradient={`linear-gradient(135deg, ${primaryColor}, color-mix(in srgb, ${primaryColor} 65%, #020617))`}
-          color="light-dark(#0f172a, #ffffff)"
+          color="var(--bg)"
           background="var(--bg)"
           style={{ "--btnRadius": `${cornerRadius}px` }}
         >
@@ -432,7 +432,7 @@ const HeroCentered = memo(function HeroCentered({ styles, primaryColor, cornerRa
           variant="outline"
           size="lg"
           gradient={`linear-gradient(135deg, ${primaryColor}, color-mix(in srgb, ${primaryColor} 65%, #020617))`}
-          color="light-dark(#0f172a, #ffffff)"
+          color="var(--bg)"
           background="var(--bg)"
           style={{ "--btnRadius": `${cornerRadius}px` }}
         >
@@ -492,7 +492,7 @@ const HeroSplit = memo(function HeroSplit({ styles, primaryColor, cornerRadius, 
         <Button
           icon={ArrowRight}
           gradient={`linear-gradient(135deg, ${primaryColor}, color-mix(in srgb, ${primaryColor} 65%, #020617))`}
-          color="light-dark(#0f172a, #ffffff)"
+          color="var(--bg)"
           background="var(--bg)"
           style={{ "--btnRadius": `${cornerRadius}px` }}
         >
@@ -781,7 +781,7 @@ const NewsletterSignup = memo(function NewsletterSignup({ styles, primaryColor, 
         <Button
           size="sm"
           gradient={`linear-gradient(135deg, ${primaryColor}, color-mix(in srgb, ${primaryColor} 65%, #020617))`}
-          color="light-dark(#0f172a, #ffffff)"
+          color="var(--bg)"
           background="var(--bg)"
           className="shrink-0"
           style={{ "--btnRadius": `${Math.max(4, cornerRadius - 4)}px` }}
@@ -1065,10 +1065,10 @@ const HeroGradient = memo(function HeroGradient({ styles, primaryColor, cornerRa
           <Button
             size="lg"
             gradient={`linear-gradient(135deg, ${accentLight}, ${accentDark})`}
-            color="light-dark(#0f172a, #ffffff)"
+            color="var(--bg)"
             background="var(--bg)"
             className="w-full sm:w-auto"
-            style={{ "--btnRadius": `${cornerRadius}px` }}
+            style={{ "--btnRadius": `${cornerRadius}px`, "--btnPadding": "0 48px" }}
           >
             Get Started Free
           </Button>
@@ -1077,10 +1077,10 @@ const HeroGradient = memo(function HeroGradient({ styles, primaryColor, cornerRa
             variant="outline"
             size="lg"
             gradient={`linear-gradient(135deg, ${accentLight}, ${accentDark})`}
-            color="light-dark(#0f172a, #ffffff)"
+            color="var(--bg)"
             background="var(--bg)"
             className="w-full sm:w-auto"
-            style={{ "--btnRadius": `${cornerRadius}px` }}
+            style={{ "--btnRadius": `${cornerRadius}px`, "--btnPadding": "0 48px" }}
           >
             Watch Demo
           </Button>
@@ -1125,8 +1125,8 @@ const BentoGrid = memo(function BentoGrid({ styles, primaryColor, cornerRadius, 
         }}
       >
         <div className="relative z-10">
-          <Zap className="w-12 h-12 mb-4" style={{ color: "light-dark(#0f172a, #ffffff)" }} />
-          <h3 className="text-2xl sm:text-3xl font-bold mb-3" style={{ color: "light-dark(#0f172a, #ffffff)" }}>
+          <Zap className="w-12 h-12 mb-4" style={{ color: "var(--bg)" }} />
+          <h3 className="text-2xl sm:text-3xl font-bold mb-3" style={{ color: "var(--bg)" }}>
             Lightning Fast Performance
           </h3>
           <p
@@ -1555,7 +1555,7 @@ const CartDrawer = memo(function CartDrawer({ styles, primaryColor, cornerRadius
           <Button
             icon={ChevronRight}
             gradient={`linear-gradient(135deg, ${primaryColor}, color-mix(in srgb, ${primaryColor} 65%, #020617))`}
-            color="light-dark(#0f172a, #ffffff)"
+            color="var(--bg)"
             background="var(--bg)"
             style={{ "--btnRadius": `${cornerRadius}px`, width: "100%" }}
           >
@@ -1599,7 +1599,7 @@ const PricingTable = memo(function PricingTable({ styles, primaryColor, cornerRa
               style={{
                 backgroundColor: primaryColor,
                 borderRadius: `${cornerRadius / 2}px`,
-                color: "light-dark(#0f172a, #ffffff)",
+                color: "var(--bg)",
               }}
             >
               MOST POPULAR
@@ -1634,7 +1634,7 @@ const PricingTable = memo(function PricingTable({ styles, primaryColor, cornerRa
           <Button
             variant={plan.popular ? "primary" : "outline"}
             gradient={`linear-gradient(135deg, ${primaryColor}, color-mix(in srgb, ${primaryColor} 65%, #020617))`}
-            color={plan.popular ? "light-dark(#0f172a, #ffffff)" : "var(--text)"}
+            color={plan.popular ? "var(--bg)" : "var(--text)"}
             background="var(--bg)"
             style={{ "--btnRadius": `${cornerRadius}px`, width: "100%" }}
           >
@@ -1693,7 +1693,7 @@ const SearchInput = memo(function SearchInput({ styles, primaryColor, cornerRadi
           style={{
             backgroundColor: primaryColor,
             borderRadius: `${cornerRadius}px`,
-            color: "light-dark(#0f172a, #ffffff)",
+            color: "var(--bg)",
           }}
         >
           Search
@@ -1981,7 +1981,7 @@ const MultiStepForm = memo(function MultiStepForm({ styles, primaryColor, corner
             variant="outline"
             onClick={() => setStep(step - 1)}
             gradient={`linear-gradient(135deg, ${primaryColor}, color-mix(in srgb, ${primaryColor} 65%, #020617))`}
-            color="light-dark(#0f172a, #ffffff)"
+            color="var(--bg)"
             background="var(--bg)"
             style={{ "--btnRadius": `${cornerRadius}px`, flex: 1 }}
           >
@@ -1991,7 +1991,7 @@ const MultiStepForm = memo(function MultiStepForm({ styles, primaryColor, corner
         <Button
           onClick={() => (step < 2 ? setStep(step + 1) : null)}
           gradient={`linear-gradient(135deg, ${primaryColor}, color-mix(in srgb, ${primaryColor} 65%, #020617))`}
-          color="light-dark(#0f172a, #ffffff)"
+          color="var(--bg)"
           background="var(--bg)"
           style={{ "--btnRadius": `${cornerRadius}px`, flex: 1 }}
         >
