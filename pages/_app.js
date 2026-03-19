@@ -1,15 +1,22 @@
 import "@/styles/globals.css";
-import { useBrand } from "@/hooks/useBrand";
 import { useEffect } from "react";
 import ErrorBoundary from "@/components/ErrorBoundary";
 
 export default function App({ Component, pageProps }) {
-  const dark = useBrand((s) => s.dark);
-
+  // Dark-mode class is set on <Html> in _document.js (SSR).
+  // Playground toggleDark syncs the class via useBrand.subscribe (lazy-loaded).
   useEffect(() => {
-    if (dark) document.documentElement.classList.add("dark");
-    else document.documentElement.classList.remove("dark");
-  }, [dark]);
+    let unsub;
+    import("@/hooks/useBrand").then(({ useBrand }) => {
+      const sync = (s) => {
+        if (s.dark) document.documentElement.classList.add("dark");
+        else document.documentElement.classList.remove("dark");
+      };
+      sync(useBrand.getState());
+      unsub = useBrand.subscribe(sync);
+    });
+    return () => unsub?.();
+  }, []);
 
   useEffect(() => {
     const io = new IntersectionObserver(

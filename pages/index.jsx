@@ -36,6 +36,7 @@ export default function Home() {
             <div className="flex items-center gap-3">
               <Link
                 href="/components"
+                prefetch={false}
                 className="hidden sm:flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium text-slate-400 hover:text-white transition-colors"
               >
                 Components
@@ -86,6 +87,7 @@ export default function Home() {
                 </Link>
                 <Link
                   href="/components"
+                  prefetch={false}
                   className="w-full sm:w-auto px-6 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold text-base sm:text-lg border border-slate-700 hover:border-slate-600 transition-all inline-flex items-center justify-center"
                 >
                   Browse Components
