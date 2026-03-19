@@ -19,7 +19,7 @@ export default function Components() {
             </Link>
             <Link
               href="/playground"
-              className="px-5 py-2.5 rounded-full bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 text-sm font-medium hover:opacity-90 transition-opacity"
+              className="px-5 py-2.5 rounded-full bg-cyan-500 hover:bg-cyan-400 text-slate-950 text-sm font-bold transition-colors"
             >
               Open Playground
             </Link>
