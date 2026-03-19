@@ -1,11 +1,10 @@
 import Head from "next/head";
 import Link from "next/link";
-import { Layers, ArrowRight, ChevronRight } from "lucide-react";
+import { ArrowRight, ChevronRight } from "lucide-react";
 import { cats, all } from "@/lib/items";
-import { useReveal } from "@/hooks/useReveal";
+import VantiveBrand from "@/components/ui/VantiveBrand";
 
 export default function Components() {
-  useReveal();
   return (
     <>
       <Head>
@@ -16,10 +15,7 @@ export default function Components() {
         <header className="border-b border-neutral-100 dark:border-neutral-800 bg-white/80 dark:bg-neutral-900/80 sticky top-0 z-50">
           <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
             <Link href="/" className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center">
-                <Layers className="w-5 h-5 text-white" />
-              </div>
-              <span className="font-semibold text-lg tracking-tight text-neutral-900 dark:text-white">Showcase</span>
+              <VantiveBrand size={22} color="#38bdf8" suffix="UI" />
             </Link>
             <Link
               href="/playground"
@@ -119,10 +115,7 @@ export default function Components() {
 
         <footer className="py-8 px-6 border-t border-neutral-100 dark:border-neutral-800">
           <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-            <div className="flex items-center gap-2 text-neutral-600 dark:text-neutral-400 text-sm">
-              <Layers className="w-4 h-4" />
-              <span>Showcase</span>
-            </div>
+            <VantiveBrand size={16} color="#38bdf8" suffix="UI" />
             <p className="text-neutral-500 dark:text-neutral-500 text-sm">
               Built with Next.js, Tailwind CSS, and Framer Motion
             </p>

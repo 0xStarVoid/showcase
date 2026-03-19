@@ -1,6 +1,5 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { useReveal } from "@/hooks/useReveal";
 import Head from "next/head";
 import dynamic from "next/dynamic";
 import { Layers, ArrowLeft } from "lucide-react";
@@ -10,7 +9,6 @@ import { decode } from "@/lib/link";
 import { getById } from "@/lib/items";
 
 export default function Preview() {
-  useReveal();
   const router = useRouter();
   const [cfg, setCfg] = useState(null);
   const [ready, setReady] = useState(false);
@@ -94,7 +92,7 @@ export default function Preview() {
 
           <footer className="fixed bottom-0 left-0 right-0 py-4 px-4 text-center bg-white/80 dark:bg-neutral-900/80 border-t border-neutral-100 dark:border-neutral-800">
             <p className="text-xs text-neutral-500">
-              Built with <span className="font-semibold">Showcase</span>
+              Built with <span className="font-semibold">Vantive UI</span>
             </p>
           </footer>
         </div>
