@@ -54,14 +54,14 @@ export default function Home() {
               </div>
 
               <h1 className="font-bold text-white tracking-tight" style={{ fontSize: "calc(1.5rem + 2vw)", lineHeight: 1.15, marginBottom: "calc(10px + 1vw)" }}>
-                Themeable components,{" "}
+                Build interfaces{" "}
                 <span className="bg-gradient-to-r from-cyan-400 via-sky-400 to-blue-500 bg-clip-text text-transparent">
-                  live preview.
+                  that feel right.
                 </span>
               </h1>
 
               <p className="text-slate-400 mx-auto" style={{ fontSize: "calc(12px + 0.5vw)", maxWidth: "480px", lineHeight: 1.6, marginBottom: "calc(20px + 1.5vw)" }}>
-                Adjust colors, typography, and radius. Preview on any device. Export production-ready code.
+                21 themeable components with live customization. Adjust colors, typography, and spacing, then export production-ready code.
               </p>
 
               <div className="flex flex-col sm:flex-row items-center justify-center" style={{ gap: "calc(6px + 0.5vw)" }}>
