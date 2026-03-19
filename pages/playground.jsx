@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 import dynamic from "next/dynamic";
 import { AnimatePresence, m, LazyMotion, domAnimation } from "framer-motion";
-import { Check, Link2, FileCode, Menu, SlidersHorizontal } from "lucide-react";
+import { Check, Link2, FileCode, ChevronRight, ChevronLeft } from "lucide-react";
 import VantiveLogo from "@/components/ui/VantiveLogo";
 import VantiveBrand from "@/components/ui/VantiveBrand";
 import Nav from "@/components/Nav";
@@ -17,6 +17,13 @@ import { useBrand, getStyles } from "@/hooks/useBrand";
 import { getById } from "@/lib/items";
 import { encode, decode } from "@/lib/link";
 
+/* Pulse ring animation for guide hint on mobile arrow buttons */
+const PulseRing = () => (
+  <span className="absolute inset-0 rounded-lg pointer-events-none">
+    <span className="absolute inset-0 rounded-lg animate-[pulseRing_2s_ease-out_infinite] border-2 border-cyan-400/60" />
+  </span>
+);
+
 export default function Playground() {
   const router = useRouter();
   const [showQR, setShowQR] = useState(false);
@@ -24,12 +31,14 @@ export default function Playground() {
   const [showProps, setShowProps] = useState(false);
   const [ready, setReady] = useState(false);
   const [copied, setCopied] = useState(false);
-  // Responsive collapse state - start collapsed on smaller screens
+  // Responsive collapse state
   const [navCollapsed, setNavCollapsed] = useState(false);
   const [controlsCollapsed, setControlsCollapsed] = useState(false);
   // Mobile overlay state: "left", "right", or null
   const [mobilePanel, setMobilePanel] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
+  // Track if user has interacted with panels (hide pulse guide after first use)
+  const [hasUsedPanels, setHasUsedPanels] = useState(false);
 
   const { sel, setSel, color, play, font, dark, device, setColor, setPlay, setFont } = useBrand();
 
@@ -69,6 +78,7 @@ export default function Playground() {
 
   // Mobile toggle handlers
   const toggleMobileNav = useCallback(() => {
+    setHasUsedPanels(true);
     if (isMobile) {
       setMobilePanel((prev) => (prev === "left" ? null : "left"));
     } else {
@@ -77,6 +87,7 @@ export default function Playground() {
   }, [isMobile]);
 
   const toggleMobileControls = useCallback(() => {
+    setHasUsedPanels(true);
     if (isMobile) {
       setMobilePanel((prev) => (prev === "right" ? null : "right"));
     } else {
@@ -84,7 +95,7 @@ export default function Playground() {
     }
   }, [isMobile]);
 
-  // Load state from URL on mount - set ready AFTER parsing to prevent race condition
+  // Load state from URL on mount
   useEffect(() => {
     if (!router.isReady) return;
     const search = window.location.search.slice(1);
@@ -99,7 +110,6 @@ export default function Playground() {
     } else if (router.query.component) {
       setSel(router.query.component);
     }
-    // Only set ready after URL parsing is complete
     setReady(true);
   }, [router.isReady, router.query.component, setSel, setColor, setPlay, setFont]);
 
@@ -129,35 +139,70 @@ export default function Playground() {
 
   if (!ready) return null;
 
+  const showPulse = isMobile && !hasUsedPanels;
+
   return (
     <>
       <Head>
         <title>{comp?.name || "Playground"}</title>
       </Head>
 
+      {/* Pulse ring keyframe */}
+      <style jsx global>{`
+        @keyframes pulseRing {
+          0% { transform: scale(1); opacity: 0.7; }
+          70% { transform: scale(1.5); opacity: 0; }
+          100% { transform: scale(1.5); opacity: 0; }
+        }
+      `}</style>
+
       <LazyMotion features={domAnimation}>
         <div className={`h-screen flex overflow-hidden ${dark ? "dark" : ""}`} style={styles}>
-          {/* Left Nav - hidden on mobile when collapsed, overlay when open */}
-          {!(isMobile && mobilePanel !== "left") && (
+          {/* Left Nav - slide overlay on mobile */}
+          <AnimatePresence>
+            {isMobile && mobilePanel === "left" && (
+              <m.div
+                key="nav-overlay"
+                initial={{ x: "-100%" }}
+                animate={{ x: 0 }}
+                exit={{ x: "-100%" }}
+                transition={{ type: "tween", duration: 0.25, ease: "easeInOut" }}
+                className="fixed inset-0 z-50"
+              >
+                <Nav
+                  collapsed={false}
+                  onToggleCollapse={toggleMobileNav}
+                  mobileOverlay
+                  onMobileClose={() => setMobilePanel(null)}
+                />
+              </m.div>
+            )}
+          </AnimatePresence>
+
+          {/* Desktop Nav */}
+          {!isMobile && (
             <Nav
               collapsed={navCollapsed}
               onToggleCollapse={toggleMobileNav}
-              mobileOverlay={isMobile && mobilePanel === "left"}
-              onMobileClose={() => setMobilePanel(null)}
             />
           )}
 
           <main className="flex-1 flex flex-col h-screen bg-[#0f172a] overflow-hidden relative">
             <header className="h-14 border-b border-slate-800 bg-[#0f172a] flex items-center justify-between px-4 sm:px-6 shrink-0 z-30">
               <div className="flex items-center gap-3">
-                {/* Mobile nav toggle button */}
+                {/* Mobile left arrow toggle — > when closed, < when open */}
                 {isMobile && (
                   <button
                     onClick={toggleMobileNav}
-                    className="p-2 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white transition-colors"
-                    aria-label="Open navigation"
+                    className="relative p-2 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white transition-colors"
+                    aria-label={mobilePanel === "left" ? "Close navigation" : "Open navigation"}
                   >
-                    <Menu className="w-5 h-5" />
+                    {mobilePanel === "left" ? (
+                      <ChevronLeft className="w-5 h-5" />
+                    ) : (
+                      <ChevronRight className="w-5 h-5" />
+                    )}
+                    {showPulse && <PulseRing />}
                   </button>
                 )}
                 <VantiveBrand size={18} color="#38bdf8" suffix="Playground" className="hidden sm:inline-flex" />
@@ -172,18 +217,8 @@ export default function Playground() {
                 )}
               </div>
               <div className="flex items-center gap-2 sm:gap-3">
-                {/* Mobile controls toggle button */}
-                {isMobile && (
-                  <button
-                    onClick={toggleMobileControls}
-                    className="p-2 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white transition-colors"
-                    aria-label="Open controls"
-                  >
-                    <SlidersHorizontal className="w-5 h-5" />
-                  </button>
-                )}
-                {/* Props Documentation Toggle */}
-                {comp?.props && comp.props.length > 0 && (
+                {/* Props Documentation Toggle — desktop only */}
+                {!isMobile && comp?.props && comp.props.length > 0 && (
                   <button
                     onClick={() => setShowProps(!showProps)}
                     className={`flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm transition-colors ${
@@ -197,25 +232,42 @@ export default function Playground() {
                     <span className="hidden sm:inline">Props</span>
                   </button>
                 )}
-                {/* Share Setup Button */}
-                <button
-                  onClick={copyLink}
-                  className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-sm transition-colors"
-                  title="Copy a link with these brand settings and component"
-                  aria-label={copied ? "Link copied" : "Copy share link"}
-                >
-                  {copied ? (
-                    <>
-                      <Check className="w-4 h-4 text-green-400" />
-                      <span className="text-green-400 hidden sm:inline">Copied!</span>
-                    </>
-                  ) : (
-                    <>
-                      <Link2 className="w-4 h-4" />
-                      <span className="hidden sm:inline">Share</span>
-                    </>
-                  )}
-                </button>
+                {/* Share Button — desktop only */}
+                {!isMobile && (
+                  <button
+                    onClick={copyLink}
+                    className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-sm transition-colors"
+                    title="Copy a link with these brand settings and component"
+                    aria-label={copied ? "Link copied" : "Copy share link"}
+                  >
+                    {copied ? (
+                      <>
+                        <Check className="w-4 h-4 text-green-400" />
+                        <span className="text-green-400 hidden sm:inline">Copied!</span>
+                      </>
+                    ) : (
+                      <>
+                        <Link2 className="w-4 h-4" />
+                        <span className="hidden sm:inline">Share</span>
+                      </>
+                    )}
+                  </button>
+                )}
+                {/* Mobile right arrow toggle — < when closed, > when open */}
+                {isMobile && (
+                  <button
+                    onClick={toggleMobileControls}
+                    className="relative p-2 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white transition-colors"
+                    aria-label={mobilePanel === "right" ? "Close controls" : "Open controls"}
+                  >
+                    {mobilePanel === "right" ? (
+                      <ChevronRight className="w-5 h-5" />
+                    ) : (
+                      <ChevronLeft className="w-5 h-5" />
+                    )}
+                    {showPulse && <PulseRing />}
+                  </button>
+                )}
               </div>
             </header>
 
@@ -271,15 +323,36 @@ export default function Playground() {
             </div>
           </main>
 
-          {/* Right Controls - hidden on mobile when collapsed, overlay when open */}
-          {!(isMobile && mobilePanel !== "right") && (
+          {/* Right Controls - slide overlay on mobile */}
+          <AnimatePresence>
+            {isMobile && mobilePanel === "right" && (
+              <m.div
+                key="controls-overlay"
+                initial={{ x: "100%" }}
+                animate={{ x: 0 }}
+                exit={{ x: "100%" }}
+                transition={{ type: "tween", duration: 0.25, ease: "easeInOut" }}
+                className="fixed inset-0 z-50"
+              >
+                <Controls
+                  onPreview={() => setShowQR(true)}
+                  onExport={() => setShowCode(true)}
+                  collapsed={false}
+                  onToggleCollapse={toggleMobileControls}
+                  mobileOverlay
+                  onMobileClose={() => setMobilePanel(null)}
+                />
+              </m.div>
+            )}
+          </AnimatePresence>
+
+          {/* Desktop Controls */}
+          {!isMobile && (
             <Controls
               onPreview={() => setShowQR(true)}
               onExport={() => setShowCode(true)}
               collapsed={controlsCollapsed}
               onToggleCollapse={toggleMobileControls}
-              mobileOverlay={isMobile && mobilePanel === "right"}
-              onMobileClose={() => setMobilePanel(null)}
             />
           )}
 

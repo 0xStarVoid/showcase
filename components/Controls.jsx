@@ -58,7 +58,7 @@ export default function Controls({ onPreview, onExport, collapsed, onToggleColla
                 className="p-1.5 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-slate-300 transition-colors"
                 aria-label="Close controls"
               >
-                <X className="w-5 h-5" />
+                <ChevronRight className="w-5 h-5" />
               </button>
               <div>
                 <h2 className="font-semibold text-white">Brand DNA</h2>

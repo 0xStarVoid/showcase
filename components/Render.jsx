@@ -1059,7 +1059,8 @@ const HeroGradient = memo(function HeroGradient({ styles, primaryColor, cornerRa
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.5 }}
-          className="flex flex-col sm:flex-row gap-4 justify-center items-center px-4"
+          className="flex flex-col sm:flex-row gap-4 justify-center items-stretch px-4"
+          style={{ width: "100%", maxWidth: "420px", margin: "0 auto" }}
         >
           {/* Primary CTA */}
           <Button
@@ -1067,8 +1068,8 @@ const HeroGradient = memo(function HeroGradient({ styles, primaryColor, cornerRa
             gradient={`linear-gradient(135deg, ${accentLight}, ${accentDark})`}
             color="var(--bg)"
             background="var(--bg)"
-            className="w-full sm:w-auto"
-            style={{ "--btnRadius": `${cornerRadius}px`, "--btnPadding": "0 48px" }}
+            className="w-full flex-1"
+            style={{ "--btnRadius": `${cornerRadius}px` }}
           >
             Get Started Free
           </Button>
@@ -1079,8 +1080,8 @@ const HeroGradient = memo(function HeroGradient({ styles, primaryColor, cornerRa
             gradient={`linear-gradient(135deg, ${accentLight}, ${accentDark})`}
             color="var(--bg)"
             background="var(--bg)"
-            className="w-full sm:w-auto"
-            style={{ "--btnRadius": `${cornerRadius}px`, "--btnPadding": "0 48px" }}
+            className="w-full flex-1"
+            style={{ "--btnRadius": `${cornerRadius}px` }}
           >
             Watch Demo
           </Button>
