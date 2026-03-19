@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 import dynamic from "next/dynamic";
 import { AnimatePresence, m, LazyMotion, domAnimation } from "framer-motion";
-import { Check, Link2, FileCode } from "lucide-react";
+import { Check, Link2, FileCode, Menu, SlidersHorizontal } from "lucide-react";
 import VantiveLogo from "@/components/ui/VantiveLogo";
 import VantiveBrand from "@/components/ui/VantiveBrand";
 import Nav from "@/components/Nav";
@@ -27,6 +27,9 @@ export default function Playground() {
   // Responsive collapse state - start collapsed on smaller screens
   const [navCollapsed, setNavCollapsed] = useState(false);
   const [controlsCollapsed, setControlsCollapsed] = useState(false);
+  // Mobile overlay state: "left", "right", or null
+  const [mobilePanel, setMobilePanel] = useState(null);
+  const [isMobile, setIsMobile] = useState(false);
 
   const { sel, setSel, color, play, font, dark, device, setColor, setPlay, setFont } = useBrand();
 
@@ -36,14 +39,20 @@ export default function Playground() {
     const checkWidth = () => {
       const w = window.innerWidth;
       if (w < 768) {
+        setIsMobile(true);
         setNavCollapsed(true);
         setControlsCollapsed(true);
+        setMobilePanel(null);
       } else if (w < 1024) {
+        setIsMobile(false);
         setNavCollapsed(false);
         setControlsCollapsed(true);
+        setMobilePanel(null);
       } else {
+        setIsMobile(false);
         setNavCollapsed(false);
         setControlsCollapsed(false);
+        setMobilePanel(null);
       }
     };
     const onResize = () => {
@@ -57,6 +66,23 @@ export default function Playground() {
       window.removeEventListener("resize", onResize);
     };
   }, []);
+
+  // Mobile toggle handlers
+  const toggleMobileNav = useCallback(() => {
+    if (isMobile) {
+      setMobilePanel((prev) => (prev === "left" ? null : "left"));
+    } else {
+      setNavCollapsed((prev) => !prev);
+    }
+  }, [isMobile]);
+
+  const toggleMobileControls = useCallback(() => {
+    if (isMobile) {
+      setMobilePanel((prev) => (prev === "right" ? null : "right"));
+    } else {
+      setControlsCollapsed((prev) => !prev);
+    }
+  }, [isMobile]);
 
   // Load state from URL on mount - set ready AFTER parsing to prevent race condition
   useEffect(() => {
@@ -111,12 +137,29 @@ export default function Playground() {
 
       <LazyMotion features={domAnimation}>
         <div className={`h-screen flex overflow-hidden ${dark ? "dark" : ""}`} style={styles}>
-          {/* Left Nav - Always visible, collapsible */}
-          <Nav collapsed={navCollapsed} onToggleCollapse={() => setNavCollapsed(!navCollapsed)} />
+          {/* Left Nav - hidden on mobile when collapsed, overlay when open */}
+          {!(isMobile && mobilePanel !== "left") && (
+            <Nav
+              collapsed={navCollapsed}
+              onToggleCollapse={toggleMobileNav}
+              mobileOverlay={isMobile && mobilePanel === "left"}
+              onMobileClose={() => setMobilePanel(null)}
+            />
+          )}
 
           <main className="flex-1 flex flex-col h-screen bg-[#0f172a] overflow-hidden relative">
             <header className="h-14 border-b border-slate-800 bg-[#0f172a] flex items-center justify-between px-4 sm:px-6 shrink-0 z-30">
               <div className="flex items-center gap-3">
+                {/* Mobile nav toggle button */}
+                {isMobile && (
+                  <button
+                    onClick={toggleMobileNav}
+                    className="p-2 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white transition-colors"
+                    aria-label="Open navigation"
+                  >
+                    <Menu className="w-5 h-5" />
+                  </button>
+                )}
                 <VantiveBrand size={18} color="#38bdf8" suffix="Playground" className="hidden sm:inline-flex" />
                 <VantiveLogo size={14} className="text-cyan-400 sm:hidden" />
                 {comp && (
@@ -129,6 +172,16 @@ export default function Playground() {
                 )}
               </div>
               <div className="flex items-center gap-2 sm:gap-3">
+                {/* Mobile controls toggle button */}
+                {isMobile && (
+                  <button
+                    onClick={toggleMobileControls}
+                    className="p-2 rounded-lg hover:bg-slate-800 text-slate-400 hover:text-white transition-colors"
+                    aria-label="Open controls"
+                  >
+                    <SlidersHorizontal className="w-5 h-5" />
+                  </button>
+                )}
                 {/* Props Documentation Toggle */}
                 {comp?.props && comp.props.length > 0 && (
                   <button
@@ -218,13 +271,17 @@ export default function Playground() {
             </div>
           </main>
 
-          {/* Right Controls - Always visible, collapsible */}
-          <Controls
-            onPreview={() => setShowQR(true)}
-            onExport={() => setShowCode(true)}
-            collapsed={controlsCollapsed}
-            onToggleCollapse={() => setControlsCollapsed(!controlsCollapsed)}
-          />
+          {/* Right Controls - hidden on mobile when collapsed, overlay when open */}
+          {!(isMobile && mobilePanel !== "right") && (
+            <Controls
+              onPreview={() => setShowQR(true)}
+              onExport={() => setShowCode(true)}
+              collapsed={controlsCollapsed}
+              onToggleCollapse={toggleMobileControls}
+              mobileOverlay={isMobile && mobilePanel === "right"}
+              onMobileClose={() => setMobilePanel(null)}
+            />
+          )}
 
           <AnimatePresence>{showQR && <QRModal onClose={() => setShowQR(false)} />}</AnimatePresence>
         </div>
