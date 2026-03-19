@@ -89,6 +89,7 @@ export default function Home() {
           {/* Compact features - single row on desktop */}
           <section className="border-y border-slate-800/50 bg-slate-900/50" style={{ padding: "calc(24px + 3vw) calc(12px + 1.5vw)" }}>
             <div className="max-w-5xl mx-auto">
+              <h2 className="sr-only">Features</h2>
               <div className="grid sm:grid-cols-2 lg:grid-cols-4" style={{ gap: "calc(10px + 1vw)" }}>
                 {[
                   { icon: VantiveLogo, title: "21 Components", desc: "Marketing, commerce, and application UI.", isLogo: true },
@@ -138,7 +139,7 @@ export default function Home() {
                     </div>
                     <div className="flex flex-wrap" style={{ gap: "4px" }}>
                       {cat.items.map((item) => (
-                        <span key={item} className="rounded text-[10px] text-slate-500 bg-slate-800/50 border border-slate-700/50" style={{ padding: "1px 6px" }}>
+                        <span key={item} className="rounded text-[10px] text-slate-400 bg-slate-800/50 border border-slate-700/50" style={{ padding: "1px 6px" }}>
                           {item}
                         </span>
                       ))}
@@ -154,7 +155,7 @@ export default function Home() {
         <footer className="border-t border-slate-800 bg-[#0f172a]" style={{ padding: "calc(20px + 1.5vw) calc(12px + 1.5vw)" }} role="contentinfo">
           <div className="max-w-5xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
             <VantiveBrand size={18} color="#38bdf8" suffix="UI" />
-            <p className="text-slate-500 text-xs">&copy; 2026 Vantive. All rights reserved.</p>
+            <p className="text-slate-400 text-xs">&copy; 2026 Vantive. All rights reserved.</p>
           </div>
         </footer>
       </div>
