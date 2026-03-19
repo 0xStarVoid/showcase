@@ -105,13 +105,14 @@ export default function Components() {
             <p className="text-neutral-600 dark:text-neutral-400 mb-8">
               Open the playground to start tweaking brand DNA and see components come to life.
             </p>
-            <Link
+            <Button
               href="/playground"
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-blue-600 text-white font-semibold hover:bg-blue-700 transition-colors"
+              size="lg"
+              icon={ArrowRight}
+              gradient="linear-gradient(135deg, #06b6d4, #22d3ee)"
             >
               Enter Playground
-              <ArrowRight className="w-5 h-5" />
-            </Link>
+            </Button>
           </div>
         </section>
 

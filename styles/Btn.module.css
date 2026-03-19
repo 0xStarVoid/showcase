@@ -130,7 +130,7 @@
 .btn:hover .content svg,
 .btn:focus-visible .content svg {
   -webkit-text-fill-color: initial;
-  color: hsl(var(--primary, 245 58% 51%));
+  color: var(--accentLight, hsl(var(--primary, 245 58% 51%)));
   stroke: currentColor;
 }
 
@@ -154,7 +154,7 @@
 }
 
 .btn.reverse .content svg {
-  color: hsl(var(--primary, 245 58% 51%));
+  color: var(--accentLight, hsl(var(--primary, 245 58% 51%)));
   stroke: currentColor;
   -webkit-text-fill-color: initial;
 }
@@ -189,7 +189,7 @@
 }
 
 .btn:focus-visible {
-  outline: 2px solid hsl(var(--primary, 245 58% 51%));
+  outline: 2px solid var(--accentLight, hsl(var(--primary, 245 58% 51%)));
   outline-offset: 3px;
 }
 

@@ -52,8 +52,8 @@
   --surface: light-dark(var(--surface-light), var(--surface-dark));
 
   /* Button */
-  --btn-text: #ffffff;
-  --btn-bg: #ffffff;
+  --btn-text: var(--bg);
+  --btn-bg: var(--bg);
 
   /* Accent: Purple */
   --accent: #818cf8;
