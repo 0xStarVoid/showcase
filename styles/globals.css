@@ -51,6 +51,10 @@
   --textMuted: light-dark(var(--text-muted-light), var(--text-muted-dark));
   --surface: light-dark(var(--surface-light), var(--surface-dark));
 
+  /* Button */
+  --btn-text: #ffffff;
+  --btn-bg: #ffffff;
+
   /* Accent: Purple */
   --accent: #818cf8;
 
@@ -303,7 +307,7 @@ html {
   }
 }
 
-[data-reveal] {
+[data-reveal]:not(.revealed) {
   opacity: 0;
 }
 [data-reveal].revealed {

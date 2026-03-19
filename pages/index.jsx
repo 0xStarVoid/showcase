@@ -44,7 +44,7 @@ export default function Home() {
               <Link
                 href="/playground"
                 prefetch={false}
-                className="flex items-center gap-2 px-4 py-2 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-sm font-bold text-slate-950 transition-all"
+                className="flex items-center gap-2 px-4 py-2 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-sm font-bold text-slate-950 transition-colors"
               >
                 Playground
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -80,7 +80,7 @@ export default function Home() {
                 <Link
                   href="/playground"
                   prefetch={false}
-                  className="w-full sm:w-auto px-6 py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-base sm:text-lg transition-all shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/40 transform hover:-translate-y-0.5 inline-flex items-center justify-center gap-2"
+                  className="w-full sm:w-auto px-6 py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-base sm:text-lg transition-transform shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/40 transform hover:-translate-y-0.5 inline-flex items-center justify-center gap-2"
                 >
                   Open Playground
                   <ArrowRight className="w-4 h-4" />
@@ -88,7 +88,7 @@ export default function Home() {
                 <Link
                   href="/components"
                   prefetch={false}
-                  className="w-full sm:w-auto px-6 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold text-base sm:text-lg border border-slate-700 hover:border-slate-600 transition-all inline-flex items-center justify-center"
+                  className="w-full sm:w-auto px-6 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-semibold text-base sm:text-lg border border-slate-700 hover:border-slate-600 transition-colors inline-flex items-center justify-center"
                 >
                   Browse Components
                 </Link>
@@ -249,7 +249,7 @@ export default function Home() {
                     key={cat.name}
                     href={`/playground?category=${cat.name.toLowerCase()}`}
                     prefetch={false}
-                    className="group block p-8 rounded-2xl bg-slate-800/30 border border-slate-700/50 hover:bg-slate-800/50 hover:border-slate-600 transition-all"
+                    className="group block p-8 rounded-2xl bg-slate-800/30 border border-slate-700/50 hover:bg-slate-800/50 hover:border-slate-600 transition-colors"
                   >
                     <div className={`w-12 h-1 ${cat.color} rounded-full mb-6`} />
                     <div className="flex justify-between items-center mb-3">
@@ -291,7 +291,7 @@ export default function Home() {
                 <Link
                   href="/playground"
                   prefetch={false}
-                  className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold transition-all shadow-lg shadow-cyan-500/20"
+                  className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold transition-colors shadow-lg shadow-cyan-500/20"
                 >
                   Open Playground
                   <ArrowRight className="w-4 h-4" />

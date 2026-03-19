@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ArrowRight, ChevronRight } from "lucide-react";
 import { cats, all } from "@/lib/items";
 import VantiveBrand from "@/components/ui/VantiveBrand";
+import Button from "@/components/ui/Button";
 
 export default function Components() {
   return (
@@ -17,12 +18,13 @@ export default function Components() {
             <Link href="/" className="flex items-center gap-3">
               <VantiveBrand size={22} color="#38bdf8" suffix="UI" />
             </Link>
-            <Link
+            <Button
               href="/playground"
-              className="px-5 py-2.5 rounded-full bg-cyan-500 hover:bg-cyan-400 text-slate-950 text-sm font-bold transition-colors"
+              size="sm"
+              gradient="linear-gradient(135deg, #06b6d4, #22d3ee)"
             >
               Open Playground
-            </Link>
+            </Button>
           </div>
         </header>
 
@@ -67,13 +69,13 @@ export default function Components() {
                           <Link
                             key={c.id}
                             href={`/playground?component=${c.id}`}
-                            className="group p-5 bg-white dark:bg-neutral-800 rounded-2xl border border-neutral-100 dark:border-neutral-700 hover:border-blue-200 dark:hover:border-blue-800 hover:shadow-lg transition-all"
+                            className="group p-5 bg-white dark:bg-neutral-800 rounded-2xl border border-neutral-100 dark:border-neutral-700 hover:border-blue-200 dark:hover:border-blue-800 hover:shadow-lg transition-colors"
                           >
                             <div className="flex items-start justify-between mb-3">
                               <h4 className="font-semibold text-neutral-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                                 {c.name}
                               </h4>
-                              <ChevronRight className="w-4 h-4 text-neutral-400 group-hover:text-blue-500 group-hover:translate-x-1 transition-all" />
+                              <ChevronRight className="w-4 h-4 text-neutral-400 group-hover:text-blue-500 group-hover:translate-x-1 transition-transform" />
                             </div>
                             <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-3 line-clamp-2">{c.desc}</p>
                             <div className="flex flex-wrap gap-1.5">

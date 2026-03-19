@@ -47,7 +47,7 @@
   pointer-events: none;
   position: relative;
   z-index: 3;
-  transition: all var(--btnTransition) ease;
+  transition: opacity var(--btnTransition) ease;
   display: inline-flex;
   align-items: center;
   gap: 8px;
