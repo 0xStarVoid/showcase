@@ -42,6 +42,7 @@ export default function Home() {
               </Link>
               <Link
                 href="/playground"
+                prefetch={false}
                 className="flex items-center gap-2 px-4 py-2 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-sm font-bold text-slate-950 transition-all"
               >
                 Playground
@@ -77,6 +78,7 @@ export default function Home() {
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <Link
                   href="/playground"
+                  prefetch={false}
                   className="w-full sm:w-auto px-6 py-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-base sm:text-lg transition-all shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/40 transform hover:-translate-y-0.5 inline-flex items-center justify-center gap-2"
                 >
                   Open Playground
@@ -210,6 +212,7 @@ export default function Home() {
                 </div>
                 <Link
                   href="/playground"
+                  prefetch={false}
                   className="hidden md:flex items-center gap-2 text-cyan-400 hover:text-cyan-300 font-medium transition-colors"
                 >
                   View all <ArrowRight className="w-4 h-4" />
@@ -285,6 +288,7 @@ export default function Home() {
                 </p>
                 <Link
                   href="/playground"
+                  prefetch={false}
                   className="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold transition-all shadow-lg shadow-cyan-500/20"
                 >
                   Open Playground
