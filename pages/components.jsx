@@ -1,9 +1,15 @@
 import Head from "next/head";
 import Link from "next/link";
-import { ArrowRight, ChevronRight } from "lucide-react";
+import { ArrowRight, ChevronRight, Megaphone, ShoppingBag, FormInput } from "lucide-react";
 import { cats, all } from "@/lib/items";
 import VantiveBrand from "@/components/ui/VantiveBrand";
 import Button from "@/components/ui/Button";
+
+const catIcons = {
+  marketing: Megaphone,
+  commerce: ShoppingBag,
+  forms: FormInput,
+};
 
 export default function Components() {
   return (
@@ -12,12 +18,12 @@ export default function Components() {
         <title>Components</title>
       </Head>
 
-      <div className="min-h-screen bg-[#fafafa] dark:bg-[#0a0a0a] architect-grid">
-        <header className="border-b border-neutral-100 dark:border-neutral-800 bg-white/80 dark:bg-neutral-900/80 sticky top-0 z-50">
-          <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-            <Link href="/" className="flex items-center gap-3">
-              <VantiveBrand size={22} color="#38bdf8" suffix="UI" />
-            </Link>
+      <div className="min-h-screen bg-[#0f172a] text-slate-200 flex flex-col">
+        <header className="sticky top-0 z-50 bg-[#0f172a] border-b border-slate-800">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <a href="/" aria-label="Reload Vantive UI" className="flex items-center">
+              <VantiveBrand size={20} color="#38bdf8" suffix="UI" />
+            </a>
             <Button
               href="/playground"
               size="sm"
@@ -28,100 +34,107 @@ export default function Components() {
           </div>
         </header>
 
-        <section className="py-16 px-6">
-          <div className="max-w-7xl mx-auto">
-            <div data-reveal className="text-center mb-12">
-              <h1 className="text-4xl md:text-5xl font-bold text-neutral-900 dark:text-white mb-4 font-serif">
-                Component Library
-              </h1>
-              <p className="text-lg text-neutral-600 dark:text-neutral-400 max-w-2xl mx-auto">
-                {all.length} production-ready components across {cats.length} categories. Each component responds to
-                your brand DNA settings.
-              </p>
-            </div>
+        <main className="flex-1">
+          <section className="px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
+            <div className="max-w-7xl mx-auto">
+              <div className="text-center mb-8 sm:mb-10">
+                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight mb-3">
+                  Component Library
+                </h1>
+                <p className="text-sm sm:text-base text-slate-400 max-w-2xl mx-auto">
+                  {all.length} production-ready components across {cats.length} categories. Each component responds to
+                  your brand DNA settings.
+                </p>
+              </div>
 
-            <div className="space-y-12">
-              {cats.map((cat, i) => (
-                <section key={cat.id} data-reveal style={{ animationDelay: `${i * 0.1}s` }}>
-                  <div className="flex items-center gap-3 mb-6">
-                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-100 to-indigo-100 dark:from-blue-900/50 dark:to-indigo-900/50 flex items-center justify-center">
-                      <span className="text-lg">
-                        {cat.id === "marketing" && "📣"}
-                        {cat.id === "commerce" && "🛒"}
-                        {cat.id === "forms" && "📝"}
-                      </span>
-                    </div>
-                    <div>
-                      <h2 className="text-xl font-bold text-neutral-900 dark:text-white">{cat.name}</h2>
-                      <p className="text-sm text-neutral-500">
-                        {cat.subs.reduce((a, s) => a + s.items.length, 0)} components
-                      </p>
-                    </div>
-                  </div>
-
-                  {cat.subs.map((sub) => (
-                    <div key={sub.id} className="mb-8">
-                      <h3 className="text-sm font-semibold text-neutral-600 dark:text-neutral-400 uppercase tracking-wider mb-4">
-                        {sub.name}
-                      </h3>
-                      <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                        {sub.items.map((c) => (
-                          <Link
-                            key={c.id}
-                            href={`/playground?component=${c.id}`}
-                            className="group p-5 bg-white dark:bg-neutral-800 rounded-2xl border border-neutral-100 dark:border-neutral-700 hover:border-blue-200 dark:hover:border-blue-800 hover:shadow-lg transition-colors"
-                          >
-                            <div className="flex items-start justify-between mb-3">
-                              <h4 className="font-semibold text-neutral-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                                {c.name}
-                              </h4>
-                              <ChevronRight className="w-4 h-4 text-neutral-400 group-hover:text-blue-500 group-hover:translate-x-1 transition-transform" />
-                            </div>
-                            <p className="text-sm text-neutral-600 dark:text-neutral-400 mb-3 line-clamp-2">{c.desc}</p>
-                            <div className="flex flex-wrap gap-1.5">
-                              {c.tags.slice(0, 3).map((t) => (
-                                <span
-                                  key={t}
-                                  className="px-2 py-0.5 bg-neutral-100 dark:bg-neutral-700 rounded-md text-xs text-neutral-600 dark:text-neutral-400"
-                                >
-                                  {t}
-                                </span>
-                              ))}
-                            </div>
-                          </Link>
-                        ))}
+              <div className="space-y-8 sm:space-y-10">
+                {cats.map((cat) => {
+                  const Icon = catIcons[cat.id] || Megaphone;
+                  const total = cat.subs.reduce((a, s) => a + s.items.length, 0);
+                  return (
+                    <section key={cat.id}>
+                      <div className="flex items-center gap-3 mb-4">
+                        <div className="w-9 h-9 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center">
+                          <Icon className="w-4 h-4 text-cyan-400" aria-hidden="true" />
+                        </div>
+                        <div>
+                          <h2 className="text-lg font-bold text-white">{cat.name}</h2>
+                          <p className="text-xs text-slate-500">{total} components</p>
+                        </div>
                       </div>
-                    </div>
-                  ))}
-                </section>
-              ))}
+
+                      {cat.subs.map((sub) => (
+                        <div key={sub.id} className="mb-5 last:mb-0">
+                          <h3 className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider mb-3">
+                            {sub.name}
+                          </h3>
+                          <div className="grid gap-3 sm:gap-4 grid-cols-[repeat(auto-fill,minmax(220px,1fr))]">
+                            {sub.items.map((c) => (
+                              <Link
+                                key={c.id}
+                                href={`/playground?component=${c.id}`}
+                                prefetch={false}
+                                className="group rounded-xl bg-slate-800/30 border border-slate-700/50 hover:border-cyan-500/50 hover:bg-slate-800/50 transition-colors p-4"
+                              >
+                                <div className="flex items-start justify-between mb-2 gap-2">
+                                  <h4 className="text-sm font-bold text-white group-hover:text-cyan-400 transition-colors">
+                                    {c.name}
+                                  </h4>
+                                  <ChevronRight className="w-4 h-4 text-slate-500 group-hover:text-cyan-400 group-hover:translate-x-0.5 transition-transform shrink-0" />
+                                </div>
+                                <p className="text-xs text-slate-400 mb-3 line-clamp-2 leading-relaxed">{c.desc}</p>
+                                <div className="flex flex-wrap gap-1">
+                                  {c.tags.slice(0, 3).map((t) => (
+                                    <span
+                                      key={t}
+                                      className="rounded text-[10px] text-slate-300 bg-slate-800/50 border border-slate-700/50 px-1.5 py-0.5"
+                                    >
+                                      {t}
+                                    </span>
+                                  ))}
+                                </div>
+                              </Link>
+                            ))}
+                          </div>
+                        </div>
+                      ))}
+                    </section>
+                  );
+                })}
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
 
-        <section className="py-16 px-6 border-t border-neutral-100 dark:border-neutral-800">
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-2xl font-bold text-neutral-900 dark:text-white mb-4">Ready to customize?</h2>
-            <p className="text-neutral-600 dark:text-neutral-400 mb-8">
-              Open the playground to start tweaking brand DNA and see components come to life.
-            </p>
-            <Button
-              href="/playground"
-              size="lg"
-              icon={ArrowRight}
-              gradient="linear-gradient(135deg, #06b6d4, #22d3ee)"
+          <section className="px-4 sm:px-6 lg:px-8 py-10 sm:py-12 border-t border-slate-800/50 bg-slate-900/30">
+            <div className="max-w-3xl mx-auto text-center">
+              <h2 className="text-xl sm:text-2xl font-bold text-white mb-3">Ready to customize?</h2>
+              <p className="text-sm sm:text-base text-slate-400 mb-6">
+                Open the playground to start tweaking brand DNA and see components come to life.
+              </p>
+              <Button
+                href="/playground"
+                size="lg"
+                icon={ArrowRight}
+                gradient="linear-gradient(135deg, #06b6d4, #22d3ee)"
+              >
+                Enter Playground
+              </Button>
+            </div>
+          </section>
+        </main>
+
+        <footer className="border-t border-slate-800 bg-[#0f172a] px-4 py-6 sm:py-8 lg:px-8" role="contentinfo">
+          <div className="max-w-5xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
+            <a
+              href="https://vantive.studio/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Vantive Studio"
+              className="transition-opacity hover:opacity-80"
             >
-              Enter Playground
-            </Button>
-          </div>
-        </section>
-
-        <footer className="py-8 px-6 border-t border-neutral-100 dark:border-neutral-800">
-          <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-            <VantiveBrand size={16} color="#38bdf8" suffix="UI" />
-            <p className="text-neutral-500 dark:text-neutral-500 text-sm">
-              Built with Next.js, Tailwind CSS, and Framer Motion
-            </p>
+              <VantiveBrand size={18} color="#ffffff" suffix="Studio" />
+            </a>
+            <p className="text-slate-400 text-xs sm:text-sm">&copy; 2026 Vantive. All rights reserved.</p>
           </div>
         </footer>
       </div>

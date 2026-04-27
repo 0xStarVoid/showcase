@@ -17,7 +17,7 @@ export default function Home() {
 
       <div className="min-h-screen bg-[#0f172a] text-slate-200 selection:bg-cyan-500/30 flex flex-col">
         {/* Navbar */}
-        <nav className="sticky top-0 z-50 bg-[#0f172a]/95 border-b border-slate-800" aria-label="Main navigation">
+        <nav className="sticky top-0 z-50 bg-[#0f172a] border-b border-slate-800" aria-label="Main navigation">
           <div className="w-full max-w-7xl mx-auto flex items-center justify-between px-4 sm:px-6 lg:px-8 h-16">
             <a href="/" aria-label="Reload Vantive UI">
               <VantiveBrand size={20} color="#38bdf8" suffix="UI" />
