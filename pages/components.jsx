@@ -35,69 +35,71 @@ export default function Components() {
         </header>
 
         <main className="flex-1">
-          <section className="px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
-            <div className="max-w-7xl mx-auto">
-              <div className="text-center mb-8 sm:mb-10">
-                <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight mb-3">
+          <section className="px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+            <div className="max-w-7xl mx-auto flex flex-col gap-6 sm:gap-8">
+              <div className="text-center flex flex-col items-center gap-2">
+                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white tracking-tight">
                   Component Library
                 </h1>
-                <p className="text-sm sm:text-base text-slate-400 max-w-2xl mx-auto">
+                <p className="text-sm text-slate-400 max-w-2xl">
                   {all.length} production-ready components across {cats.length} categories. Each component responds to
                   your brand DNA settings.
                 </p>
               </div>
 
-              <div className="space-y-8 sm:space-y-10">
+              <div className="flex flex-col gap-6 sm:gap-8">
                 {cats.map((cat) => {
                   const Icon = catIcons[cat.id] || Megaphone;
                   const total = cat.subs.reduce((a, s) => a + s.items.length, 0);
                   return (
-                    <section key={cat.id}>
-                      <div className="flex items-center gap-3 mb-4">
+                    <section key={cat.id} className="flex flex-col gap-4">
+                      <div className="flex items-center gap-3">
                         <div className="w-9 h-9 rounded-lg bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center">
                           <Icon className="w-4 h-4 text-cyan-400" aria-hidden="true" />
                         </div>
-                        <div>
-                          <h2 className="text-lg font-bold text-white">{cat.name}</h2>
+                        <div className="flex flex-col">
+                          <h2 className="text-base sm:text-lg font-bold text-white leading-tight">{cat.name}</h2>
                           <p className="text-xs text-slate-500">{total} components</p>
                         </div>
                       </div>
 
-                      {cat.subs.map((sub) => (
-                        <div key={sub.id} className="mb-5 last:mb-0">
-                          <h3 className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider mb-3">
-                            {sub.name}
-                          </h3>
-                          <div className="grid gap-3 sm:gap-4 grid-cols-[repeat(auto-fill,minmax(220px,1fr))]">
-                            {sub.items.map((c) => (
-                              <Link
-                                key={c.id}
-                                href={`/playground?component=${c.id}`}
-                                prefetch={false}
-                                className="group rounded-xl bg-slate-800/30 border border-slate-700/50 hover:border-cyan-500/50 hover:bg-slate-800/50 transition-colors p-4"
-                              >
-                                <div className="flex items-start justify-between mb-2 gap-2">
-                                  <h4 className="text-sm font-bold text-white group-hover:text-cyan-400 transition-colors">
-                                    {c.name}
-                                  </h4>
-                                  <ChevronRight className="w-4 h-4 text-slate-500 group-hover:text-cyan-400 group-hover:translate-x-0.5 transition-transform shrink-0" />
-                                </div>
-                                <p className="text-xs text-slate-400 mb-3 line-clamp-2 leading-relaxed">{c.desc}</p>
-                                <div className="flex flex-wrap gap-1">
-                                  {c.tags.slice(0, 3).map((t) => (
-                                    <span
-                                      key={t}
-                                      className="rounded text-[10px] text-slate-300 bg-slate-800/50 border border-slate-700/50 px-1.5 py-0.5"
-                                    >
-                                      {t}
-                                    </span>
-                                  ))}
-                                </div>
-                              </Link>
-                            ))}
+                      <div className="grid gap-x-4 gap-y-5 sm:gap-x-5 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+                        {cat.subs.map((sub) => (
+                          <div key={sub.id} className="flex flex-col gap-3 min-w-0">
+                            <h3 className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
+                              {sub.name}
+                            </h3>
+                            <div className="flex flex-col gap-2.5">
+                              {sub.items.map((c) => (
+                                <Link
+                                  key={c.id}
+                                  href={`/playground?component=${c.id}`}
+                                  prefetch={false}
+                                  className="group rounded-xl bg-slate-800/30 border border-slate-700/50 hover:border-cyan-500/50 hover:bg-slate-800/50 transition-colors p-3 sm:p-3.5 flex flex-col gap-2 min-w-0"
+                                >
+                                  <div className="flex items-start justify-between gap-2">
+                                    <h4 className="text-sm font-bold text-white group-hover:text-cyan-400 transition-colors min-w-0">
+                                      {c.name}
+                                    </h4>
+                                    <ChevronRight className="w-4 h-4 text-slate-500 group-hover:text-cyan-400 group-hover:translate-x-0.5 transition-transform shrink-0" />
+                                  </div>
+                                  <p className="text-xs text-slate-400 line-clamp-2 leading-relaxed">{c.desc}</p>
+                                  <div className="flex flex-wrap gap-1">
+                                    {c.tags.slice(0, 3).map((t) => (
+                                      <span
+                                        key={t}
+                                        className="rounded text-[10px] text-slate-300 bg-slate-800/50 border border-slate-700/50 px-1.5 py-0.5"
+                                      >
+                                        {t}
+                                      </span>
+                                    ))}
+                                  </div>
+                                </Link>
+                              ))}
+                            </div>
                           </div>
-                        </div>
-                      ))}
+                        ))}
+                      </div>
                     </section>
                   );
                 })}
