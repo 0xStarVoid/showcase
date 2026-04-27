@@ -19,9 +19,9 @@ export default function Home() {
         {/* Navbar */}
         <nav className="sticky top-0 z-50 bg-[#0f172a]/95 border-b border-slate-800" aria-label="Main navigation">
           <div className="w-full max-w-7xl mx-auto flex items-center justify-between px-4 sm:px-6 lg:px-8 h-16">
-            <Link href="/" aria-label="Vantive UI home">
+            <a href="/" aria-label="Reload Vantive UI">
               <VantiveBrand size={20} color="#38bdf8" suffix="UI" />
-            </Link>
+            </a>
             <div className="flex items-center gap-2 sm:gap-4">
               <Link
                 href="/components"
@@ -149,7 +149,15 @@ export default function Home() {
         {/* Footer */}
         <footer className="border-t border-slate-800 bg-[#0f172a] px-4 py-6 sm:py-8 lg:px-8" role="contentinfo">
           <div className="max-w-5xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
-            <VantiveBrand size={18} color="#38bdf8" suffix="UI" />
+            <a
+              href="https://vantive.studio/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Vantive Studio"
+              className="transition-opacity hover:opacity-80"
+            >
+              <VantiveBrand size={18} color="#ffffff" suffix="Studio" />
+            </a>
             <p className="text-slate-400 text-xs sm:text-sm">&copy; 2026 Vantive. All rights reserved.</p>
           </div>
         </footer>
