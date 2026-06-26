@@ -144,7 +144,8 @@ export default function Playground() {
   return (
     <>
       <Head>
-        <title>{comp?.name || "Playground"}</title>
+        <title>{comp?.name ? `${comp.name} — Vantive UI Playground` : "Vantive UI Playground — Customize & Preview Components"}</title>
+        <meta name="description" content="Customize Vantive UI components live. Tweak brand colors, typography, and spacing, then copy clean code or share a permalink to your exact configuration." />
       </Head>
 
       {/* Pulse ring keyframe */}
