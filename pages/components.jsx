@@ -15,7 +15,7 @@ export default function Components() {
   return (
     <>
       <Head>
-        <title>Vantive UI Components — Browse the Full Library</title>
+        <title>Vantive UI Components | Browse the Full Library</title>
         <meta name="description" content="Browse every Vantive UI component by category — marketing blocks, commerce elements, and form controls. Filter, preview, and drop into your project instantly." />
       </Head>
 

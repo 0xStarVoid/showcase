@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Vantive UI Kit — Themeable Components &amp; Live Preview</title>
+        <title>Vantive UI Kit | Themeable Components &amp; Live Preview</title>
         <meta
           name="description"
           content="Themeable UI component library with live customization. Adjust brand colors, typography, and spacing in real time — then export clean code for any stack."
