@@ -1,108 +1,115 @@
 # Showcase
 
-A sophisticated Component Showcase / Design System built with Next.js, TypeScript, and Tailwind CSS.
+A React component gallery where the brand is a set of live controls. Move a
+slider and every component in the catalogue re-renders: corner radius, motion,
+colour and type all follow from a few variables rather than from per-component
+overrides.
 
-## Features
+Live: [ui.vantive.studio](https://ui.vantive.studio)
 
-- **Component Library**: Browse through a curated collection of UI components organized by category
-- **Live Customization**: Adjust brand DNA variables (color, playfulness, typography) and watch components morph in real-time
-- **Responsive Preview**: Toggle between desktop, tablet, and mobile views with smooth animations
-- **Dark Mode**: Full dark mode support for all components
-- **Export to Reality**: Generate QR codes for real-device preview
+## Status
 
-## Tech Stack
+Today this runs as a Next.js application: a gallery you browse, tune and preview.
+The components are not yet published as an installable package. Extracting them
+is the work in progress, and the roadmap below says what that means.
 
-- **Framework**: Next.js 15 with Pages Router
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS
-- **State Management**: Zustand
-- **Animations**: Framer Motion
-- **Icons**: Lucide React
-- **QR Code**: qrcode.react
+## What it does
 
-## Getting Started
+- **33 components** across three categories: Marketing (heroes, feature grids,
+  testimonials), Commerce (product cards, pricing tables, cart and checkout) and
+  Forms (inputs, toggles, multi-step wizards).
+- **Brand variables as controls.** Playfulness drives corner radius and motion
+  intensity. Primary colour drives accents. Typography switches the pairing.
+  Every component reads the same variables, so the catalogue stays coherent
+  instead of drifting per component.
+- **Props tables and code output** per component, generated from the catalogue
+  metadata in `lib/items.js` rather than written by hand.
+- **Device preview** at desktop, tablet and phone widths, and a QR code that
+  opens the current configuration on a real phone.
+- **Dark mode** across the whole catalogue.
 
-### Prerequisites
+## The motion shim
 
-- Node.js 18+
-- npm or pnpm
+`lib/motion.js` is a hand-written replacement for framer-motion, aliased in
+`next.config.js` so component code keeps the familiar API:
 
-### Installation
-
-```bash
-cd showcase
-npm install
+```js
+config.resolve.alias["framer-motion"] = path.resolve(__dirname, "lib/motion.js");
 ```
 
-### Development
+It renders plain elements and applies animation values as inline styles,
+restricted to transform and opacity so the compositor does the work. The
+gallery therefore ships no animation dependency at all.
+
+## Stack
+
+| | |
+|---|---|
+| Framework | Next.js 14.2 (Pages Router) |
+| Language | JavaScript with JSX |
+| UI | React 18.2 |
+| Styling | Tailwind CSS 3.4 |
+| State | Zustand 5 |
+| Icons | lucide-react |
+| QR | qrcode.react |
+| Animation | none, see the motion shim above |
+
+## Run it
+
+Requires Node 18 or newer.
 
 ```bash
+npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) to view the application.
-
-### Build
+Then open http://localhost:3000.
 
 ```bash
-npm run build
-npm start
+npm run build && npm start
 ```
 
-## Project Structure
+## Structure
 
 ```
-showcase/
-├── components/           # React components
-│   ├── BrandDNAControls.tsx    # Brand customization panel
-│   ├── ComponentRenderer.tsx   # Dynamic component renderer
-│   ├── ComponentStage.tsx      # Component display area
-│   ├── ContextSwitcher.tsx     # Dark mode & device toggles
-│   ├── QRCodeModal.tsx         # QR code generation modal
-│   └── Sidebar.tsx             # Navigation sidebar
-├── hooks/
-│   └── useBrandDNA.ts    # Zustand store for brand settings
-├── lib/
-│   ├── components.ts     # Component metadata & search
-│   └── previewLink.ts    # Preview URL utilities
-├── pages/
-│   ├── _app.tsx          # App wrapper
-│   ├── _document.tsx     # Document setup
-│   ├── index.tsx         # Landing page
-│   ├── playground.tsx    # Main playground
-│   ├── preview.tsx       # Standalone preview
-│   └── api/
-│       └── preview.ts    # Preview API endpoint
-└── styles/
-    └── globals.css       # Global styles & Tailwind
+components/
+  Render.jsx       every component in the catalogue, rendered from metadata
+  Controls.jsx     the brand variable panel
+  Nav.jsx          category and component navigation
+  Stage.jsx        the preview surface with device framing
+  CodePanel.jsx    generated usage code
+  PropsTable.jsx   generated props documentation
+  QRModal.jsx      phone handoff
+  Switcher.jsx     dark mode and device toggles
+  ErrorBoundary.jsx
+  ui/              the shell's own components
+hooks/
+  useBrand.js      the brand variable store
+  useFocusTrap.js
+  useReveal.js
+lib/
+  items.js         the component catalogue: categories, props, tags
+  motion.js        the framer-motion shim
+  link.js          preview link encoding
+pages/
+  index.jsx        landing
+  playground.jsx   the gallery
+  components.jsx   catalogue browser
+  preview.jsx      standalone preview for the QR handoff
 ```
 
-## Component Categories
+## Roadmap
 
-### Marketing
-
-- Hero Sections (Centered, Split, Gradient)
-- Feature Grids (Icon Grid, Bento)
-- Testimonials (Card, Carousel)
-
-### Commerce
-
-- Product Cards (Minimal, Detailed)
-- Pricing Tables (Card, Comparison)
-- Cart & Checkout (Drawer, Item Row)
-
-### Forms
-
-- Input Fields (Text, Search, Newsletter)
-- Toggles & Controls (Switch, Checkbox, Radio)
-- Multi-step Wizards (Steps, Form)
-
-## Brand DNA Variables
-
-- **Playfulness** (0-1): Controls corner radius, animation intensity, and visual style
-- **Primary Color**: Main brand color applied to buttons, accents, and highlights
-- **Typography**: Modern Sans or Classic Serif font pairing
+1. **Split `Render.jsx`.** It is 2,000 lines holding every component in the
+   catalogue. One module per component, exported individually.
+2. **Publish as a package.** A build that emits consumable components, so the
+   gallery becomes a demo of the library rather than the library itself.
+3. **Adapters for other libraries.** Drive Material UI and other component sets
+   from the same brand variables, so one set of controls themes more than one
+   catalogue.
+4. **Tailwind preset export.** Emit the current brand variables as a real
+   `tailwind.config` preset for use in other projects.
 
 ## License
 
-MIT
+MIT. See [LICENSE](LICENSE).

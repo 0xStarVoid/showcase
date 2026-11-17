@@ -1,7 +1,19 @@
 {
   "name": "showcase",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "private": true,
+  "description": "A React component gallery where the brand is a set of live controls.",
+  "license": "MIT",
+  "author": "Starvoid",
+  "homepage": "https://ui.vantive.studio",
+  "keywords": [
+    "react",
+    "components",
+    "design-system",
+    "ui",
+    "tailwindcss",
+    "theming"
+  ],
   "scripts": {
     "dev": "next dev",
     "build": "node scripts/patch-polyfills.js && next build",
